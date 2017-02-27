@@ -24,6 +24,8 @@ class CreateBucketsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
+            $table->boolean('archived');
+
             $table->timestamps();
         });
     }

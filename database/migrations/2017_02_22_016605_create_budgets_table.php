@@ -33,6 +33,10 @@ class CreateBudgetsTable extends Migration
 
             $table->float('amount');
 
+            $table->boolean('archived');
+
+            $table->string('type');
+
             $table->integer('currency_id')->unsigned();
             $table->foreign('currency_id')
                 ->references('id')
