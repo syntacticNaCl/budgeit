@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBudgetsTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateBudgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('budgets', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('status');
+            $table->float('amount');
             $table->string('type');
-            $table->date('date_start');
-            $table->date('date_end');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
@@ -33,6 +32,18 @@ class CreateBudgetsTable extends Migration
                 ->on('categories')
                 ->onDelete('cascade');
 
+            $table->integer('currency_id')->unsigned();
+            $table->foreign('currency_id')
+                ->references('id')
+                ->on('currencies')
+                ->onDelete('cascade');
+
+            $table->integer('account_id')->unsigned();
+            $table->foreign('account_id')
+                ->references('id')
+                ->on('accounts')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -44,11 +55,13 @@ class CreateBudgetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('budgets', function(Blueprint $table) {
+        Schema::table('transactions', function(Blueprint $table) {
             $table->dropForeign(['category_id']);
+            $table->dropForeign(['currency_id']);
             $table->dropForeign(['user_id']);
+            $table->dropForeign(['account_id']);
         });
 
-        Schema::dropIfExists('budgets');
+        Schema::dropIfExists('transactions');
     }
 }

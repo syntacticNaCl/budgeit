@@ -23,8 +23,6 @@ class CreateCategoriesTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->boolean('archive');
-
             $table->timestamps();
         });
     }
