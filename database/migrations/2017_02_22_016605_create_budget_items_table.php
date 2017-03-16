@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBudgetsTable extends Migration
+class CreateBudgetItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,19 @@ class CreateBudgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('budgets', function (Blueprint $table) {
+        Schema::create('budget_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('status');
+            $table->integer('amount');
+            $table->longtext('note');
+            $table->date('date');
             $table->string('type');
-            $table->date('date_start');
-            $table->date('date_end');
+            $table->float('interest');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
-
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
                 ->onDelete('cascade');
 
             $table->timestamps();
@@ -44,11 +39,10 @@ class CreateBudgetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('budgets', function(Blueprint $table) {
-            $table->dropForeign(['category_id']);
+        Schema::table('budget_items', function(Blueprint $table) {
             $table->dropForeign(['user_id']);
         });
 
-        Schema::dropIfExists('budgets');
+        Schema::dropIfExists('budget_items');
     }
 }

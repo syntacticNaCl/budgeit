@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateBudgetGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('budget_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('order')->unsigned();
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
@@ -34,10 +35,10 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('budget_groups', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
         });
 
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('budget_groups');
     }
 }

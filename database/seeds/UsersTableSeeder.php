@@ -15,6 +15,8 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'Malcolm',
             'last_name' => 'Reynolds',
             'email' => 'mal@serenity.com',
+            'currency_symbol' => '$',
+            'currency_name' => 'USD',
             'password' => bcrypt('password')
         ]);
     }
