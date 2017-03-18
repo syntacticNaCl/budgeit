@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Budgeit;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password'
+        'first_name', 'last_name', 'email', 'password', 'currency_symbol', 'currency_name'
     ];
 
     /**
@@ -26,4 +26,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function budgetGroups() {
+        return $this->hasMany('Budgeit\BudgetGroup');
+    }
 }
