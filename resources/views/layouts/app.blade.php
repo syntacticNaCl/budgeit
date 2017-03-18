@@ -38,12 +38,27 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        @if (Auth::guest())
+                            <li>
+                                <a href="{{ url('https://github.com/syntacticnacl/budgeit') }}">Documentation</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ url('/budget') }}">Budget</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/Overview') }}">Overview</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/transactions') }}">Transactions</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

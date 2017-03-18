@@ -4,18 +4,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel-heading">Budget</div>
-                <div class="panel-body">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#addBudgetModal">+ Create Budget
+                <div class="panel-heading">Budget
+                    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addBudgetGroupModal">+ Create Budget
                     </button>
                 </div>
+                <budget></budget>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="addBudgetModal"
+    <div class="modal fade" id="addBudgetGroupModal"
          tabindex="-1" role="dialog"
-         aria-labelledby="addBudgetModalLabel">
+         aria-labelledby="addBudgetGroupModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,10 +24,10 @@
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"
-                        id="addBudgetModalLabel">Add Budget</h4>
+                        id="addBudgetGroupModalLabel">Add Group</h4>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => 'budget.store']) !!}
+                    {!! Form::open(['url' => '/budget_group']) !!}
 
                     <div class="form-group">
                         {!! Form::label('name','Name') !!}
@@ -35,18 +35,8 @@
                     </div>
 
                     <div class="form-group">
-                        <select name="category" id="category">
-                            @if (0 < count($budgets))
-                                @foreach($budgets as $budget)
-                                <option value=""></option>
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        {!! Form::label('amount','Amount') !!}
-                        {!! Form::text('amount', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('note','Note') !!}
+                        {!! Form::textarea('note', null, ['class' => 'form-control']) !!}
                     </div>
 
                     <div class="modal-footer">
