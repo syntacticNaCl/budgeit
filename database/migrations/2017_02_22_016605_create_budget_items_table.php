@@ -17,7 +17,7 @@ class CreateBudgetItemsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('amount');
-            $table->longtext('note');
+            $table->longtext('note')->nullable();
             $table->date('date');
             $table->string('type');
             $table->float('interest');
