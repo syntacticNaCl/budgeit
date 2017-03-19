@@ -1,0 +1,16 @@
+.budget-group {
+    &.editing {
+        input {
+            display: block;
+            border-bottom: 1px dashed blue;
+        }
+        label {
+            display: none;
+        }
+    }
+    input {
+        background: transparent;
+        border: 0;
+        display: none;
+    }
+}
