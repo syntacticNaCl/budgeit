@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 class BudgetGroupController extends Controller
 {
+
+    protected $redirectTo = '/budget';
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -76,22 +83,39 @@ class BudgetGroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Budgeit\Http\Requests\BudgetGroupRequest $request
-     * @param  \Budgeit\Budget $budget
+     * @param  \Budgeit\BudgetGroup $budgetGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(BudgetGroupRequest $request, Budget $budget)
+    public function update(BudgetGroupRequest $request, BudgetGroup $budgetGroup)
     {
-        //
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $order = $request->input('order');
+
+        $budgetGroup = BudgetGroup::find($id);
+
+        $budgetGroup->name = $name;
+        $budgetGroup->order = $order;
+        $budgetGroup->save();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Budgeit\Budget $budget
+     * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Budget $budget)
-    {
-        //
+    public function destroy($id) {
+        $budgetGroup = BudgetGroup::find($id);
+        $budgetGroup->delete();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 }
