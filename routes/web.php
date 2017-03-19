@@ -17,8 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
-Auth::routes();
+Route::get('budget', function() {
+    return view('budget');
+});
 
-Route::get('/home', 'HomeController@index');
+Route::get('/budget_groups', 'BudgetGroupController@getBudgetGroups');
+Route::resource('budget_groups', 'BudgetGroupController', [
+    'except' => [
+        'create', 'edit', 'index'
+    ]
+]);

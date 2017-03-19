@@ -27,7 +27,7 @@
                         id="addBudgetGroupModalLabel">Add Group</h4>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['url' => '/budget_group']) !!}
+                    {!! Form::open(['url' => '/budget_groups']) !!}
 
                     <div class="form-group">
                         {!! Form::label('name','Name') !!}
