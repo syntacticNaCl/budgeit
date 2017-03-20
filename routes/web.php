@@ -29,3 +29,11 @@ Route::resource('budget_groups', 'BudgetGroupController', [
         'create', 'edit', 'index'
     ]
 ]);
+
+Route::get('/budget_items', 'BudgetItemController@getItems');
+
+Route::resource('budget_items', 'BudgetItemController', [
+    'except' => [
+        'create', 'edit', 'index'
+    ]
+]);

@@ -15,7 +15,7 @@ class BudgetGroup extends Model
     }
 
     public function budgetItems() {
-        return $this->hasMany('Budgeit\BudgetItem');
+        return $this->belongsToMany('Budgeit\BudgetItem', 'budget_group_budget_item', 'budget_item_id', 'budget_group_id');
     }
 
 }

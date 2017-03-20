@@ -25,7 +25,7 @@ class BudgetGroupRequest extends FormRequest
     {
         return [
             'name' => 'string|required',
-            'note' => 'string',
+            'note' => '',
             'order' => 'integer'
         ];
     }

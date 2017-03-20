@@ -55,10 +55,6 @@ class BudgetGroupController extends Controller
 
         $group->name = $request->input('name');
 
-        if(!empty($request->input['note'])){
-            $group->note = $request->input['note'];
-        }
-
         $group->order = $lastOrder + 1;
 
         $group->user()->associate($user);
