@@ -17,13 +17,30 @@ class BudgetItemController extends Controller
         return $this->middleware('auth');
     }
 
-    public function getItems()
+    public function getItems($id)
     {
-        $budgetGroup = BudgetGroup::find(2);
+        $budgetGroup = BudgetGroup::find($id);
 
         return response()->json([
-            'budgetItems' => $budgetGroup->budgetItems
+            'budgetItems' => $budgetGroup->items
         ]);
+    }
+
+    public function update(BudgetItemRequest $request, BudgetItem $budgetItem) {
+        $user = Auth::user();
+        $id = $request->input('id');
+
+        $budgetItem = BudgetItem::find($id);
+        $budgetItem->name = $request->input('name');
+        $budgetItem->amount = $request->input('amount');
+        $budgetItem->type = $request->input('type');
+
+        $budgetItem->save();
+
+        return response()->json([
+            'success'
+        ]);
+
     }
 
 
@@ -35,25 +52,39 @@ class BudgetItemController extends Controller
      */
     public function store(BudgetItemRequest $request)
     {
-        $user = User::find(Auth::user()->id);
-        $budgetGroup = BudgetGroup::find(2);
+        $user = Auth::user();
+        $groupId = $request->input('groupId');
+
+        $budgetGroup = BudgetGroup::find($groupId);
         $item = new BudgetItem();
+        $type = $request->input('type');
 
         $item->name = $request->input('name');
         $item->amount = $request->input('amount');
+        $item->type = $request->input('type');
+        
         if (!empty($request->input['note'])) {
             $item->note = $request->input('note');
         }
-        $item->date = $request->input('date');
-        $item->type = $request->input('type');
-        $item->interest = $request->input('interest');
+
+        if (!empty($request->input['date'])) {
+            $item->date = $request->input('date');
+        }
+
+        if (!empty($request->input['interest'])) {
+            $item->interest = $request->input('interest');
+        }
 
         $item->user()->associate($user);
 
         $item->save();
-        $budgetGroup->budgetItems()->attach(1);
 
-        return redirect('budget');
+        $item->groups()->attach($groupId);
+
+        // return redirect('budget')->with('item', [$item->inserted]);
+        return response()->json([
+            'item_id' => $item->id
+        ]);
 
     }
 }

@@ -1,10 +1,10 @@
 .budget-group {
-    &.editing {
-        input {
+    .editing {
+        &>input {
             display: block;
             border-bottom: 1px dashed blue;
         }
-        label {
+        &>label {
             display: none;
         }
     }

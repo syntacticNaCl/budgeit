@@ -1,5 +1,7 @@
 <?php
 
+use Budgeit\BudgetGroup;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +23,7 @@ Route::get('/', 'HomeController@index');
 
 Route::get('budget', function() {
     return view('budget');
-});
+})->middleware('auth');
 
 Route::get('/budget_groups', 'BudgetGroupController@getBudgetGroups');
 Route::resource('budget_groups', 'BudgetGroupController', [
@@ -30,7 +32,13 @@ Route::resource('budget_groups', 'BudgetGroupController', [
     ]
 ]);
 
-Route::get('/budget_items', 'BudgetItemController@getItems');
+Route::get('/budget_groups/{id}/items', function($id){
+    $group = BudgetGroup::find($id);
+
+    return response()->json([
+        'items' => $group->items
+    ]);
+});
 
 Route::resource('budget_items', 'BudgetItemController', [
     'except' => [

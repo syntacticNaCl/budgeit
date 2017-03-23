@@ -14,7 +14,7 @@ class BudgetItem extends Model
         return $this->belongsTo('Budgeit\User');
     }
 
-    public function budgetGroups() {
-        return $this->belongsToMany('Budgeit\BudgetGroup', 'budget_group_budget_item', 'budget_group_id', 'budget_item_id');
+    public function groups() {
+        return $this->belongsToMany('Budgeit\BudgetGroup');
     }
 }

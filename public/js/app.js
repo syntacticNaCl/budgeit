@@ -12183,6 +12183,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12193,7 +12199,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            status: null,
             editing: false,
             items: {}
         };
@@ -12204,10 +12209,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.getItems();
     },
     methods: {
-        editGroup: function editGroup(id) {
+        editGroup: function editGroup() {
             var vm = this;
             this.editing = false;
-            axios.patch('/budget_groups/' + id, vm.group).then(function (res) {
+            axios.patch('/budget_groups/' + this.id, this.group).then(function (res) {
                 console.log(res);
             }).catch(function (err) {
                 console.log(err);
@@ -12216,7 +12221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteGroup: function deleteGroup(group) {
             var vm = this;
 
-            axios.delete('/budget_groups/' + group.id, {
+            axios.delete('/budget_groups/' + this.group.id, {
                 method: 'delete'
             }).then(function (res) {
                 console.log(res);
@@ -12227,10 +12232,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getItems: function getItems() {
             var vm = this;
 
-            axios.get('/budget_items').then(function (res) {
-                console.log(res);
-                vm.items = res.data.budgetItems || {};
-            }).catch(function (err) {});
+            axios.get('/budget_groups/' + this.group.id + '/items').then(function (res) {
+                vm.items = res.data.items || {};
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        addItem: function addItem(groupId) {
+            var newItem = {
+                id: null,
+                groupId: this.group.id,
+                name: 'Label',
+                amount: 0,
+                type: 'budget'
+            };
+
+            var vm = this;
+
+            axios.post('/budget_items/', {
+                name: newItem.name,
+                amount: newItem.amount,
+                type: newItem.type,
+                groupId: groupId
+            }).then(function (res) {
+                newItem.id = res.data.item_id;
+                vm.items.push(newItem);
+            }).catch(function (err) {
+                console.log(err);
+            });
         }
     }
 };
@@ -12249,14 +12278,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['item'],
     data: function data() {
-        return {};
+        return {
+            editingName: false,
+            editingAmount: false
+        };
     },
 
-    methods: {}
+    computed: {},
+    methods: {
+        editItem: function editItem() {
+            var vm = this;
+            this.editingName = false;
+
+            axios.patch('budget_items/' + this.item.id, {
+                id: vm.item.id,
+                name: vm.item.name,
+                amount: vm.item.amount,
+                type: vm.item.type
+            }).then(function (res) {
+                console.log(res);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+
+    }
 };
 
 /***/ }),
@@ -31922,12 +31977,12 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "panel panel-default budget-group",
+    staticClass: "panel panel-default budget-group"
+  }, [_c('div', {
+    staticClass: "panel-heading",
     class: {
       editing: true == _vm.editing
     }
-  }, [_c('div', {
-    staticClass: "panel-heading"
   }, [_c('label', {
     on: {
       "dblclick": function($event) {
@@ -31968,24 +32023,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_vm._l((_vm.items), function(item) {
-    return _c('table', {
-      staticClass: "table"
-    }, [_c('item', {
+  }, [_c('table', {
+    staticClass: "table table-hover table-striped"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.items), function(item) {
+    return _c('item', {
       attrs: {
         "item": item
       }
-    })], 1)
-  }), _vm._v(" "), _vm._m(0)], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#addBudgetItemModal"
+    })
+  }))]), _vm._v(" "), _c('button', {
+    on: {
+      "click": function($event) {
+        _vm.addItem(_vm.group.id)
+      }
     }
-  }, [_vm._v("\n            Add Item "), _c('i', {
+  }, [_vm._v("\n                                                Add Item "), _c('i', {
     staticClass: "fa fa-plus"
-  })])
+  })])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("\n                        Name\n                    ")]), _vm._v(" "), _c('th', [_vm._v("\n                        Amount\n                    ")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -32000,7 +32056,73 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_vm._v("\n        " + _vm._s(_vm.item.name) + "\n    ")])])
+  return _c('tr', [_c('td', {
+    class: {
+      editing: true == _vm.editingName
+    }
+  }, [_c('label', {
+    on: {
+      "dblclick": function($event) {
+        _vm.editingName = true
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.item.name))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.item.name),
+      expression: "item.name"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.item.name)
+    },
+    on: {
+      "blur": function($event) {
+        _vm.editingName = false;
+        _vm.editItem()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.item.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('td', {
+    class: {
+      editing: true == _vm.editingAmount
+    }
+  }, [_c('label', {
+    on: {
+      "dblclick": function($event) {
+        _vm.editingAmount = true
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.item.amount))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.item.amount),
+      expression: "item.amount"
+    }],
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.item.amount)
+    },
+    on: {
+      "blur": function($event) {
+        _vm.editingAmount = false;
+        _vm.editItem()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.item.amount = $event.target.value
+      }
+    }
+  })])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

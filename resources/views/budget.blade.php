@@ -56,7 +56,7 @@
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"
-                        id="addBudgetItemLabel">Add Group</h4>
+                        id="addBudgetItemLabel">Add Item</h4>
                 </div>
                 <div class="modal-body">
                     {!! Form::open(['url' => '/budget_items']) !!}
