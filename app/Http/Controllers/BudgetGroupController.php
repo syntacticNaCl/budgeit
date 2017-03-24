@@ -10,13 +10,13 @@ use Budgeit\Http\Requests\BudgetGroupRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
 class BudgetGroupController extends Controller
 {
 
     protected $redirectTo = '/budget';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -30,12 +30,13 @@ class BudgetGroupController extends Controller
         return view('budget');
     }
 
-    public function getBudgetGroups() {
+    public function getBudgetGroups()
+    {
         $user = Auth::user();
 
         return response()->json(
             [
-                'budgetGroups'   => $user->groups
+                'budgetGroups'   => $user->groups()->orderBy('order')->get()
             ]
         );
     }
@@ -97,7 +98,6 @@ class BudgetGroupController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
-
     }
 
     /**
@@ -106,7 +106,8 @@ class BudgetGroupController extends Controller
      * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $budgetGroup = BudgetGroup::find($id);
         $budgetGroup->delete();
 
