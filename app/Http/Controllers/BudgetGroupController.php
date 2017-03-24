@@ -35,7 +35,7 @@ class BudgetGroupController extends Controller
 
         return response()->json(
             [
-                'budgetGroups'   => $user->budgetGroups
+                'budgetGroups'   => $user->groups
             ]
         );
     }

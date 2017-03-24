@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function budgetGroups() {
+    public function groups() {
         return $this->hasMany('Budgeit\BudgetGroup');
     }
 }

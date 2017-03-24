@@ -20,6 +20,7 @@ class CreateBudgetItemsTable extends Migration
             $table->longtext('note')->nullable();
             $table->date('date')->nullable();
             $table->string('type');
+            $table->integer('order');
             $table->float('interest')->nullable();
 
             $table->integer('user_id')->unsigned();

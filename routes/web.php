@@ -36,7 +36,7 @@ Route::get('/budget_groups/{id}/items', function($id){
     $group = BudgetGroup::find($id);
 
     return response()->json([
-        'items' => $group->items
+        'items' => $group->items()->orderBy('order')->get()
     ]);
 });
 

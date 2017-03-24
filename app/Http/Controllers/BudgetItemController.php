@@ -22,7 +22,7 @@ class BudgetItemController extends Controller
         $budgetGroup = BudgetGroup::find($id);
 
         return response()->json([
-            'budgetItems' => $budgetGroup->items
+            'budgetItems' => $budgetGroup->items()->orderBy('order')->get()
         ]);
     }
 
@@ -56,12 +56,20 @@ class BudgetItemController extends Controller
         $groupId = $request->input('groupId');
 
         $budgetGroup = BudgetGroup::find($groupId);
+
+        $order = 0;
+        
+        if(0 !== count($budgetGroup->items)) {
+            $order = $budgetGroup->items()->max('order'); 
+            $order = $order + 1;
+        }
+
         $item = new BudgetItem();
-        $type = $request->input('type');
 
         $item->name = $request->input('name');
         $item->amount = $request->input('amount');
         $item->type = $request->input('type');
+        $item->order = $order;
         
         if (!empty($request->input['note'])) {
             $item->note = $request->input('note');
