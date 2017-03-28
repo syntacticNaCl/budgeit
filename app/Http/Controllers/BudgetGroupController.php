@@ -56,6 +56,8 @@ class BudgetGroupController extends Controller
 
         $group->name = $request->input('name');
 
+        $group->type = $request->input('type');
+
         $group->order = $lastOrder + 1;
 
         $group->user()->associate($user);
@@ -73,7 +75,7 @@ class BudgetGroupController extends Controller
      */
     public function show(Budget $budget)
     {
-        //
+ //
     }
 
     /**

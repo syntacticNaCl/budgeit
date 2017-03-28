@@ -33,6 +33,11 @@
                         {!! Form::label('name','Name') !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
                     </div>
+                    
+                    <div class="form-group">
+                        {!! Form::label('type','Type') !!}
+                        {!! Form::select('type', ['income' => 'Income', 'expense' => 'Expense'], ['class' => 'form-control'], ['placeholder' => 'Pick a size...']) !!}
+                    </div>
 
                     <div class="modal-footer">
                         {!! Form::button('Close', ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) !!}

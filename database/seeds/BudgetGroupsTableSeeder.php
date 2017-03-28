@@ -15,47 +15,57 @@ class BudgetGroupsTableSeeder extends Seeder
             [
                 'name' => 'Income',
                 'user_id' => 1,
-                'order' => 0
+                'order' => 0,
+                'type' => 'income'
             ],
             [
                 'name' => 'Giving',
                 'user_id' => 1,
-                'order' => 1
+                'order' => 1,
+                'type' => 'expense'
             ],
             [
                 'name' => 'Savings',
                 'user_id' => 1,
-                'order' => 2
+                'order' => 2,
+                'type' => 'expense'
             ],
             [
                 'name' => 'Transportation',
                 'user_id' => 1,
-                'order' => 3
+                'order' => 3,
+                'type' => 'expense'
             ],
             [
                 'name' => 'School',
                 'user_id' => 1,
-                'order' => 4
+                'order' => 4,
+                'type' => 'expense'
             ],
             [
                 'name' => 'Food',
                 'user_id' => 1,
-                'order' => 5
+                'order' => 5,
+                'type' => 'expense'
             ],
             [
                 'name' => 'Lifestyle',
                 'user_id' => 1,
-                'order' => 6
+                'order' => 6,
+                'type' => 'expense'
             ],
             [
                 'name' => 'Insurance & Tax',
                 'user_id' => 1,
-                'order' => 7
+                'order' => 7,
+                'type' => 'expense'
+
             ],
             [
                 'name' => 'Debt',
                 'user_id' => 1,
-                'order' => 8
+                'order' => 8,
+                'type' => 'expense'
             ]
         ]);
     }
