@@ -8,6 +8,9 @@
             <label @dblclick="editingAmount = true">{{item.amount}}</label>
             <input type="text" v-on:blur="editingAmount = false; editItem()" v-model="item.amount">
         </td>
+        <td>
+            <i class="fa fa-times pull-right" aria-hidden="true" @click="deleteItem()"></i>
+        </td>
     </tr>
 </template>
 
@@ -38,6 +41,16 @@
                 }).catch(function(err) {
                     console.log(err);
                 });
+            },
+            deleteItem: function() {
+                let vm = this;
+
+                axios.delete('budget_items/' + this.item.id)
+                    .then(function(res){
+                        console.log(res);
+                    }).catch(function(err){
+                        console.log(err);
+                    });
             }
     
         }

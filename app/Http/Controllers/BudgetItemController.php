@@ -26,7 +26,8 @@ class BudgetItemController extends Controller
         ]);
     }
 
-    public function update(BudgetItemRequest $request, BudgetItem $budgetItem) {
+    public function update(BudgetItemRequest $request, BudgetItem $budgetItem)
+    {
         $user = Auth::user();
         $id = $request->input('id');
 
@@ -40,7 +41,6 @@ class BudgetItemController extends Controller
         return response()->json([
             'success'
         ]);
-
     }
 
 
@@ -59,8 +59,8 @@ class BudgetItemController extends Controller
 
         $order = 0;
         
-        if(0 !== count($budgetGroup->items)) {
-            $order = $budgetGroup->items()->max('order'); 
+        if (0 !== count($budgetGroup->items)) {
+            $order = $budgetGroup->items()->max('order');
             $order = $order + 1;
         }
 
@@ -92,6 +92,16 @@ class BudgetItemController extends Controller
         // return redirect('budget')->with('item', [$item->inserted]);
         return response()->json([
             'item_id' => $item->id
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $item = BudgetItem::find($id);
+        $item->delete();
+
+        return response()->json([
+            'success'
         ]);
 
     }
