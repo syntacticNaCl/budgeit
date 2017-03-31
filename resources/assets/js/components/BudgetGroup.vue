@@ -86,9 +86,9 @@
                     groupId: this.group.id,
                     name: 'Label',
                     amount: 0,
-                    type: 'budget'
+                    type: this.group.type
                 };
-    
+
                 let vm = this;
     
                 axios.post('/budget_items/', {

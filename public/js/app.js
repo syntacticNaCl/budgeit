@@ -12252,7 +12252,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 groupId: this.group.id,
                 name: 'Label',
                 amount: 0,
-                type: 'budget'
+                type: this.group.type
             };
 
             var vm = this;
