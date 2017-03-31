@@ -22,7 +22,17 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::get('budget', function() {
-    return view('budget');
+    $user = Auth::user();
+
+    $incomeTotal = $user->items()->where('type', 'income')->sum('amount');
+    $expenseTotal = $user->items()->where('type', 'expense')->sum('amount');
+    $amountRemaining = (int) $incomeTotal - (int) $expenseTotal;
+
+    return view('budget.index', [
+        'incomeTotal' => $incomeTotal,
+        'expenseTotal' => $expenseTotal,
+        'amountRemaining' => $amountRemaining
+    ]);
 })->middleware('auth');
 
 Route::resource('budget_groups', 'BudgetGroupController', [

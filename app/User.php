@@ -27,7 +27,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function groups() {
+    public function groups() 
+    {
         return $this->hasMany('Budgeit\BudgetGroup');
+    }
+
+    public function items() 
+    {
+        return $this->hasMany('Budgeit\BudgetItem');
     }
 }

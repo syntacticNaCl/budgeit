@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            @include('budget.side', ['incomeTotal' => $incomeTotal, 'expenseTotal' => $expenseTotal, 'amountRemaining' => $amountRemaining])
+            <div class="col-sm-12 col-md-8 col-md-pull-4">
                 <div class="panel-heading">Budget
                     <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addBudgetGroupModal">+ Create Budget Group
                     </button>
@@ -36,7 +37,7 @@
                     
                     <div class="form-group">
                         {!! Form::label('type','Type') !!}
-                        {!! Form::select('type', ['income' => 'Income', 'expense' => 'Expense'], ['class' => 'form-control'], ['placeholder' => 'Pick a size...']) !!}
+                        {!! Form::select('type', ['income' => 'Income', 'expense' => 'Expense'], ['class' => 'form-control'], ['placeholder' => 'Select']) !!}
                     </div>
 
                     <div class="modal-footer">
