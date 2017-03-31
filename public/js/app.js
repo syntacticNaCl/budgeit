@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 47);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11233,8 +11233,11 @@ module.exports = g;
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue__ = __webpack_require__(36);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -11244,13 +11247,17 @@ module.exports = g;
 
 __webpack_require__(34);
 
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_bootstrap_vue__["a" /* default */]);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('budget', __webpack_require__(37));
+Vue.component('budget', __webpack_require__(39));
 
 var app = new Vue({
   el: '#app'
@@ -12109,8 +12116,10 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BudgetGroup_vue__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BudgetGroup_vue__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BudgetGroup_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__BudgetGroup_vue__);
+//
+//
 //
 //
 //
@@ -12133,7 +12142,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            user: {},
             groups: {}
         };
     },
@@ -12145,9 +12153,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getBudgetGroups: function getBudgetGroups() {
             var vm = this;
             axios.get('/budget_groups').then(function (res) {
-                vm.groups = res.data.budgetGroups;
-                vm.user = res.data.user;
-            }).catch(function (err) {});
+                vm.groups = res.data;
+            }).catch(function (err) {
+                console.log(err);
+            });
         }
     }
 };
@@ -12158,9 +12167,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BudgetItem_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BudgetItem_vue__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BudgetItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__BudgetItem_vue__);
-//
 //
 //
 //
@@ -12283,6 +12291,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['item'],
@@ -12309,6 +12320,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (err) {
                 console.log(err);
             });
+        },
+        deleteItem: function deleteItem() {
+            var vm = this;
+
+            axios.delete('budget_items/' + this.item.id).then(function (res) {
+                console.log(res);
+            }).catch(function (err) {
+                console.log(err);
+            });
         }
 
     }
@@ -12319,7 +12339,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(36);
+window._ = __webpack_require__(37);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12337,7 +12357,7 @@ __webpack_require__(35);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(43);
+window.Vue = __webpack_require__(45);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -14751,6 +14771,2975 @@ if (typeof jQuery === 'undefined') {
 
 /***/ }),
 /* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tether__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tether___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tether__);
+
+
+var alert = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.localShow)?_c('div',{class:_vm.classObject,attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","data-dismiss":"alert","aria-label":"Close"},on:{"click":function($event){$event.stopPropagation();$event.preventDefault();_vm.dismiss($event);}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._t("default")],2):_vm._e()},staticRenderFns: [],
+    data: function data() {
+        return {
+            countDownTimerId: null,
+            dismissed: false
+        };
+    },
+    created: function created() {
+        if (this.state) {
+            console.warn('<b-alrt> state property is deprecated, please use variant instead.');
+        }
+    },
+    computed: {
+        classObject: function classObject() {
+            return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
+        },
+        alertVariant: function alertVariant() {
+            var variant = this.state || this.variant || 'info';
+            return ("alert-" + variant);
+        },
+        localShow: function localShow() {
+            return !this.dismissed && (this.countDownTimerId || this.show);
+        }
+    },
+    props: {
+        variant: {
+            type: String,
+            default: 'info'
+        },
+        state: {
+            type: String,
+            default: null
+        },
+        dismissible: {
+            type: Boolean,
+            default: false
+        },
+        show: {
+            type: [Boolean, Number],
+            default: false
+        }
+    },
+    watch: {
+        show: function show() {
+            this.showChanged();
+        }
+    },
+    mounted: function mounted() {
+        this.showChanged();
+    },
+    methods: {
+        dismiss: function dismiss() {
+            this.dismissed = true;
+            this.$emit('dismissed');
+            this.clearCounter();
+        },
+        clearCounter: function clearCounter() {
+            if (this.countDownTimerId) {
+                clearInterval(this.countDownTimerId);
+            }
+        },
+        showChanged: function showChanged() {
+            var this$1 = this;
+
+            // Reset dismiss status
+            this.dismissed = false;
+
+            // No timer for boolean values
+            if (this.show === true || this.show === false || this.show === null || this.show === 0) {
+                return;
+            }
+
+            var dismissCountDown = this.show;
+            this.$emit('dismiss-count-down', dismissCountDown);
+
+            // Start counter
+            this.clearCounter();
+            this.countDownTimerId = setInterval(function () {
+                if (dismissCountDown < 2) {
+                    return this$1.dismiss();
+                }
+                dismissCountDown--;
+                this$1.$emit('dismiss-count-down', dismissCountDown);
+            }, 1000);
+        }
+    }
+};
+
+var breadcrumb = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ol',{staticClass:"breadcrumb"},[_vm._l((_vm.items),function(item){return (_vm.items)?_c('li',{class:['breadcrumb-item', item.active ? 'active' : null]},[(item.active)?_c('span',{domProps:{"innerHTML":_vm._s(item.text)}}):_c('b-link',{attrs:{"to":item.to||item.href||item.link},domProps:{"innerHTML":_vm._s(item.text)}})],1):_vm._e()}),_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        componentType: function componentType() {
+            return this.to ? 'router-link' : 'a';
+        }
+    },
+    props: {
+        items: {
+            type: Array,
+            default: function () { return []; },
+            required: true
+        }
+    },
+    methods: {
+        onclick: function onclick(item) {
+            this.$emit('click', item);
+            if (this.$router && this.to) {
+                this.$router.push(this.to);
+            }
+        }
+    }
+};
+
+var buttonCheckbox = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"btn-group",attrs:{"data-toggle":"buttons"}},_vm._l((_vm.list),function(item,index){return _c('label',{class:['btn', _vm.btnVariant, _vm.btnSize, _vm.checked(index) ? 'active' : '']},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.checked),expression:"item.checked"}],attrs:{"type":"checkbox","autocomplete":"off","disabled":item.disabled},domProps:{"value":item.value,"checked":Array.isArray(item.checked)?_vm._i(item.checked,item.value)>-1:(item.checked),"innerHTML":_vm._s(item.text)},on:{"__c":function($event){var $$a=item.checked,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=item.value,$$i=_vm._i($$a,$$v);if($$c){$$i<0&&(item.checked=$$a.concat($$v));}else{$$i>-1&&(item.checked=$$a.slice(0,$$i).concat($$a.slice($$i+1)));}}else{item.checked=$$c;}}}})])}))},staticRenderFns: [],
+    replace: true,
+    computed: {
+        btnVariant: function btnVariant() {
+            return !this.variant || this.variant === "default" ? "btn-secondary" : ("btn-" + (this.variant));
+        },
+        btnSize: function btnSize() {
+            return !this.size || this.size === "default" ? "" : ("btn-" + (this.size));
+        }
+    },
+    props: {
+        list: {
+            type: Array,
+            default: [],
+            required: true
+        },
+        model: {
+            type: Array,
+            default: []
+        },
+        size: {
+            type: String,
+            default: 'md'
+        },
+        variant: {
+            type: String,
+            default: 'default'
+        },
+        returnObject: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        checked: function checked(index) {
+            var this$1 = this;
+
+            if (!this.list) {
+                return false;
+            }
+            var result = false;
+            if (this.returnObject) {
+                for (var i = 0; i < this.model.length; i++) {
+                    if (this$1.model[i].value === this$1.list[index].value) {
+                        result = true;
+                    }
+                }
+            } else {
+                result = this.model.indexOf(this.list[index].value) !== -1;
+            }
+            return result;
+        }
+    },
+    watch: {
+        list: {
+
+        }
+    },
+    mounted: function mounted() {
+        var this$1 = this;
+
+        // Handle initial selection
+        this.list.forEach(function (item) {
+            if (this$1.returnObject) {
+                this$1.model.forEach(function (modelItem) {
+                    if (modelItem.value === item.value
+                    ) {
+                        item.checked = true;
+                    }
+                });
+            } else if (this$1.model.indexOf(item.value) !== -1) {
+                item.checked = true;
+            }
+        });
+    }
+};
+
+var buttonGroup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classObject,attrs:{"role":"group"}},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return [
+                'btn-' + (this.toolbar ? 'toolbar' : 'group'),
+                this.vertical ? 'btn-group-vertical' : '',
+                this.size ? ('btn-group-' + this.size) : ''
+            ];
+        }
+    },
+    props: {
+        vertical: {
+            type: Boolean,
+            default: false
+        },
+        toolbar: {
+            type: Boolean,
+            default: false
+        },
+        size: {
+            type: String,
+            default: null
+        }
+    }
+};
+
+var buttonRadio = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"btn-group",attrs:{"data-toggle":"buttons"}},_vm._l((_vm.list),function(item){return _c('label',{class:['btn', _vm.btnVariant, _vm.btnSize, {disabled:item.disabled, active:_vm.selection == item.value}]},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.selection),expression:"selection"}],attrs:{"type":"radio","name":"options","autocomplete":"off","disabled":item.disabled},domProps:{"value":item.value,"checked":_vm._q(_vm.selection,item.value),"innerHTML":_vm._s(item.text)},on:{"__c":function($event){_vm.selection=item.value;}}})])}))},staticRenderFns: [],
+    data: function data() {
+        return {
+            selection: '',
+            model: {}
+        };
+    },
+    computed: {
+        btnVariant: function btnVariant() {
+            return !this.variant || this.variant === "default" ? "btn-secondary" : ("btn-" + (this.variant));
+        },
+        btnSize: function btnSize() {
+            return !this.size || this.size === "default" ? "" : ("btn-" + (this.size));
+        }
+    },
+    props: {
+        list: {
+            type: Array,
+            default: [],
+            required: true
+        },
+        size: {
+            type: String,
+            default: 'md'
+        },
+        variant: {
+            type: String,
+            default: 'default'
+        },
+        returnObject: {
+            type: Boolean,
+            default: false
+        }
+    },
+    watch: {
+        selection: {
+            handler: function handler() {
+                var this$1 = this;
+
+                // Set the model based on selection
+                if (this.returnObject) {
+                    this.list.forEach(function (item) {
+                        if (item.value === this$1.selection) {
+                            this$1.model = item;
+                        }
+                    });
+                } else {
+                    this.model = this.selection;
+                }
+                // Emit an event
+                this.$root.$emit('changed::button-radio', this.model);
+            },
+            deep: true
+        }
+    },
+    mounted: function mounted() {
+        // Handle initial selection
+        this.selection = this.model.value;
+    }
+};
+
+var bButton = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.componentType,{tag:"button",class:_vm.classObject,attrs:{"to":_vm.to,"href":_vm.href},on:{"click":_vm.onclick}},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return [
+                'btn',
+                this.btnVariant,
+                this.btnSize,
+                this.btnBlock,
+                this.btnDisabled,
+                this.inactive ? 'btn-inactive' : ''
+            ];
+        },
+        componentType: function componentType() {
+            return (this.href || this.to) ? 'b-link' : 'button';
+        },
+        btnBlock: function btnBlock() {
+            return this.block ? "btn-block" : '';
+        },
+        btnVariant: function btnVariant() {
+            return this.variant ? ("btn-" + (this.variant)) : "btn-secondary";
+        },
+        btnSize: function btnSize() {
+            return this.size ? ("btn-" + (this.size)) : '';
+        },
+        btnDisabled: function btnDisabled() {
+            return this.disabled ? 'disabled' : '';
+        }
+    },
+    props: {
+        block: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        inactive: {
+            type: Boolean,
+            default: false
+        },
+        role: {
+            type: String,
+            default: ''
+        },
+        size: {
+            type: String,
+            default: 'md'
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+        to: {
+            type: [String, Object]
+        },
+        href: {
+            type: String
+        }
+    },
+    methods: {
+        onclick: function onclick(e) {
+            this.$emit('click', e);
+        }
+    }
+};
+
+var card = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['card',_vm.cardVariant,_vm.cardAlign,_vm.cardInverse]},[_vm._t("img",[(_vm.img)?_c('img',{staticClass:"card-img",attrs:{"src":_vm.img,"alt":_vm.imgAlt}}):_vm._e()]),(_vm.header || _vm.showHeader)?_c(_vm.headerTag,{tag:"component",staticClass:"card-header"},[_vm._t("header",[_c('div',{domProps:{"innerHTML":_vm._s(_vm.header)}})])],2):_vm._e(),(_vm.noBlock)?[_vm._t("default")]:_c('div',{class:_vm.blockClass},[(_vm.title)?_c('h4',{staticClass:"card-title",domProps:{"innerHTML":_vm._s(_vm.title)}}):_vm._e(),(_vm.subTitle)?_c('h6',{staticClass:"card-subtitle mb-2 text-muted",domProps:{"innerHTML":_vm._s(_vm.subTitle)}}):_vm._e(),_vm._t("default")],2),(_vm.footer || _vm.showFooter)?_c(_vm.footerTag,{tag:"component",staticClass:"card-footer"},[_vm._t("footer",[_c('div',{domProps:{"innerHTML":_vm._s(_vm.footer)}})])],2):_vm._e()],2)},staticRenderFns: [],
+    computed: {
+        blockClass: function blockClass() {
+            return [
+                'card-block',
+                this.overlay ? 'card-img-overlay' : null
+            ];
+        },
+        cardVariant: function cardVariant() {
+            return this.variant ? ("card-" + (this.variant)) : null;
+        },
+        cardInverse: function cardInverse() {
+            if (this.overlay || this.inverse) {
+                return 'card-inverse';
+            }
+            // Auto inverse colored cards
+            if (this.inverse === null && this.variant && this.variant.length > 0 &&
+                this.variant.indexOf('outline') === -1) {
+                return 'card-inverse';
+            }
+        },
+        cardAlign: function cardAlign() {
+            return ("text-" + (this.align));
+        }
+    },
+    props: {
+        align: {
+            type: String,
+            default: 'left'
+        },
+        inverse: {
+            type: Boolean,
+            // It should remain null for auto inverse
+            default: null
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+
+        // Header
+        header: {
+            type: String,
+            default: null
+        },
+        showHeader: {
+            type: Boolean,
+            default: false
+        },
+        headerTag: {
+            type: String,
+            default: 'div'
+        },
+
+        // Footer
+        footer: {
+            type: String,
+            default: null
+        },
+        showFooter: {
+            type: Boolean,
+            default: false
+        },
+        footerTag: {
+            type: String,
+            default: 'div'
+        },
+
+        // Main block
+        title: {
+            type: String,
+            default: null
+        },
+        subTitle: {
+            type: String,
+            default: null
+        },
+        noBlock: {
+            type: Boolean,
+            default: false
+        },
+
+        // Image
+        img: {
+            type: String,
+            default: null
+        },
+        imgAlt: {
+            type: String,
+            default: null
+        },
+        overlay: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var cardGroup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['card-' + _vm.type]},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        type: function type() {
+            if (this.deck) {
+                return 'deck';
+            }
+
+            if (this.columns) {
+                return 'columns';
+            }
+
+            return 'group';
+        }
+    },
+    props: {
+        deck: {
+            type: Boolean,
+            default: false
+        },
+        columns: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+// const inBrowser = typeof window !== 'undefined';
+
+// pulled from http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
+function uniqueId() {
+    var text = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (var i = 0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
+
+// Check if browser support css3 transitions
+function csstransitions() {
+    if (typeof (document) === 'undefined') {
+        return false;
+    }
+    var style = document.documentElement.style;
+    return (
+        style.webkitTransition !== undefined ||
+        style.MozTransition !== undefined ||
+        style.OTransition !== undefined ||
+        style.MsTransition !== undefined ||
+        style.transition !== undefined
+    );
+}
+
+// For browsers that do not support transitions like IE9 just change immediately
+
+/**
+ * Carousel Notes
+ * - Ie9 does not support transitions and might require javascript fallbacks. B4 deliberately dropped support for this.
+ * - It is not accessible.
+ *
+ * How it works:
+ * - active element applies the transition to the slide but not triggers it
+ * - we need to use 'right' and 'left' classes to trigger animation
+ * - 'next' and 'prev' class makes the incoming slide positioned absolute, so it can follow outgoing slide
+ *
+ * To slide right to left we have to:
+ * - add class 'active', 'next', and right to the next slide
+ * - add class 'left' on the current slide same time as remove the 'right' class on the incoming one
+ * - remove all classes and only leave 'active' on the incoming slide
+ *
+ */
+
+// This is directly linked to the bootstrap animation timing in _carousel.scss
+// For browsers that do not support transitions like IE9 just change slide immediately
+var TRANSITION_DURATION$$1 = csstransitions() ? 600 : 0;
+
+// When next is set, we want to move from right to left
+// When previous is set, we want to move from left to right
+var DIRECTION = {
+    rtl: {
+        outgoing: 'left',
+        incoming: 'right',
+        overlay: 'next'
+    },
+    ltr: {
+        outgoing: 'right',
+        incoming: 'left',
+        overlay: 'prev'
+    }
+};
+
+var carousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"carousel slide",attrs:{"data-ride":"carousel"},on:{"mouseenter":function($event){_vm.pause();},"mouseleave":function($event){_vm.start();}}},[_c('ol',{directives:[{name:"show",rawName:"v-show",value:(_vm.indicators),expression:"indicators"}],staticClass:"carousel-indicators"},_vm._l((_vm.slides),function(item,indicatorIndex){return _c('li',{class:{active:indicatorIndex === _vm.index},on:{"click":function($event){_vm.changeSlide(indicatorIndex);}}})})),_c('div',{staticClass:"carousel-inner",attrs:{"role":"listbox"}},[_vm._t("default")],2),_c('a',{directives:[{name:"show",rawName:"v-show",value:(_vm.controls),expression:"controls"}],staticClass:"left carousel-control",attrs:{"href":"#","role":"button"},on:{"click":function($event){$event.stopPropagation();$event.preventDefault();_vm.prev($event);}}},[_c('span',{staticClass:"icon-prev",attrs:{"aria-hidden":"true"}}),_vm._v(" "),_c('span',{staticClass:"sr-only"},[_vm._v("Previous")])]),_c('a',{directives:[{name:"show",rawName:"v-show",value:(_vm.controls),expression:"controls"}],staticClass:"right carousel-control",attrs:{"href":"#","role":"button"},on:{"click":function($event){$event.stopPropagation();$event.preventDefault();_vm.next($event);}}},[_c('span',{staticClass:"icon-next",attrs:{"aria-hidden":"true"}}),_vm._v(" "),_c('span',{staticClass:"sr-only"},[_vm._v("Next")])])])},staticRenderFns: [],
+    replace: true,
+    computed: {},
+    data: function data() {
+        return {
+            index: 0,
+            slidesCount: 0,
+            animating: false,
+            slides: [],
+            direction: DIRECTION.rtl
+        };
+    },
+    props: {
+        interval: {
+            type: Number,
+            default: 5000
+        },
+        indicators: {
+            type: Boolean,
+            default: true
+        },
+        controls: {
+            type: Boolean,
+            default: true
+        }
+    },
+    methods: {
+        // Previous slide
+        prev: function prev() {
+            if (this.animating) {
+                return;
+            }
+            this.index--;
+            if (this.index < 0) {
+                this.index = this.slidesCount;
+            }
+        },
+        // Next slide
+        next: function next() {
+            if (this.animating) {
+                return;
+            }
+            this.index++;
+            if (this.index > this.slidesCount) {
+                this.index = 0;
+            }
+        },
+        // On slide change
+        changeSlide: function changeSlide(index) {
+            this.index = index;
+        },
+        // Pause auto rotation
+        pause: function pause() {
+            if (this.interval === 0 || typeof this.interval === 'undefined') {
+                return;
+            }
+            clearInterval(this._intervalId);
+        },
+        // Start auto rotate slides
+        start: function start() {
+            var this$1 = this;
+
+            if (this.interval === 0 || typeof this.interval === 'undefined') {
+                return;
+            }
+            this._intervalId = setInterval(function () {
+                this$1.next();
+            }, this.interval);
+        }
+    },
+    mounted: function mounted() {
+        // Get all slides
+        this._items = this.$el.querySelectorAll('.carousel-item');
+        this.slidesCount = this._items.length - 1;
+        this.slides = Array.apply(null, {length: this._items.length}).map(Number.call, Number);
+
+        // Set first slide as active
+        this._items[0].classList.add('active');
+
+        // Auto rotate slides
+        this.start();
+    },
+    watch: {
+        index: function index(val, oldVal) {
+            var this$1 = this;
+
+            this.animating = true;
+            this.direction = DIRECTION.rtl;
+
+            // When previous is pressed we want to move from left to right
+            if (val < oldVal) {
+                this.direction = DIRECTION.ltr;
+            }
+
+            // Lets animate
+            // prepare next slide to animate (position it on the opposite side of the direction as a starting point)
+            this._items[val].classList.add(this.direction.incoming, this.direction.overlay);
+            // Reflow
+            // this._items[val].offsetWidth;
+            // add class active
+            this._items[val].classList.add('active');
+            // Trigger animation on outgoing and incoming slide
+            this._items[oldVal].classList.add(this.direction.outgoing);
+            this._items[val].classList.remove(this.direction.incoming);
+            // Wait for animation to finish and cleanup classes
+            this._carouselAnimation = setTimeout(function () {
+                this$1._items[oldVal].classList.remove(this$1.direction.outgoing, 'active');
+                this$1._items[val].classList.remove(this$1.direction.overlay);
+                this$1.animating = false;
+                // Trigger an event
+                this$1.$root.$emit('slid::carousel', val);
+            }, TRANSITION_DURATION$$1);
+        }
+    },
+    destroyed: function destroyed() {
+        clearTimeout(this._carouselAnimation);
+        clearInterval(this._intervalId);
+    }
+};
+
+var carouselSlide = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"carousel-item"},[_vm._t("default")],2)},staticRenderFns: [],
+    replace: true
+};
+
+var collapse = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"collapse"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.show),expression:"show"}],class:_vm.classObject},[_vm._t("default")],2)])},staticRenderFns: [],
+
+    data: function data() {
+        return {
+            show: false
+        };
+    },
+
+    computed: {
+        classObject: function classObject() {
+            return {
+                'navbar-collapse': this.isNav,
+                show: this.show
+            };
+        }
+    },
+
+    props: {
+        isNav: {
+            type: Boolean,
+            default: false
+        },
+        id: {
+            type: String,
+            required: true
+        }
+    },
+
+    methods: {
+        toggle: function toggle() {
+            this.show = !this.show;
+        }
+    },
+
+    created: function created() {
+        var this$1 = this;
+
+        this.$root.$on('collapse::toggle', function (target) {
+            if (target !== this$1.id) {
+                return;
+            }
+            this$1.toggle();
+        });
+    }
+};
+
+var clickOut = {
+    mounted: function mounted() {
+        if (typeof document !== 'undefined') {
+            document.documentElement.addEventListener('click', this._clickOutListener);
+        }
+    },
+    destroyed: function destroyed() {
+        if (typeof document !== 'undefined') {
+            document.removeEventListener('click', this._clickOutListener);
+        }
+    },
+    methods: {
+        _clickOutListener: function _clickOutListener(e) {
+            if (!this.$el.contains(e.target)) {
+                if (this.clickOutListener) {
+                    this.clickOutListener();
+                }
+            }
+        }
+    }
+};
+
+var dropdown = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['dropdown','btn-group',_vm.visible?'show':'',_vm.dropup?'dropup':'']},[_c('b-button',{class:[_vm.split?'':'dropdown-toggle'],attrs:{"aria-haspopup":"true","aria-expanded":_vm.visible,"variant":_vm.variant,"size":_vm.size,"disabled":_vm.disabled},on:{"click":_vm.click}},[_vm._t("text",[_vm._v(_vm._s(_vm.text))])],2),(_vm.split)?_c('b-button',{staticClass:"dropdown-toggle dropdown-toggle-split",attrs:{"variant":_vm.variant,"size":_vm.size,"disabled":_vm.disabled},on:{"click":_vm.toggle}},[_c('span',{staticClass:"sr-only"},[_vm._v("Toggle Dropdown")])]):_vm._e(),_c('div',{class:['dropdown-menu',_vm.right?'dropdown-menu-right':'']},[_vm._t("default")],2)],1)},staticRenderFns: [],
+    mixins: [
+        clickOut
+    ],
+    components: {
+        bButton: bButton
+    },
+    data: function data() {
+        return {
+            visible: false
+        };
+    },
+    props: {
+        split: {
+            type: Boolean,
+            default: false
+        },
+        text: {
+            type: String,
+            default: ''
+        },
+        size: {
+            type: String,
+            default: null
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+        dropup: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        right: {
+            type: Boolean,
+            default: false
+        }
+    },
+    created: function created() {
+        var this$1 = this;
+
+        this.$root.$on('shown::dropdown', function (el) {
+            if (el !== this$1) {
+                this$1.visible = false;
+            }
+        });
+    },
+    watch: {
+        visible: function visible(state, old) {
+            if (state === old) {
+                return; // Avoid duplicated emits
+            }
+
+            if (state) {
+                this.$root.$emit('shown::dropdown', this);
+            } else {
+                this.$root.$emit('hidden::dropdown', this);
+            }
+        }
+    },
+    methods: {
+        toggle: function toggle() {
+            this.visible = !this.visible;
+        },
+        clickOutListener: function clickOutListener() {
+            this.visible = false;
+        },
+        click: function click(e) {
+            if (this.split) {
+                this.$emit('click', e);
+                this.$root.$emit('shown::dropdown', this);
+            } else {
+                this.toggle();
+            }
+        }
+    }
+};
+
+var bLink = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.componentType,{tag:"a",attrs:{"active-class":_vm.activeClass,"to":_vm.to,"href":_vm.hrefString,"exact":_vm.exact},on:{"click":_vm.click}},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        componentType: function componentType() {
+            return (this.$router && this.to) ? 'router-link' : 'a';
+        },
+        hrefString: function hrefString() {
+            if (this.to) {
+                return this.to.path || this.to;
+            }
+            return this.href;
+        }
+    },
+    props: {
+        activeClass: {
+            type: String,
+            default: 'active'
+        },
+        to: {
+            type: [String, Object],
+            default: null
+        },
+        href: {
+            type: String
+        },
+        exact: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        click: function click(e) {
+            this.$emit('click', e);
+            this.$root.$emit('shown::dropdown', this);
+        }
+    }
+};
+
+var dropdownItem = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.componentType,{tag:"a",staticClass:"dropdown-item",attrs:{"to":_vm.to,"href":_vm.hrefString},on:{"click":_vm.click}},[_vm._t("default")],2)},staticRenderFns: [],
+    extends: bLink
+};
+
+var dropdownSelect = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"dropdown-select",class:{open: _vm.show, dropdown: !_vm.dropup, dropup: _vm.dropup}},[_c('button',{class:['btn','dropdown',_vm.dropdownToggle,_vm.btnVariant,_vm.btnSize],attrs:{"id":_vm.id,"role":"button","aria-haspopup":"true","aria-expanded":"show","disabled":_vm.disabled},on:{"click":function($event){$event.preventDefault();_vm.toggle($event);}}},[_c('span',{staticClass:"checked-items",domProps:{"innerHTML":_vm._s(_vm.displayItem)}})]),_c('ul',{staticClass:"dropdown-menu",class:{'dropdown-menu-right' : _vm.position == 'right'},attrs:{"aria-labelledby":"dLabel"}},_vm._l((_vm.list),function(item){return _c('li',[_c('button',{staticClass:"dropdown-item",attrs:{"click":_vm.select(item)}},[_vm._v(_vm._s(item.text))])])}))])},staticRenderFns: [],
+    replace: true,
+    data: function data() {
+        return {
+            show: false,
+            selected: false
+        };
+    },
+    computed: {
+        btnVariant: function btnVariant() {
+            return !this.variant || this.variant === "default" ? "btn-secondary" : ("btn-" + (this.variant));
+        },
+        btnSize: function btnSize() {
+            return !this.size || this.size === "default" ? "" : ("btn-" + (this.size));
+        },
+        dropdownToggle: function dropdownToggle() {
+            return this.caret ? 'dropdown-toggle' : '';
+        },
+        displayItem: function displayItem() {
+            // If zero show default message
+            if ((this.returnObject && this.model && !this.model.text) || (!this.returnObject && this.model && this.model.length === 0) || this.forceDefault) {
+                return this.defaultText;
+            }
+
+            // Show selected item
+            if (this.returnObject && this.model && this.model.text) {
+                return this.model.text;
+            }
+
+            // Show text that coresponds to the model value
+            if (!this.returnObject && this.model) {
+                var result = this.model || '';
+                this.list.forEach(function (item) {
+                    if (item.value === this.model) {
+                        result = item.text;
+                    }
+                });
+                return result;
+            }
+
+            return '';
+        }
+    },
+    props: {
+        id: {
+            type: String
+        },
+        model: {
+            required: false
+        },
+        list: {
+            type: Array,
+            default: [],
+            required: true
+        },
+        caret: {
+            type: Boolean,
+            default: true
+        },
+        position: {
+            type: String,
+            default: 'left'
+        },
+        size: {
+            type: String,
+            default: ''
+        },
+        variant: {
+            type: String,
+            default: 'default'
+        },
+        defaultText: {
+            type: String,
+            default: 'Plase select one'
+        },
+        forceDefault: {
+            type: Boolean,
+            default: false
+        },
+        returnObject: {
+            type: Boolean,
+            default: false
+        },
+        dropup: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        toggle: function toggle(e) {
+            // Hide an alert
+            this.show = !this.show;
+            // Dispatch an event from the current vm that propagates all the way up to its $root
+            if (this.show) {
+                this.$root.$emit('shown:dropdown', this.id);
+                e.stopPropagation();
+            } else {
+                this.$root.$emit('hidden::dropdown', this.id);
+            }
+        },
+        select: function select(item) {
+            // We need to set empty model to make model watchers react to it
+            if (this.returnObject) {
+                this.model = item;
+            } else {
+                this.model = item.value;
+            }
+            this.show = false;
+            // Dispatch an event from the current vm that propagates all the way up to its $root
+            this.$root.$emit('selected::dropdown', this.id, this.model);
+        }
+    },
+    created: function created() {
+        var hub = this.$root;
+        hub.$on('hide::dropdown', function () {
+            this.show = false;
+        });
+    }
+};
+
+var form = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{class:_vm.classObject},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return [
+                this.inline ? 'form-inline' : ''
+            ];
+        }
+    },
+    props: {
+        inline: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var formFieldset = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['form-group','row',_vm.inputState]},[(_vm.label)?_c('label',{class:['col-form-label',_vm.labelLayout],attrs:{"for":_vm.target},domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),_c('div',{ref:"content",class:_vm.inputLayout},[_vm._t("default"),(_vm.feedback)?_c('div',{staticClass:"form-text text-muted",domProps:{"innerHTML":_vm._s(_vm.feedback)}}):_vm._e(),(_vm.description)?_c('small',{staticClass:"form-text text-muted",domProps:{"innerHTML":_vm._s(_vm.description)}}):_vm._e()],2)])},staticRenderFns: [],
+    data: function data() {
+        return {
+            target: null
+        };
+    },
+    computed: {
+        inputState: function inputState() {
+            return this.state ? ("has-" + (this.state)) : '';
+        },
+        labelLayout: function labelLayout() {
+            return this.horizontal ? ('col-sm-' + this.labelSize) : 'col-12';
+        },
+        inputLayout: function inputLayout() {
+            return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : 'col-12';
+        }
+    },
+    mounted: function mounted() {
+        var content = this.$refs.content;
+        if (!content) {
+            return;
+        }
+        this.target = content.children[0].id;
+    },
+    props: {
+        state: {
+            type: String,
+            default: null
+        },
+        horizontal: {
+            type: Boolean,
+            default: false
+        },
+        labelSize: {
+            type: Number,
+            default: 3
+        },
+        label: {
+            type: String,
+            default: null
+        },
+        description: {
+            type: String,
+            default: null
+        },
+        feedback: {
+            type: String,
+            default: null
+        }
+    }
+};
+
+var formMixin = {
+    computed: {
+        inputClass: function inputClass() {
+            return [
+                this.size ? ("form-control-" + (this.size)) : null,
+                this.state ? ("form-control-" + (this.state)) : null
+            ];
+        },
+        custom: function custom() {
+            return !this.plain;
+        }
+    },
+    props: {
+        name: {
+            type: String
+        },
+        id: {
+            type: String,
+            default: uniqueId
+        },
+        disabled: {
+            type: Boolean
+        },
+        plain: {
+            type: Boolean,
+            default: false
+        },
+        state: {
+            type: String
+        },
+        size: {
+            type: String
+        }
+    }
+};
+
+var formCheckBoxMixin = {
+    computed: {
+        checkboxClass: function checkboxClass() {
+            return {
+                'custom-control': this.custom,
+                'form-check-inline': this.inline
+            };
+        }
+    }
+};
+
+var formCheckbox = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{class:[_vm.inputClass,_vm.checkboxClass,_vm.custom?'custom-checkbox':null]},[_c('input',{class:[_vm.custom?'custom-control-input':null],attrs:{"type":"checkbox","id":_vm.id,"name":_vm.name,"disabled":_vm.disabled},domProps:{"value":_vm.value,"checked":_vm.checked===_vm.value},on:{"change":function($event){_vm.$emit('change',$event.target.checked?_vm.value:_vm.uncheckedValue);}}}),_vm._v(" "),(_vm.custom)?_c('span',{staticClass:"custom-control-indicator"}):_vm._e(),_vm._v(" "),_c('span',{class:[_vm.custom?'custom-control-description':null]},[_vm._t("default")],2)])},staticRenderFns: [],
+    mixins: [formMixin, formCheckBoxMixin],
+    model: {
+        prop: 'checked',
+        event: 'change'
+    },
+    props: {
+        value: {
+            default: true
+        },
+        uncheckedValue: {
+            default: false
+        },
+        checked: {
+            default: true
+        }
+    }
+};
+
+var formOptions = {
+    computed: {
+        formOptions: function formOptions() {
+            var options = this.options || {};
+
+            if (Array.isArray(options)) {
+                // Normalize flat arrays to object array
+                options = options.map(function (option) {
+                    if (typeof option === 'object') {
+                        return option || {}; // Type of null is object
+                    }
+
+                    return {text: String(option), value: option || {}};
+                });
+            } else {
+                // Normalize Objects to Array
+                options = Object.keys(options).map(function (value) {
+                    var option = options[value] || {};
+
+                    // Resolve text
+                    if (typeof option !== 'object') {
+                        option = {text: String(option)};
+                    }
+                    // Resolve value
+                    if (!option.value) {
+                        option.value = value;
+                    }
+                    return option;
+                });
+            }
+
+            return options;
+        },
+        selectedValue: function selectedValue() {
+            var this$1 = this;
+
+            var formOptions = this.formOptions;
+            for (var i = 0; i < formOptions.length; i++) {
+                if (formOptions[i].value === this$1.localValue) {
+                    if (this$1.returnObject) {
+                        return formOptions[i];
+                    }
+                    return formOptions[i].value;
+                }
+            }
+        }
+    },
+    watch: {
+        localValue: function localValue(value, old_value) {
+            if (value === old_value) {
+                return;
+            }
+            this.$emit('input', this.selectedValue);
+        },
+        value: function value(value$1, old_value) {
+            if (value$1 === old_value) {
+                return;
+            }
+            this.localValue = value$1;
+        }
+    }
+};
+
+var formRadio = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:[_vm.inputClass,this.stacked?'custom-controls-stacked':'']},_vm._l((_vm.formOptions),function(option){return _c('label',{class:[_vm.checkboxClass,_vm.custom?'custom-radio':null]},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"inputs",refInFor:true,class:_vm.custom?'custom-control-input':null,attrs:{"type":"radio","name":option.name,"id":option.id,"disabled":option.disabled},domProps:{"value":option.value,"checked":_vm._q(_vm.localValue,option.value)},on:{"__c":function($event){_vm.localValue=option.value;}}}),_vm._v(" "),(_vm.custom)?_c('span',{staticClass:"custom-control-indicator"}):_vm._e(),_vm._v(" "),_c('span',{class:_vm.custom?'custom-control-description':null,domProps:{"innerHTML":_vm._s(option.text)}})])}))},staticRenderFns: [],
+    mixins: [formMixin, formCheckBoxMixin, formOptions],
+    data: function data() {
+        return {
+            localValue: this.value
+        };
+    },
+    computed: {
+        inputState: function inputState() {
+            return this.state ? ("has-" + (this.state)) : '';
+        }
+    },
+    props: {
+        value: {},
+        options: {
+            type: [Array, Object],
+            default: null,
+            required: true
+        },
+        stacked: {
+            type: Boolean,
+            default: false
+        },
+        returnObject: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var formInput = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.textarea?'textarea':'input',{ref:"input",tag:"input",class:['form-control',_vm.inputClass],attrs:{"type":_vm.type,"name":_vm.name,"id":_vm.id || ('b_'+_vm._uid),"disabled":_vm.disabled,"rows":_vm.rows || _vm.rowsCount,"placeholder":_vm.placeholder},domProps:{"value":_vm.value},on:{"input":function($event){_vm.onInput($event.target.value);},"change":function($event){_vm.onChange($event.target.value);},"keyup":function($event){_vm.onKeyUp($event);},"focus":function($event){_vm.$emit('focus');},"blur":function($event){_vm.$emit('blur');}}})},staticRenderFns: [],
+    mixins: [formMixin],
+    computed: {
+        rowsCount: function rowsCount() {
+            return (this.value || '').split('\n').length;
+        }
+    },
+    methods: {
+        format: function format(value) {
+            if (this.formatter) {
+                var formattedValue = this.formatter(value);
+                if (formattedValue !== value) {
+                    value = formattedValue;
+                    this.$refs.input.value = formattedValue;
+                }
+            }
+            return value;
+        },
+        onInput: function onInput(value) {
+            if (!this.lazyFormatter) {
+                value = this.format(value);
+            }
+            this.$emit('input', value);
+        },
+        onChange: function onChange(value) {
+            value = this.format(value);
+            this.$emit('input', value);
+            this.$emit('change', value);
+        },
+        onKeyUp: function onKeyUp(e) {
+            this.$emit('keyup', e);
+        }
+    },
+    props: {
+        value: {
+            default: null
+        },
+        type: {
+            type: String,
+            default: 'text'
+        },
+        placeholder: {
+            type: String,
+            default: null
+        },
+        rows: {
+            type: Number,
+            default: null
+        },
+        textarea: {
+            type: Boolean,
+            default: false
+        },
+        formatter: {
+            type: Function
+        },
+        lazyFormatter: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var formFile = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{class:[_vm.custom?'custom-file':null,_vm.inputClass],on:{"dragover":function($event){$event.stopPropagation();$event.preventDefault();_vm.dragover($event);}}},[(_vm.dragging)?_c('span',{staticClass:"drop-here",attrs:{"data-drop":_vm.dropLabel},on:{"dragover":function($event){$event.stopPropagation();$event.preventDefault();_vm.dragover($event);},"drop":function($event){$event.stopPropagation();$event.preventDefault();_vm.drop($event);},"dragleave":function($event){$event.stopPropagation();$event.preventDefault();_vm.dragging=false;}}}):_vm._e(),_c('input',{ref:"input",staticClass:"custom-file-input",attrs:{"type":"file","name":_vm.name,"id":_vm.id,"disabled":_vm.disabled,"accept":_vm.accept,"multiple":_vm.multiple,"webkitdirectory":_vm.directory},on:{"change":_vm.onFileChange}}),_vm._v(" "),(_vm.custom)?_c('span',{class:['custom-file-control',_vm.dragging?'dragging':null,_vm.inputClass],attrs:{"data-choose":_vm.computedChooseLabel,"data-selected":_vm.selectedLabel}}):_vm._e()])},staticRenderFns: [],
+    mixins: [formMixin],
+    data: function data() {
+        return {
+            selectedFile: null,
+            dragging: false
+        };
+    },
+    computed: {
+        selectedLabel: function selectedLabel() {
+            if (!this.selectedFile || this.selectedFile.length === 0) {
+                return this.placeholder || 'No file chosen';
+            }
+
+            if (this.multiple) {
+                if (this.selectedFile.length === 1) {
+                    return this.selectedFile[0].name;
+                }
+
+                return this.selectedFormat
+                    .replace(':names', this.selectedFile.map(function (file) { return file.name; }).join(','))
+                    .replace(':count', this.selectedFile.length);
+            }
+
+            return this.selectedFile.name;
+        },
+        computedChooseLabel: function computedChooseLabel() {
+            return this.chooseLabel || (this.multiple ? 'Choose Files' : 'Choose File');
+        }
+    },
+    watch: {
+        selectedFile: function selectedFile(newVal, oldVal) {
+            if (newVal === oldVal) {
+                return;
+            }
+
+            if (!newVal && this.multiple) {
+                this.$emit('input', []);
+            } else {
+                this.$emit('input', newVal);
+            }
+        }
+    },
+    methods: {
+        onFileChange: function onFileChange(e) {
+            var this$1 = this;
+
+            // Always emit original event
+            this.$emit('change', e);
+
+            // Check if special `items` prop is available on event (drop mode)
+            // Can be disabled by setting no-traverse
+            var items = e.dataTransfer && e.dataTransfer.items;
+            if (items && !this.noTraverse) {
+                var queue = [];
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i].webkitGetAsEntry();
+                    if (item) {
+                        queue.push(this$1.traverseFileTree(item));
+                    }
+                }
+                Promise.all(queue).then(function (filesArr) {
+                    this$1.setFiles(Array.prototype.concat.apply([], filesArr));
+                });
+                return;
+            }
+
+            // Normal handling
+            this.setFiles(e.target.files || e.dataTransfer.files);
+        },
+        setFiles: function setFiles(files) {
+            var this$1 = this;
+
+            if (!files) {
+                this.selectedFile = null;
+                return;
+            }
+
+            if (!this.multiple) {
+                this.selectedFile = files[0];
+                return;
+            }
+
+            // Convert files to array
+            var filesArray = [];
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].type.match(this$1.accept)) {
+                    filesArray.push(files[i]);
+                }
+            }
+
+            this.selectedFile = filesArray;
+        },
+        dragover: function dragover(e) {
+            if (this.noDrop) {
+                return;
+            }
+
+            this.dragging = true;
+            e.dataTransfer.dropEffect = 'copy';
+        },
+        drop: function drop(e) {
+            if (this.noDrop) {
+                return;
+            }
+
+            this.dragging = false;
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                this.onFileChange(e);
+            }
+        },
+        traverseFileTree: function traverseFileTree(item, path) {
+            var this$1 = this;
+
+            // Based on http://stackoverflow.com/questions/3590058
+            return new Promise(function (resolve) {
+                path = path || '';
+                if (item.isFile) {
+                    // Get file
+                    item.file(function (file) {
+                        file.$path = path; // Inject $path to file obj
+                        resolve(file);
+                    });
+                } else if (item.isDirectory) {
+                    // Get folder contents
+                    item.createReader().readEntries(function (entries) {
+                        var queue = [];
+                        for (var i = 0; i < entries.length; i++) {
+                            queue.push(this$1.traverseFileTree(entries[i], path + item.name + '/'));
+                        }
+                        Promise.all(queue).then(function (filesArr) {
+                            resolve(Array.prototype.concat.apply([], filesArr));
+                        });
+                    });
+                }
+            });
+        }
+    },
+    props: {
+        accept: {
+            type: String,
+            default: ''
+        },
+        placeholder: {
+            type: String,
+            default: null
+        },
+        chooseLabel: {
+            type: String,
+            default: null
+        },
+        multiple: {
+            type: Boolean,
+            default: false
+        },
+        directory: {
+            type: Boolean,
+            default: false
+        },
+        noTraverse: {
+            type: Boolean,
+            default: false
+        },
+        selectedFormat: {
+            type: String,
+            default: ':count Files'
+        },
+        noDrop: {
+            type: Boolean,
+            default: false
+        },
+        dropLabel: {
+            type: String,
+            default: 'Drop files here'
+        }
+    }
+};
+
+var formSelect = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",class:[_vm.inputClass,_vm.custom?'custom-select':null],attrs:{"name":_vm.name,"id":_vm.id,"disabled":_vm.disabled},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.localValue=$event.target.multiple ? $$selectedVal : $$selectedVal[0];}}},_vm._l((_vm.formOptions),function(option){return _c('option',{attrs:{"disabled":option.disabled},domProps:{"value":option.value,"innerHTML":_vm._s(option.text)}})}))},staticRenderFns: [],
+    mixins: [formMixin, formOptions],
+    data: function data() {
+        return {
+            localValue: this.value
+        };
+    },
+    props: {
+        value: {},
+        options: {
+            type: [Array, Object],
+            required: true
+        },
+        returnObject: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var jumbotron = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['jumbotron',_vm.fluid?'jumbotron-fluid':null]},[_c('div',{staticClass:"container"},[(_vm.header)?_c('h1',{staticClass:"display-3",domProps:{"innerHTML":_vm._s(_vm.header)}}):_vm._e(),(_vm.lead)?_c('p',{staticClass:"lead",domProps:{"innerHTML":_vm._s(_vm.lead)}}):_vm._e(),_vm._t("default")],2)])},staticRenderFns: [],
+    replace: true,
+    computed: {},
+    props: {
+        fluid: {
+            type: Boolean,
+            default: false
+        },
+        header: {
+            type: String,
+            default: null
+        },
+        lead: {
+            type: String,
+            default: null
+        }
+    }
+};
+
+var badge = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{class:['badge',_vm.badgeVariant,_vm.badgePill]},[_vm._t("default")],2)},staticRenderFns: [],
+    replace: true,
+    computed: {
+        badgeVariant: function badgeVariant() {
+            return !this.variant || this.variant === "default" ? "badge-default" : ("badge-" + (this.variant));
+        },
+        badgePill: function badgePill() {
+            return this.pill ? 'badge-pill' : '';
+        }
+    },
+    props: {
+        variant: {
+            type: String,
+            default: 'default'
+        },
+        pill: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var listGroup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.tag,{tag:"component",class:['list-group',_vm.flush?'list-group-flush':null]},[_vm._t("default")],2)},staticRenderFns: [],
+    replace: true,
+    props: {
+        tag: {
+            type: String,
+            default: 'div'
+        },
+        flush: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var actionTags = ['a', 'router-link', 'button', 'b-link'];
+
+var listGroupItem = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.myTag,{ref:"item",tag:"component",class:_vm.classObject,attrs:{"to":_vm.to,"href":_vm.href}},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return [
+                'list-group-item',
+                this.listState,
+                this.active ? 'active' : null,
+                this.disabled ? 'disabled' : null,
+                this.isAction ? 'list-group-item-action' : null
+            ];
+        },
+        isAction: function isAction() {
+            if (this.action === false) {
+                return false;
+            }
+            return this.action || this.to || this.href || actionTags.indexOf(this.tag) !== -1;
+        },
+        listState: function listState() {
+            return this.variant ? ("list-group-item-" + (this.variant)) : null;
+        },
+        myTag: function myTag() {
+            if (this.tag) {
+                return this.tag;
+            }
+            return (this.to || this.href) ? 'b-link' : 'div';
+        }
+    },
+    props: {
+        tag: {
+            type: String,
+            default: null
+        },
+        active: {
+            type: Boolean,
+            default: false
+        },
+        action: {
+            type: Boolean,
+            default: null
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+        to: {
+            type: String,
+            default: null
+        },
+        href: {
+            type: String,
+            default: null
+        }
+    }
+};
+
+var media = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"media"},[(_vm.mediaHorizontalAlign == 'media-left')?_c('div',{class:[_vm.mediaHorizontalAlign,_vm.mediaVerticalAlign]},[_vm._t("aside")],2):_vm._e(),_c('div',{staticClass:"media-body"},[_vm._t("body")],2),(_vm.mediaHorizontalAlign == 'media-right')?_c('div',{class:[_vm.mediaHorizontalAlign,_vm.mediaVerticalAlign]},[_vm._t("aside")],2):_vm._e()])},staticRenderFns: [],
+    replace: true,
+    computed: {
+        align: function align() {
+            return this.position.split(' ');
+        },
+        mediaVerticalAlign: function mediaVerticalAlign() {
+            var verticalAlign = this.align[0];
+            return ("media-" + verticalAlign);
+        },
+        mediaHorizontalAlign: function mediaHorizontalAlign() {
+            var horizontalAlign = this.align[1];
+            return ("media-" + horizontalAlign);
+        }
+    },
+    props: {
+        position: {
+            type: String,
+            default: 'top left'
+        }
+    }
+};
+
+var modal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('transition-group',{attrs:{"enter-class":"hidden","enter-to-class":"show","enter-active-class":"","leave-class":"show","leave-active-class":"","leave-to-class":"hidden"},on:{"after-enter":_vm.afterEnter}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visible),expression:"visible"}],key:"modal",class:['modal',{fade :_vm.fade}],attrs:{"id":_vm.id}},[_c('div',{class:['modal-dialog','modal-'+_vm.size]},[_c('div',{staticClass:"modal-content"},[(!_vm.hideHeader)?_c('div',{staticClass:"modal-header"},[_vm._t("modal-header",[_c('h5',{staticClass:"modal-title"},[_vm._t("modal-title",[_vm._v(_vm._s(_vm.title))])],2),_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Close"},on:{"click":_vm.hide}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])])])],2):_vm._e(),_c('div',{staticClass:"modal-body"},[_vm._t("default")],2),(!_vm.hideFooter)?_c('div',{staticClass:"modal-footer"},[_vm._t("modal-footer",[_c('b-btn',{attrs:{"variant":"secondary"},on:{"click":function($event){_vm.hide(false);}}},[_vm._v(_vm._s(_vm.closeTitle))]),_c('b-btn',{attrs:{"variant":"primary"},on:{"click":function($event){_vm.hide(true);}}},[_vm._v(_vm._s(_vm.okTitle))])])],2):_vm._e()])])]),(_vm.visible)?_c('div',{key:"modal-backdrop",class:['modal-backdrop',{fade: _vm.fade}],on:{"click":function($event){_vm.onClickOut($event);}}}):_vm._e()])],1)},staticRenderFns: [],
+    data: function data() {
+        return {
+            visible: false
+        };
+    },
+    computed: {
+        body: function body() {
+            if (typeof document !== 'undefined') {
+                return document.querySelector('body');
+            }
+        }
+    },
+    props: {
+        id: {
+            type: String,
+            default: null
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        size: {
+            type: String,
+            default: 'md'
+        },
+        fade: {
+            type: Boolean,
+            default: true
+        },
+        closeTitle: {
+            type: String,
+            default: 'Close'
+        },
+        okTitle: {
+            type: String,
+            default: 'OK'
+        },
+        closeOnBackdrop: {
+            type: Boolean,
+            default: true
+        },
+        hideHeader: {
+            type: Boolean,
+            default: false
+        },
+        hideFooter: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        show: function show() {
+            if (this.visible) {
+                return;
+            }
+            this.visible = true;
+            this.$root.$emit('shown::modal', this.id);
+            this.body.classList.add('modal-open');
+            this.$emit('shown');
+        },
+        hide: function hide(isOK) {
+            if (!this.visible) {
+                return;
+            }
+            this.visible = false;
+            this.$root.$emit('hidden::modal', this.id);
+            this.body.classList.remove('modal-open');
+
+            this.$emit('hidden', isOK);
+
+            if (isOK === true) {
+                this.$emit('ok');
+            } else if (isOK === false) {
+                this.$emit('cancel');
+            }
+        },
+        onClickOut: function onClickOut(e) {
+            // If backdrop clicked, hide modal
+            if (this.closeOnBackdrop && e.target.id && e.target.id === this.id) {
+                this.hide();
+            }
+        },
+        pressedButton: function pressedButton(e) {
+            // If not visible don't do anything
+            if (!this.visible) {
+                return;
+            }
+
+            // Support for esc key press
+            var key = e.which || e.keyCode;
+            if (key === 27) { // 27 is esc
+                this.hide();
+            }
+        },
+        afterEnter: function afterEnter(el) {
+            // Add show class to keep el showed just after transition is ended,
+            // Because transition removes all used classes
+            el.classList.add('show');
+        }
+    },
+    created: function created() {
+        var this$1 = this;
+
+        this.$root.$on('show::modal', function (id) {
+            if (id === this$1.id) {
+                this$1.show();
+            }
+        });
+
+        this.$root.$on('hide::modal', function (id) {
+            if (id === this$1.id) {
+                this$1.hide();
+            }
+        });
+    },
+    mounted: function mounted() {
+        if (typeof document !== 'undefined') {
+            document.addEventListener('keydown', this.pressedButton);
+        }
+    },
+    destroyed: function destroyed() {
+        if (typeof document !== 'undefined') {
+            document.removeEventListener('keydown', this.pressedButton);
+        }
+    }
+};
+
+var nav = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.type,{tag:"component",class:_vm.classObject},[_vm._t("default")],2)},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return {
+                nav: true,
+                'navbar-nav': this.isNavBar,
+                'nav-tabs': this.tabs,
+                'nav-pills': this.pills,
+                'flex-column': this.vertical,
+                'nav-fill': this.fill
+            };
+        }
+    },
+    props: {
+        type: {
+            type: String,
+            default: 'ul'
+        },
+        fill: {
+            type: Boolean,
+            default: false
+        },
+        tabs: {
+            type: Boolean,
+            default: false
+        },
+        pills: {
+            type: Boolean,
+            default: false
+        },
+        vertical: {
+            type: Boolean,
+            default: false
+        },
+        isNavBar: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var navItem = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{staticClass:"nav-item",on:{"click":_vm.onclick}},[_c('b-link',{class:_vm.classObject,attrs:{"to":_vm.to,"href":_vm.href,"exact":_vm.exact}},[_vm._t("default")],2)],1)},staticRenderFns: [],
+    components: {
+        bLink: bLink
+    },
+    computed: {
+        classObject: function classObject() {
+            return [
+                'nav-link',
+                this.active ? 'active' : '',
+                this.disabled ? 'disabled' : ''
+            ];
+        }
+    },
+    props: {
+        active: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        to: {
+            type: [String, Object]
+        },
+        href: {
+            type: String
+        },
+        exact: {
+            type: Boolean
+        }
+    },
+    methods: {
+        onclick: function onclick(e) {
+            // Hide all drop-downs including navbar-toggle
+            this.$root.$emit('shown::dropdown', this);
+            this.$emit('click', e);
+        }
+    }
+};
+
+var navItemDropdown = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{class:{'nav-item': true, show: _vm.visible,dropdown: !_vm.dropup, dropup: _vm.dropup}},[_c('a',{class:['nav-link', _vm.dropdownToggle],attrs:{"href":"","aria-haspopup":"true","aria-expanded":_vm.visible,"disabled":_vm.disabled},on:{"click":function($event){$event.stopPropagation();$event.preventDefault();_vm.toggle($event);}}},[_vm._t("text",[_vm._v(_vm._s(_vm.text))])],2),_c('div',{class:{'dropdown-menu': true, 'dropdown-menu-right': _vm.rightAlignment}},[_vm._t("default")],2)])},staticRenderFns: [],
+    mixins: [
+        clickOut
+    ],
+    data: function data() {
+        return {
+            visible: false
+        };
+    },
+    computed: {
+        dropdownToggle: function dropdownToggle() {
+            return this.caret ? 'dropdown-toggle' : '';
+        }
+    },
+    props: {
+        caret: {
+            type: Boolean,
+            default: true
+        },
+        text: {
+            type: String,
+            default: ''
+        },
+        dropup: {
+            type: Boolean,
+            default: false
+        },
+        rightAlignment: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        class: ['class']
+    },
+    created: function created() {
+        var this$1 = this;
+
+        // To keep one dropdown opened at page
+        this.$root.$on('shown::dropdown', function (el) {
+            if (el !== this$1) {
+                this$1.close();
+            }
+        });
+    },
+    watch: {
+        visible: function visible(state, old) {
+            if (state === old) {
+                return; // Avoid duplicated emits
+            }
+
+            if (state) {
+                this.$root.$emit('shown::dropdown', this);
+            } else {
+                this.$root.$emit('hidden::dropdown', this);
+            }
+        }
+    },
+    methods: {
+        toggle: function toggle() {
+            this.visible = !this.visible;
+        },
+        open: function open() {
+            this.visible = true;
+        },
+        close: function close() {
+            this.visible = false;
+        },
+        clickOutListener: function clickOutListener() {
+            this.close();
+        }
+    }
+};
+
+var navToggle = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{class:_vm.classObject,attrs:{"type":"button","aria-label":_vm.label},on:{"click":_vm.onclick}},[_c('span',{staticClass:"navbar-toggler-icon"})])},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return [
+                'navbar-toggler',
+                'navbar-toggler-' + this.position
+            ];
+        }
+    },
+
+    props: {
+        label: {
+            type: String,
+            default: 'Toggle navigation'
+        },
+        position: {
+            type: String,
+            default: 'right'
+        },
+        target: {
+            required: true
+        }
+    },
+
+    methods: {
+        onclick: function onclick() {
+            var target = this.target;
+            if (target.toggle) {
+                target.toggle();
+            }
+            this.$root.$emit('collapse::toggle', this.target);
+        }
+    }
+};
+
+var navbar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{class:_vm.classObject},[_vm._t("default")],2)},staticRenderFns: [],
+    replace: true,
+    computed: {
+        classObject: function classObject() {
+            return [
+                'navbar',
+                this.type ? ("navbar-" + (this.type)) : null,
+                this.variant ? ("bg-" + (this.variant)) : null,
+                this.fixed ? ("fixed-" + (this.fixed)) : null,
+                this.sticky ? 'sticky-top' : null,
+                this.toggleable ? ("navbar-toggleable-" + (this.toggleBreakpoint)) : null
+            ];
+        }
+    },
+    props: {
+        type: {
+            type: String,
+            default: 'light'
+        },
+        variant: {
+            type: String
+        },
+        toggleable: {
+            type: Boolean,
+            default: false
+        },
+        toggleBreakpoint: {
+            type: String,
+            default: 'sm'
+        },
+        fixed: {
+            type: String
+        },
+        sticky: {
+            type: String
+        }
+    }
+};
+
+var Pagination = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"btn-group pagination",attrs:{"role":"group","aria-label":"Pagination"}},[_c('button',{class:['btn','btn-'+_vm.secondaryVariant,_vm.btnSize],attrs:{"type":"button","disabled":_vm.currentPage == 1},on:{"click":function($event){$event.preventDefault();(_vm.currentPage == 1) ? _vm._return : _vm.currentPage--;}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")])]),_vm._v(" "),_c('button',{directives:[{name:"show",rawName:"v-show",value:(_vm.showPrev),expression:"showPrev"}],class:['btn','btn-'+_vm.secondaryVariant,_vm.btnSize,_vm.currentPage === 1 ? 'active' : ''],attrs:{"type":"button"},on:{"click":function($event){$event.preventDefault();_vm.currentPage = 1;}}},[_vm._v("1")]),_vm._v(" "),_c('span',{directives:[{name:"show",rawName:"v-show",value:(_vm.showPrev),expression:"showPrev"}],class:['btn','btn-'+_vm.secondaryVariant,_vm.btnSize]},[_vm._v("...")]),_vm._v(" "),_vm._l((_vm.pageLinks),function(item,index){return _c('button',{class:['btn', _vm.btnSize, _vm.btnVariant(index), index + _vm.diff === _vm.currentPage ? 'active' : '', index + _vm.diff !== _vm.currentPage ? 'hidden-xs-down' : ''],attrs:{"type":"button"},on:{"click":function($event){$event.preventDefault();_vm.currentPage = index + _vm.diff;}}},[_vm._v(_vm._s(index + _vm.diff))])}),_vm._v(" "),_c('span',{directives:[{name:"show",rawName:"v-show",value:(_vm.showNext),expression:"showNext"}],class:['btn','btn-'+_vm.secondaryVariant,_vm.btnSize]},[_vm._v("...")]),_vm._v(" "),_c('button',{directives:[{name:"show",rawName:"v-show",value:(_vm.showNext),expression:"showNext"}],class:['btn','btn-'+_vm.secondaryVariant,_vm.btnSize,_vm.numberOfPages === _vm.currentPage ? 'active' : ''],attrs:{"type":"button"},on:{"click":function($event){$event.preventDefault();_vm.currentPage = _vm.numberOfPages;}}},[_vm._v(_vm._s(_vm.numberOfPages))]),_vm._v(" "),_c('button',{class:['btn','btn-'+_vm.secondaryVariant,_vm.btnSize],attrs:{"type":"button","disabled":_vm.currentPage == _vm.numberOfPages},on:{"click":function($event){$event.preventDefault();(_vm.currentPage == _vm.numberOfPages) ? _vm._return : _vm.currentPage++;}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")])])],2)},staticRenderFns: [],
+    data: function data() {
+        return {
+            diff: 1,
+            showPrev: false,
+            showNext: false,
+            currentPage: this.value
+        };
+    },
+    computed: {
+        numberOfPages: function numberOfPages() {
+            var result = Math.ceil(this.totalRows / this.perPage);
+            return (result < 1) ? 1 : result;
+        },
+        btnSize: function btnSize() {
+            return !this.size || this.size === "default" ? "" : ("btn-" + (this.size));
+        },
+        pageLinks: function pageLinks() {
+            var result = this.limit;
+            if (this.currentPage > this.numberOfPages) {
+                this.currentPage = 1;
+            }
+            this.diff = 1;
+            this.showPrev = false;
+            this.showNext = false;
+            // If less pages than limit just show this pages
+            if (this.numberOfPages <= this.limit) {
+                return this.numberOfPages;
+            }
+            // If at the beggining of the list or at the end show full number of pages within limit - 2
+            // -2 is reserves space for two buttons: "..." and "first/last button"
+            if (this.currentPage <= this.limit - 2) {
+                this.diff = 1;
+                this.showNext = true;
+                result = this.limit - 2;
+            }
+            // At the end of the range
+            if (this.currentPage > this.numberOfPages - this.limit + 2) {
+                this.diff = this.numberOfPages - this.limit + 3;
+                this.showPrev = true;
+                result = this.limit - 2;
+            }
+            // If somehere in the middle show just limit - 4 links in the middle and one button on the left with "..." and on button on the right preceeded with "..."
+            if (this.currentPage >= this.limit - 2 && this.currentPage <= this.numberOfPages - this.limit + 2) {
+                this.diff = this.currentPage - 1;
+                this.showPrev = true;
+                this.showNext = true;
+                result = this.limit - 4;
+            }
+            return result;
+        }
+    },
+    methods: {
+        btnVariant: function btnVariant(index) {
+            return (index + this.diff === this.currentPage) ? ("btn-" + (this.variant)) : ("btn-" + (this.secondaryVariant));
+        },
+        _return: function _return() {
+
+        }
+    },
+    watch: {
+        currentPage: function currentPage(newPage) {
+            this.$emit('input', newPage);
+        },
+        value: function value(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                this.currentPage = newValue;
+            }
+        }
+    },
+    props: {
+        value: {
+            type: Number,
+            default: 1
+        },
+        limit: {
+            type: Number,
+            default: 7
+        },
+        perPage: {
+            type: Number,
+            default: 20
+        },
+        totalRows: {
+            type: Number,
+            default: 20
+        },
+        size: {
+            type: String,
+            default: 'md'
+        },
+        variant: {
+            type: String,
+            default: 'primary'
+        },
+        secondaryVariant: {
+            type: String,
+            default: 'secondary'
+        }
+    }
+};
+
+// Controls which events are mapped for each named trigger, and the expected popover behavior for each.
+var triggerListeners = {
+    click: {click: 'toggle'},
+    hover: {mouseenter: 'show', mouseleave: 'hide'},
+    focus: {focus: 'show', blur: 'hide'}
+};
+
+var popover = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('span',{ref:"trigger"},[_vm._t("default")],2),_c('div',{ref:"popover",class:['popover',_vm.popoverAlignment],style:(_vm.popoverStyle),attrs:{"tabindex":"-1"},on:{"focus":function($event){_vm.$emit('focus');},"blur":function($event){_vm.$emit('blur');}}},[_c('div',{staticClass:"popover-arrow"}),(_vm.title)?_c('h3',{staticClass:"popover-title",domProps:{"innerHTML":_vm._s(_vm.title)}}):_vm._e(),_c('div',{staticClass:"popover-content"},[_c('div',{staticClass:"popover-content-wrapper"},[_vm._t("content",[_c('span',{domProps:{"innerHTML":_vm._s(_vm.content)}})])],2)])])])},staticRenderFns: [],
+    props: {
+        placement: {
+            type: String,
+            default: 'top',
+            validator: function validator(value) {
+                return ['top', 'bottom', 'left', 'right'].indexOf(value) !== -1;
+            }
+        },
+        triggers: {
+            type: [Boolean, String, Array],
+            default: function () { return ['click', 'focus']; },
+            validator: function validator(value) {
+                // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
+                if (value === false || value === '') {
+                    return true;
+                } else if (typeof value === 'string') {
+                    return Object.keys(triggerListeners).indexOf(value) !== -1;
+                } else if (Array.isArray(value)) {
+                    var keys = Object.keys(triggerListeners);
+                    value.forEach(function (item) {
+                        if (keys.indexOf(item) === -1) {
+                            return false;
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            }
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        content: {
+            type: String,
+            default: ''
+        },
+        show: {
+            type: Boolean,
+            default: false
+        },
+        constraints: {
+            type: Array,
+            default: function default$1() {
+                return [];
+            }
+        },
+        offset: {
+            type: String,
+            default: '0 0',
+            validator: function validator(value) {
+                return /^(\d+\s\d+)$/.test(value);
+            }
+        },
+        delay: {
+            type: [Number, Object],
+            default: 0,
+            validator: function validator(value) {
+                if (typeof value === 'number') {
+                    return value >= 0;
+                } else if (value !== null && typeof value === 'object') {
+                    return typeof value.show === 'number' &&
+                        typeof value.hide === 'number' &&
+                        value.show >= 0 &&
+                        value.hide >= 0;
+                }
+
+                return false;
+            }
+        },
+        debounce: {
+            type: [Number],
+            default: 300,
+            validator: function validator(value) {
+                return value >= 0;
+            }
+        },
+        popoverStyle: {
+            type: Object,
+            default: null
+        }
+    },
+
+    data: function data() {
+        return {
+            showState: this.show,
+            lastEvent: null
+        };
+    },
+
+    computed: {
+        popoverAlignment: function popoverAlignment() {
+            return !this.placement || this.placement === "default" ? "popover-top" : ("popover-" + (this.placement));
+        },
+
+        normalizedTriggers: function normalizedTriggers() {
+            if (this.triggers === false) {
+                return [];
+            } else if (typeof this.triggers === 'string') {
+                return [this.triggers];
+            }
+            return this.triggers;
+        },
+
+        placementParameters: function placementParameters() {
+            switch (this.placement) {
+                case 'bottom':
+                    return {
+                        attachment: 'top center',
+                        targetAttachment: 'bottom center'
+                    };
+                case 'left':
+                    return {
+                        attachment: 'middle right',
+                        targetAttachment: 'middle left'
+                    };
+                case 'right':
+                    return {
+                        attachment: 'middle left',
+                        targetAttachment: 'middle right'
+                    };
+                default:
+                    return {
+                        attachment: 'bottom center',
+                        targetAttachment: 'top center'
+                    };
+            }
+        },
+
+        useDebounce: function useDebounce() {
+            return this.normalizedTriggers.length > 1;
+        },
+
+        tetherOptions: function tetherOptions() {
+            return {
+                element: this._popover,
+                target: this._trigger,
+                offset: this.offset,
+                constraints: this.constraints,
+                attachment: this.placementParameters.attachment,
+                targetAttachment: this.placementParameters.targetAttachment
+            };
+        }
+    },
+
+    watch: {
+        /**
+         * Propagate 'show' property change
+         * @param  {Boolean} newShow
+         */
+        show: function show(newShow) {
+            this.showState = newShow;
+        },
+
+        /**
+         * Affect 'show' state in response to status change
+         * @param  {Boolean} newShowState
+         * @param oldShowState
+         */
+        showState: function showState(newShowState, oldShowState) {
+            var this$1 = this;
+
+            if (newShowState === oldShowState) {
+                return;
+            }
+
+            clearTimeout(this._timeout);
+
+            this._timeout = setTimeout(function () {
+                this$1.$emit('showChange', newShowState);
+                if (newShowState) {
+                    this$1.showPopover();
+                } else {
+                    this$1.hidePopover();
+                }
+            }, this.getDelay(newShowState));
+        },
+
+        normalizedTriggers: function normalizedTriggers(newTriggers, oldTriggers) {
+            this.updateListeners(newTriggers, oldTriggers);
+        },
+
+        placement: function placement() {
+            this.setOptions();
+        },
+
+        offset: function offset() {
+            this.setOptions();
+        },
+
+        constraints: function constraints() {
+            this.setOptions();
+        },
+
+        content: function content() {
+            this.refreshPosition();
+        },
+
+        title: function title() {
+            this.refreshPosition();
+        }
+    },
+
+    methods: {
+        /**
+         * Display popover and fire event
+         */
+        showPopover: function showPopover() {
+            if (this.showState === true) {
+                this.hidePopover();
+            }
+
+            this.showState = true;
+
+            // Let tether do the magic, after element is shown
+            this._popover.style.display = 'block';
+            this._tether = new __WEBPACK_IMPORTED_MODULE_0_tether___default.a(this.tetherOptions);
+
+            // Make sure the popup is rendered in the correct location
+            this.refreshPosition();
+
+            this.$root.$emit('shown::popover');
+        },
+
+        /**
+         * Update tether options
+         */
+        setOptions: function setOptions() {
+            if (this._tether) {
+                this._tether.setOptions(this.tetherOptions);
+            }
+        },
+
+        /**
+         * Refresh the Popover position in order to respond to changes
+         */
+        refreshPosition: function refreshPosition() {
+            var this$1 = this;
+
+            if (this.showState === true) {
+                this.$nextTick(function () {
+                    this$1._tether.position();
+                });
+            }
+        },
+
+        /**
+         * Hide popover and fire event
+         */
+        hidePopover: function hidePopover() {
+            this.showState = false;
+            this._popover.style.display = 'none';
+            this.$root.$emit('hidden::popover');
+
+            if (this._tether) {
+                this._tether.destroy();
+                this._tether = null;
+            }
+        },
+
+        /**
+         * Get the currently applicable popover delay
+         * @returns Number
+         */
+        getDelay: function getDelay(state) {
+            if (typeof this.delay === 'object') {
+                return state ? this.delay.show : this.delay.hide;
+            }
+
+            return this.delay;
+        },
+
+        /**
+         * Handle multiple event triggers
+         * @param  {Object} e
+         */
+        eventHandler: function eventHandler(e) {
+            var this$1 = this;
+
+            // If this event is right after a previous successful event, ignore it
+            if (this.useDebounce && this.debounce > 0 && this.lastEvent !== null && e.timeStamp <= this.lastEvent + this.debounce) {
+                return;
+            }
+
+            // Look up the expected popover action for the event
+            // eslint-disable-next-line guard-for-in
+            for (var trigger in triggerListeners) {
+                for (var event in triggerListeners[trigger]) {
+                    if (event === e.type) {
+                        var action = triggerListeners[trigger][event];
+
+                        // If the expected event action is the opposite of the current state, allow it
+                        if (action === 'toggle' || (this$1.showState && action === 'hide') || (!this$1.showState && action === 'show')) {
+                            this$1.showState = !this$1.showState;
+                            this$1.lastEvent = e.timeStamp;
+                        }
+                        return;
+                    }
+                }
+            }
+        },
+
+        /**
+         * Study the 'triggers' component property and apply all selected triggers
+         * @param {Array} triggers
+         * @param {Array} appliedTriggers
+         */
+        updateListeners: function updateListeners(triggers, appliedTriggers) {
+            var this$1 = this;
+            if ( appliedTriggers === void 0 ) appliedTriggers = [];
+
+            var newTriggers = [];
+            var removeTriggers = [];
+
+            // Look for new events not yet mapped (all of them on first load)
+            triggers.forEach(function (item) {
+                if (appliedTriggers.indexOf(item) === -1) {
+                    newTriggers.push(item);
+                }
+            });
+
+            // Disable any removed event triggers
+            appliedTriggers.forEach(function (item) {
+                if (triggers.indexOf(item) === -1) {
+                    removeTriggers.push(item);
+                }
+            });
+
+            // Apply trigger mapping changes
+            newTriggers.forEach(function (item) { return this$1.addListener(item); });
+            removeTriggers.forEach(function (item) { return this$1.removeListener(item); });
+        },
+
+        /**
+         * Add all event hooks for the given trigger
+         * @param {String} trigger
+         */
+        addListener: function addListener(trigger) {
+            var this$1 = this;
+
+            // eslint-disable-next-line guard-for-in
+            for (var item in triggerListeners[trigger]) {
+                this$1._trigger.addEventListener(item, function (e) { return this$1.eventHandler(e); });
+            }
+        },
+
+        /**
+         * Remove all event hooks for the given trigger
+         * @param {String} trigger
+         */
+        removeListener: function removeListener(trigger) {
+            var this$1 = this;
+
+            // eslint-disable-next-line guard-for-in
+            for (var item in triggerListeners[trigger]) {
+                this$1._trigger.removeEventListener(item, function (e) { return this$1.eventHandler(e); });
+            }
+        },
+
+        /**
+         * Remove all event listeners
+         */
+        removeAllListeners: function removeAllListeners() {
+            var this$1 = this;
+
+            // eslint-disable-next-line guard-for-in
+            for (var trigger in this$1.normalizedTriggers) {
+                this$1.removeListener(trigger);
+            }
+        }
+    },
+
+    created: function created() {
+        var this$1 = this;
+
+        var hub = this.$root;
+        hub.$on('hide::popover', function () {
+            this$1.showState = false;
+        });
+
+        // Workaround to resolve issues like #151
+        if (this.$router) {
+            this.$router.beforeEach(function (to, from, next) {
+                next();
+                this$1.beforeDestroy();
+            });
+        }
+
+        hub.$on('hide::modal', function () {
+            this$1.beforeDestroy();
+        });
+    },
+
+    mounted: function mounted() {
+        // Configure tether
+        this._trigger = this.$refs.trigger.children[0];
+        this._popover = this.$refs.popover;
+        this._popover.style.display = 'none';
+        this._timeout = 0;
+
+        // Add listeners for specified triggers and complementary click event
+        this.updateListeners(this.normalizedTriggers);
+
+        // Display popover if prop is set on load
+        if (this.showState) {
+            this.showPopover();
+        }
+    },
+
+    beforeDestroy: function beforeDestroy() {
+        // Clean up listeners
+        this.hidePopover();
+        this.removeAllListeners();
+        clearTimeout(this._timeout);
+        this._timeout = null;
+    }
+};
+
+var progress = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"progress"},[_c('transition',[_c('div',{class:_vm.classObject,style:(_vm.styleObject),attrs:{"role":"progressbar","aria-valuenow":_vm.value,"aria-valuemin":0,"aria-valuemax":_vm.max}},[_vm._t("default",[(_vm.showProgress)?[_vm._v(_vm._s(_vm.progress)+"%")]:(_vm.showValue)?[_vm._v(_vm._s(_vm.value))]:_vm._e()])],2)])],1)},staticRenderFns: [],
+    computed: {
+        classObject: function classObject() {
+            return [
+                'progress-bar',
+                this.progressVariant,
+                (this.striped || this.animated) ? 'progress-bar-striped' : '',
+                this.animated ? 'progress-bar-animated' : ''
+            ];
+        },
+        styleObject: function styleObject() {
+            return {
+                width: this.progress + '%'
+            };
+        },
+        progressVariant: function progressVariant() {
+            return this.variant ? ("bg-" + (this.variant)) : null;
+        },
+        progress: function progress() {
+            var p = Math.pow(10, this.precision);
+            return Math.round((100 * p * this.value) / this.max) / p;
+        }
+    },
+    props: {
+        striped: {
+            type: Boolean,
+            default: false
+        },
+        animated: {
+            type: Boolean,
+            default: false
+        },
+        precision: {
+            type: Number,
+            default: 0
+        },
+        value: {
+            type: Number,
+            default: 0
+        },
+        max: {
+            type: Number,
+            default: 100
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+        showProgress: {
+            type: Boolean,
+            default: false
+        },
+        showValue: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
+
+var toString = function (v) {
+    if (!v) {
+        return '';
+    }
+
+    if (v instanceof Object) {
+        return Object.keys(v).map(function (k) { return toString(v[k]); }).join(' ');
+    }
+
+    return String(v);
+};
+
+var defaultSortCompare = function (a, b, sortBy) {
+    return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
+};
+
+var table = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{class:['table',_vm.striped?'table-striped':'',_vm.hover?'table-hover':'']},[_c('thead',[_c('tr',_vm._l((_vm.fields),function(field,key){return _c('th',{class:[field.sortable?'sorting':null,_vm.sortBy===key?'sorting_'+(_vm.sortDesc?'desc':'asc'):'',field.class?field.class:null],domProps:{"innerHTML":_vm._s(field.label)},on:{"click":function($event){_vm.headClick(field,key);}}})}))]),_c('tbody',_vm._l((_vm._items),function(item,index){return _c('tr',{key:_vm.items_key,class:[item.state?'table-'+item.state:null]},_vm._l((_vm.fields),function(field,key){return _c('td',{class:[field.class?field.class:null]},[_vm._t(key,[_vm._v(_vm._s(item[key]))],{value:item[key],item:item,index:index})],2)}))}))])},staticRenderFns: [],
+    components: {bPagination: Pagination},
+
+    data: function data() {
+        return {
+            sortBy: null,
+            sortDesc: true
+        };
+    },
+
+    props: {
+        items: {
+            type: Array,
+            default: function () { return []; }
+        },
+        fields: {
+            type: Object,
+            default: function () {
+            }
+        },
+        striped: {
+            type: Boolean,
+            default: false
+        },
+        hover: {
+            type: Boolean,
+            default: false
+        },
+        perPage: {
+            type: Number,
+            default: null
+        },
+        items_key: {
+            type: String,
+            default: null
+        },
+        currentPage: {
+            type: Number,
+            default: 1
+        },
+        filter: {
+            type: [String, RegExp, Function],
+            default: null
+        },
+        sortCompare: {
+            type: Function,
+            default: null
+        },
+        itemsProvider: {
+            type: Function,
+            default: null
+        }
+    },
+
+    computed: {
+        _items: function _items() {
+            var this$1 = this;
+
+            if (!this.items) {
+                return [];
+            }
+
+            if (this.itemsProvider) {
+                return this.itemsProvider(this);
+            }
+
+            var items = this.items;
+
+            // Apply filter
+            if (this.filter) {
+                if (this.filter instanceof Function) {
+                    items = items.filter(this.filter);
+                } else {
+                    var regex;
+                    if (this.filter instanceof RegExp) {
+                        regex = this.filter;
+                    } else {
+                        regex = new RegExp('.*' + this.filter + '.*', 'ig');
+                    }
+                    items = items.filter(function (item) { return regex.test(toString(item)); });
+                }
+            }
+
+            // Apply Sort
+            var sortCompare = this.sortCompare || defaultSortCompare;
+            if (this.sortBy) {
+                items = items.sort(function (a, b) {
+                    var r = sortCompare(a, b, this$1.sortBy);
+                    return this$1.sortDesc ? r : r * -1;
+                });
+            }
+
+            // Apply pagination
+            if (this.perPage) {
+                items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
+            }
+
+            return items;
+        }
+    },
+    methods: {
+        headClick: function headClick(field, key) {
+            if (!field.sortable) {
+                this.sortBy = null;
+                return;
+            }
+
+            if (key === this.sortBy) {
+                this.sortDesc = !this.sortDesc;
+            }
+
+            this.sortBy = key;
+        }
+    }
+};
+
+// This is directly linked to the bootstrap animation timing in _tabs.scss
+// For browsers that do not support transitions like IE9 just change slide immediately
+var TRANSITION_DURATION$2 = csstransitions() ? 150 : 0;
+
+// Export component object
+var tabs = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tabs"},[_c('ul',{class:['nav','nav-' + _vm.navStyle]},_vm._l((_vm.items),function(item,index){return _c('li',{staticClass:"nav-item",on:{"click":function($event){_vm.setActive(index);}}},[_c('a',{class:['nav-link',_vm.small ? 'small' : '',item.active ? 'active' : '',item.disabled ? 'disabled' : ''],attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();}}},[_vm._v(_vm._s(item.title))])])})),_c('div',{staticClass:"tab-content"},[_vm._t("default")],2)])},staticRenderFns: [],
+    replace: true,
+    data: function data() {
+        var currentTab = this.value || 0;
+        return {
+            currentTab: currentTab,
+            items: []
+        };
+    },
+    props: {
+        fade: {
+            type: Boolean,
+            default: true
+        },
+        small: {
+            type: Boolean,
+            default: false
+        },
+        value: {
+            type: Number,
+            default: 0
+        },
+        navStyle: {
+            type: String,
+            default: 'tabs'
+        }
+    },
+    watch: {
+        currentTab: function currentTab(val) {
+            this.$emit('input', val);
+        },
+        value: function value(val) {
+            this.setActive(val);
+        }
+    },
+    methods: {
+
+        /**
+         * Get an index of an active tab
+         * @return {Number}
+         */
+        getActive: function getActive() {
+            var active = -1;
+            this.items.forEach(function (item, index) {
+                if (item.active) {
+                    active = index;
+                }
+            });
+            return active;
+        },
+
+        /**
+         * Set active tab on the items collection and the child 'tab' component
+         */
+        setActive: function setActive(index) {
+            var this$1 = this;
+
+            // ignore disabled
+            if (this.items[index].disabled) {
+                return;
+            }
+
+            // Deactivate previous active tab
+            var activeTab = this.getActive();
+            if (activeTab !== -1) {
+                // Setting animate to false will trigger fade out effect
+                this.items[activeTab].active = false;
+                this.$set(this.$children[activeTab], 'animate', false);
+                this.$set(this.$children[activeTab], 'active', false);
+            }
+
+            // Set new active tab and animate (if fade flag is set to true)
+            this.$set(this.$children[index], 'active', true);
+            this._tabAnimation = setTimeout(function () {
+                // Setting animate to true will trigger fade in effect
+                this$1.items[index].active = true;
+                this$1.$set(this$1.$children[index], 'animate', true);
+                this$1.$root.$emit('changed::tab', this$1.items[index].id);
+            }, this.fade ? TRANSITION_DURATION$2 : 0);
+
+            // Store currentActive
+            this.currentTab = index;
+        }
+    },
+    mounted: function mounted() {
+        // If no active tab, set the first one by default
+        if (this.getActive() === -1) {
+            this.setActive(this.currentTab);
+        }
+    },
+    destroyed: function destroyed() {
+        clearTimeout(this._tabAnimation);
+    }
+};
+
+var tab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tab-pane",class:{active: _vm.active, disabled: _vm.disabled, fade: _vm.fade, in: _vm.animate, show: _vm.active},attrs:{"role":"tabpanel"}},[_vm._t("default")],2)},staticRenderFns: [],
+    replace: true,
+    data: function data() {
+        return {
+            fade: this.$parent.fade,
+            animate: false,
+            active: false
+        };
+    },
+    props: {
+        id: {
+            type: String,
+            default: ''
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+    mounted: function mounted() {
+        var items = this.$parent.items;
+        items.push({id: this.id, title: this.title, active: this.active, disabled: this.disabled});
+    }
+};
+
+var tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('span',{ref:"trigger"},[_vm._t("default")],2),_c('div',{ref:"popover",class:['tooltip','tooltip-' + this.placement],style:({opacity:_vm.showState?1:0}),attrs:{"tabindex":"-1"},on:{"focus":function($event){_vm.$emit('focus');},"blur":function($event){_vm.$emit('blur');}}},[_c('div',{staticClass:"tooltip-inner"},[_vm._t("content",[_c('span',{domProps:{"innerHTML":_vm._s(_vm.content || _vm.title)}})])],2)])])},staticRenderFns: [],
+    extends: popover,
+    props: {
+        triggers: {
+            type: [Boolean, String, Array],
+            default: 'hover'
+        }
+    }
+};
+
+
+
+var components = Object.freeze({
+	bAlert: alert,
+	bBreadcrumb: breadcrumb,
+	bButtonCheckbox: buttonCheckbox,
+	bButtonGroup: buttonGroup,
+	bButtonRadio: buttonRadio,
+	bButton: bButton,
+	bBtn: bButton,
+	bCard: card,
+	bCardGroup: cardGroup,
+	bDropdown: dropdown,
+	bDropdownItem: dropdownItem,
+	bDropdownSelect: dropdownSelect,
+	bForm: form,
+	bFormCheckbox: formCheckbox,
+	bFormFieldset: formFieldset,
+	bFormFile: formFile,
+	bFormRadio: formRadio,
+	bFormInput: formInput,
+	bFormSelect: formSelect,
+	bJumbotron: jumbotron,
+	bBadge: badge,
+	bMedia: media,
+	bModal: modal,
+	bNavbar: navbar,
+	bPagination: Pagination,
+	bPopover: popover,
+	bProgress: progress,
+	bTable: table,
+	bTooltip: tooltip,
+	bTab: tab,
+	bTabs: tabs,
+	bNav: nav,
+	bNavItem: navItem,
+	bNavItemDropdown: navItemDropdown,
+	bNavToggle: navToggle,
+	bListGroupItem: listGroupItem,
+	bListGroup: listGroup,
+	bSlide: carouselSlide,
+	bCarousel: carousel,
+	bCollapse: collapse,
+	bLink: bLink
+});
+
+var all_listen_types = {hover: true, click: true, focus: true};
+
+function targets(el, binding, listen_types, fn) {
+    var vm = el.__vue__;
+
+    if (!vm) {
+        console.warn('__vue__ is not available on element', el);
+        return;
+    }
+
+    var targets = Object.keys(binding.modifiers || {})
+        .filter(function (t) { return !all_listen_types[t]; });
+
+    if (binding.value) {
+        targets.push(binding.value);
+    }
+
+    var listener = function () {
+        fn({targets: targets, vm: vm});
+    };
+
+    Object.keys(all_listen_types).forEach(function (type) {
+        if (listen_types[type] || binding.modifiers[type]) {
+            console.log(type);
+            el.addEventListener(type, listener);
+        }
+    });
+}
+
+var listen_types = {click: true};
+
+var toggle = {
+    bind: function bind(el, binding) {
+        targets(el, binding, listen_types, function (ref) {
+            var targets$$1 = ref.targets;
+            var vm = ref.vm;
+
+            targets$$1.forEach(function (target) {
+                vm.$root.$emit('collapse::toggle', target);
+            });
+        });
+    }
+};
+
+var listen_types$1 = {click: true};
+
+var modal$1 = {
+    bind: function bind(el, binding) {
+        targets(el, binding, listen_types$1, function (ref) {
+            var targets$$1 = ref.targets;
+            var vm = ref.vm;
+
+            targets$$1.forEach(function (target) {
+                vm.$root.$emit('show::modal', target);
+            });
+        });
+    }
+};
+
+
+
+var directives = Object.freeze({
+	bToggle: toggle,
+	bModal: modal$1
+});
+
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+var VuePlugin = {
+    install: function (Vue) {
+        if (Vue._bootstrap_vue_installed) {
+            return;
+        }
+
+        Vue._bootstrap_vue_installed = true;
+
+        // Register components
+        for (var component in components) {
+            Vue.component(component, components[component]);
+        }
+
+        // Register directives
+        for (var directive in directives) {
+            Vue.directive(directive, directives[directive]);
+        }
+    }
+};
+
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VuePlugin);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = VuePlugin;
+//# sourceMappingURL=bootstrap-vue.esm.js.map
+
+
+/***/ }),
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31839,17 +34828,1838 @@ if (typeof jQuery === 'undefined') {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(44)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(46)(module)))
 
 /***/ }),
-/* 37 */
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.4.0 */
+
+(function(root, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require, exports, module);
+  } else {
+    root.Tether = factory();
+  }
+}(this, function(require, exports, module) {
+
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var TetherBase = undefined;
+if (typeof TetherBase === 'undefined') {
+  TetherBase = { modules: [] };
+}
+
+var zeroElement = null;
+
+// Same as native getBoundingClientRect, except it takes into account parent <frame> offsets
+// if the element lies within a nested document (<frame> or <iframe>-like).
+function getActualBoundingClientRect(node) {
+  var boundingRect = node.getBoundingClientRect();
+
+  // The original object returned by getBoundingClientRect is immutable, so we clone it
+  // We can't use extend because the properties are not considered part of the object by hasOwnProperty in IE9
+  var rect = {};
+  for (var k in boundingRect) {
+    rect[k] = boundingRect[k];
+  }
+
+  if (node.ownerDocument !== document) {
+    var _frameElement = node.ownerDocument.defaultView.frameElement;
+    if (_frameElement) {
+      var frameRect = getActualBoundingClientRect(_frameElement);
+      rect.top += frameRect.top;
+      rect.bottom += frameRect.top;
+      rect.left += frameRect.left;
+      rect.right += frameRect.left;
+    }
+  }
+
+  return rect;
+}
+
+function getScrollParents(el) {
+  // In firefox if the el is inside an iframe with display: none; window.getComputedStyle() will return null;
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+  var computedStyle = getComputedStyle(el) || {};
+  var position = computedStyle.position;
+  var parents = [];
+
+  if (position === 'fixed') {
+    return [el];
+  }
+
+  var parent = el;
+  while ((parent = parent.parentNode) && parent && parent.nodeType === 1) {
+    var style = undefined;
+    try {
+      style = getComputedStyle(parent);
+    } catch (err) {}
+
+    if (typeof style === 'undefined' || style === null) {
+      parents.push(parent);
+      return parents;
+    }
+
+    var _style = style;
+    var overflow = _style.overflow;
+    var overflowX = _style.overflowX;
+    var overflowY = _style.overflowY;
+
+    if (/(auto|scroll)/.test(overflow + overflowY + overflowX)) {
+      if (position !== 'absolute' || ['relative', 'absolute', 'fixed'].indexOf(style.position) >= 0) {
+        parents.push(parent);
+      }
+    }
+  }
+
+  parents.push(el.ownerDocument.body);
+
+  // If the node is within a frame, account for the parent window scroll
+  if (el.ownerDocument !== document) {
+    parents.push(el.ownerDocument.defaultView);
+  }
+
+  return parents;
+}
+
+var uniqueId = (function () {
+  var id = 0;
+  return function () {
+    return ++id;
+  };
+})();
+
+var zeroPosCache = {};
+var getOrigin = function getOrigin() {
+  // getBoundingClientRect is unfortunately too accurate.  It introduces a pixel or two of
+  // jitter as the user scrolls that messes with our ability to detect if two positions
+  // are equivilant or not.  We place an element at the top left of the page that will
+  // get the same jitter, so we can cancel the two out.
+  var node = zeroElement;
+  if (!node || !document.body.contains(node)) {
+    node = document.createElement('div');
+    node.setAttribute('data-tether-id', uniqueId());
+    extend(node.style, {
+      top: 0,
+      left: 0,
+      position: 'absolute'
+    });
+
+    document.body.appendChild(node);
+
+    zeroElement = node;
+  }
+
+  var id = node.getAttribute('data-tether-id');
+  if (typeof zeroPosCache[id] === 'undefined') {
+    zeroPosCache[id] = getActualBoundingClientRect(node);
+
+    // Clear the cache when this position call is done
+    defer(function () {
+      delete zeroPosCache[id];
+    });
+  }
+
+  return zeroPosCache[id];
+};
+
+function removeUtilElements() {
+  if (zeroElement) {
+    document.body.removeChild(zeroElement);
+  }
+  zeroElement = null;
+};
+
+function getBounds(el) {
+  var doc = undefined;
+  if (el === document) {
+    doc = document;
+    el = document.documentElement;
+  } else {
+    doc = el.ownerDocument;
+  }
+
+  var docEl = doc.documentElement;
+
+  var box = getActualBoundingClientRect(el);
+
+  var origin = getOrigin();
+
+  box.top -= origin.top;
+  box.left -= origin.left;
+
+  if (typeof box.width === 'undefined') {
+    box.width = document.body.scrollWidth - box.left - box.right;
+  }
+  if (typeof box.height === 'undefined') {
+    box.height = document.body.scrollHeight - box.top - box.bottom;
+  }
+
+  box.top = box.top - docEl.clientTop;
+  box.left = box.left - docEl.clientLeft;
+  box.right = doc.body.clientWidth - box.width - box.left;
+  box.bottom = doc.body.clientHeight - box.height - box.top;
+
+  return box;
+}
+
+function getOffsetParent(el) {
+  return el.offsetParent || document.documentElement;
+}
+
+var _scrollBarSize = null;
+function getScrollBarSize() {
+  if (_scrollBarSize) {
+    return _scrollBarSize;
+  }
+  var inner = document.createElement('div');
+  inner.style.width = '100%';
+  inner.style.height = '200px';
+
+  var outer = document.createElement('div');
+  extend(outer.style, {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    pointerEvents: 'none',
+    visibility: 'hidden',
+    width: '200px',
+    height: '150px',
+    overflow: 'hidden'
+  });
+
+  outer.appendChild(inner);
+
+  document.body.appendChild(outer);
+
+  var widthContained = inner.offsetWidth;
+  outer.style.overflow = 'scroll';
+  var widthScroll = inner.offsetWidth;
+
+  if (widthContained === widthScroll) {
+    widthScroll = outer.clientWidth;
+  }
+
+  document.body.removeChild(outer);
+
+  var width = widthContained - widthScroll;
+
+  _scrollBarSize = { width: width, height: width };
+  return _scrollBarSize;
+}
+
+function extend() {
+  var out = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+  var args = [];
+
+  Array.prototype.push.apply(args, arguments);
+
+  args.slice(1).forEach(function (obj) {
+    if (obj) {
+      for (var key in obj) {
+        if (({}).hasOwnProperty.call(obj, key)) {
+          out[key] = obj[key];
+        }
+      }
+    }
+  });
+
+  return out;
+}
+
+function removeClass(el, name) {
+  if (typeof el.classList !== 'undefined') {
+    name.split(' ').forEach(function (cls) {
+      if (cls.trim()) {
+        el.classList.remove(cls);
+      }
+    });
+  } else {
+    var regex = new RegExp('(^| )' + name.split(' ').join('|') + '( |$)', 'gi');
+    var className = getClassName(el).replace(regex, ' ');
+    setClassName(el, className);
+  }
+}
+
+function addClass(el, name) {
+  if (typeof el.classList !== 'undefined') {
+    name.split(' ').forEach(function (cls) {
+      if (cls.trim()) {
+        el.classList.add(cls);
+      }
+    });
+  } else {
+    removeClass(el, name);
+    var cls = getClassName(el) + (' ' + name);
+    setClassName(el, cls);
+  }
+}
+
+function hasClass(el, name) {
+  if (typeof el.classList !== 'undefined') {
+    return el.classList.contains(name);
+  }
+  var className = getClassName(el);
+  return new RegExp('(^| )' + name + '( |$)', 'gi').test(className);
+}
+
+function getClassName(el) {
+  // Can't use just SVGAnimatedString here since nodes within a Frame in IE have
+  // completely separately SVGAnimatedString base classes
+  if (el.className instanceof el.ownerDocument.defaultView.SVGAnimatedString) {
+    return el.className.baseVal;
+  }
+  return el.className;
+}
+
+function setClassName(el, className) {
+  el.setAttribute('class', className);
+}
+
+function updateClasses(el, add, all) {
+  // Of the set of 'all' classes, we need the 'add' classes, and only the
+  // 'add' classes to be set.
+  all.forEach(function (cls) {
+    if (add.indexOf(cls) === -1 && hasClass(el, cls)) {
+      removeClass(el, cls);
+    }
+  });
+
+  add.forEach(function (cls) {
+    if (!hasClass(el, cls)) {
+      addClass(el, cls);
+    }
+  });
+}
+
+var deferred = [];
+
+var defer = function defer(fn) {
+  deferred.push(fn);
+};
+
+var flush = function flush() {
+  var fn = undefined;
+  while (fn = deferred.pop()) {
+    fn();
+  }
+};
+
+var Evented = (function () {
+  function Evented() {
+    _classCallCheck(this, Evented);
+  }
+
+  _createClass(Evented, [{
+    key: 'on',
+    value: function on(event, handler, ctx) {
+      var once = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
+
+      if (typeof this.bindings === 'undefined') {
+        this.bindings = {};
+      }
+      if (typeof this.bindings[event] === 'undefined') {
+        this.bindings[event] = [];
+      }
+      this.bindings[event].push({ handler: handler, ctx: ctx, once: once });
+    }
+  }, {
+    key: 'once',
+    value: function once(event, handler, ctx) {
+      this.on(event, handler, ctx, true);
+    }
+  }, {
+    key: 'off',
+    value: function off(event, handler) {
+      if (typeof this.bindings === 'undefined' || typeof this.bindings[event] === 'undefined') {
+        return;
+      }
+
+      if (typeof handler === 'undefined') {
+        delete this.bindings[event];
+      } else {
+        var i = 0;
+        while (i < this.bindings[event].length) {
+          if (this.bindings[event][i].handler === handler) {
+            this.bindings[event].splice(i, 1);
+          } else {
+            ++i;
+          }
+        }
+      }
+    }
+  }, {
+    key: 'trigger',
+    value: function trigger(event) {
+      if (typeof this.bindings !== 'undefined' && this.bindings[event]) {
+        var i = 0;
+
+        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+
+        while (i < this.bindings[event].length) {
+          var _bindings$event$i = this.bindings[event][i];
+          var handler = _bindings$event$i.handler;
+          var ctx = _bindings$event$i.ctx;
+          var once = _bindings$event$i.once;
+
+          var context = ctx;
+          if (typeof context === 'undefined') {
+            context = this;
+          }
+
+          handler.apply(context, args);
+
+          if (once) {
+            this.bindings[event].splice(i, 1);
+          } else {
+            ++i;
+          }
+        }
+      }
+    }
+  }]);
+
+  return Evented;
+})();
+
+TetherBase.Utils = {
+  getActualBoundingClientRect: getActualBoundingClientRect,
+  getScrollParents: getScrollParents,
+  getBounds: getBounds,
+  getOffsetParent: getOffsetParent,
+  extend: extend,
+  addClass: addClass,
+  removeClass: removeClass,
+  hasClass: hasClass,
+  updateClasses: updateClasses,
+  defer: defer,
+  flush: flush,
+  uniqueId: uniqueId,
+  Evented: Evented,
+  getScrollBarSize: getScrollBarSize,
+  removeUtilElements: removeUtilElements
+};
+/* globals TetherBase, performance */
+
+'use strict';
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x6, _x7, _x8) { var _again = true; _function: while (_again) { var object = _x6, property = _x7, receiver = _x8; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x6 = parent; _x7 = property; _x8 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+if (typeof TetherBase === 'undefined') {
+  throw new Error('You must include the utils.js file before tether.js');
+}
+
+var _TetherBase$Utils = TetherBase.Utils;
+var getScrollParents = _TetherBase$Utils.getScrollParents;
+var getBounds = _TetherBase$Utils.getBounds;
+var getOffsetParent = _TetherBase$Utils.getOffsetParent;
+var extend = _TetherBase$Utils.extend;
+var addClass = _TetherBase$Utils.addClass;
+var removeClass = _TetherBase$Utils.removeClass;
+var updateClasses = _TetherBase$Utils.updateClasses;
+var defer = _TetherBase$Utils.defer;
+var flush = _TetherBase$Utils.flush;
+var getScrollBarSize = _TetherBase$Utils.getScrollBarSize;
+var removeUtilElements = _TetherBase$Utils.removeUtilElements;
+
+function within(a, b) {
+  var diff = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+
+  return a + diff >= b && b >= a - diff;
+}
+
+var transformKey = (function () {
+  if (typeof document === 'undefined') {
+    return '';
+  }
+  var el = document.createElement('div');
+
+  var transforms = ['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform'];
+  for (var i = 0; i < transforms.length; ++i) {
+    var key = transforms[i];
+    if (el.style[key] !== undefined) {
+      return key;
+    }
+  }
+})();
+
+var tethers = [];
+
+var position = function position() {
+  tethers.forEach(function (tether) {
+    tether.position(false);
+  });
+  flush();
+};
+
+function now() {
+  if (typeof performance !== 'undefined' && typeof performance.now !== 'undefined') {
+    return performance.now();
+  }
+  return +new Date();
+}
+
+(function () {
+  var lastCall = null;
+  var lastDuration = null;
+  var pendingTimeout = null;
+
+  var tick = function tick() {
+    if (typeof lastDuration !== 'undefined' && lastDuration > 16) {
+      // We voluntarily throttle ourselves if we can't manage 60fps
+      lastDuration = Math.min(lastDuration - 16, 250);
+
+      // Just in case this is the last event, remember to position just once more
+      pendingTimeout = setTimeout(tick, 250);
+      return;
+    }
+
+    if (typeof lastCall !== 'undefined' && now() - lastCall < 10) {
+      // Some browsers call events a little too frequently, refuse to run more than is reasonable
+      return;
+    }
+
+    if (pendingTimeout != null) {
+      clearTimeout(pendingTimeout);
+      pendingTimeout = null;
+    }
+
+    lastCall = now();
+    position();
+    lastDuration = now() - lastCall;
+  };
+
+  if (typeof window !== 'undefined' && typeof window.addEventListener !== 'undefined') {
+    ['resize', 'scroll', 'touchmove'].forEach(function (event) {
+      window.addEventListener(event, tick);
+    });
+  }
+})();
+
+var MIRROR_LR = {
+  center: 'center',
+  left: 'right',
+  right: 'left'
+};
+
+var MIRROR_TB = {
+  middle: 'middle',
+  top: 'bottom',
+  bottom: 'top'
+};
+
+var OFFSET_MAP = {
+  top: 0,
+  left: 0,
+  middle: '50%',
+  center: '50%',
+  bottom: '100%',
+  right: '100%'
+};
+
+var autoToFixedAttachment = function autoToFixedAttachment(attachment, relativeToAttachment) {
+  var left = attachment.left;
+  var top = attachment.top;
+
+  if (left === 'auto') {
+    left = MIRROR_LR[relativeToAttachment.left];
+  }
+
+  if (top === 'auto') {
+    top = MIRROR_TB[relativeToAttachment.top];
+  }
+
+  return { left: left, top: top };
+};
+
+var attachmentToOffset = function attachmentToOffset(attachment) {
+  var left = attachment.left;
+  var top = attachment.top;
+
+  if (typeof OFFSET_MAP[attachment.left] !== 'undefined') {
+    left = OFFSET_MAP[attachment.left];
+  }
+
+  if (typeof OFFSET_MAP[attachment.top] !== 'undefined') {
+    top = OFFSET_MAP[attachment.top];
+  }
+
+  return { left: left, top: top };
+};
+
+function addOffset() {
+  var out = { top: 0, left: 0 };
+
+  for (var _len = arguments.length, offsets = Array(_len), _key = 0; _key < _len; _key++) {
+    offsets[_key] = arguments[_key];
+  }
+
+  offsets.forEach(function (_ref) {
+    var top = _ref.top;
+    var left = _ref.left;
+
+    if (typeof top === 'string') {
+      top = parseFloat(top, 10);
+    }
+    if (typeof left === 'string') {
+      left = parseFloat(left, 10);
+    }
+
+    out.top += top;
+    out.left += left;
+  });
+
+  return out;
+}
+
+function offsetToPx(offset, size) {
+  if (typeof offset.left === 'string' && offset.left.indexOf('%') !== -1) {
+    offset.left = parseFloat(offset.left, 10) / 100 * size.width;
+  }
+  if (typeof offset.top === 'string' && offset.top.indexOf('%') !== -1) {
+    offset.top = parseFloat(offset.top, 10) / 100 * size.height;
+  }
+
+  return offset;
+}
+
+var parseOffset = function parseOffset(value) {
+  var _value$split = value.split(' ');
+
+  var _value$split2 = _slicedToArray(_value$split, 2);
+
+  var top = _value$split2[0];
+  var left = _value$split2[1];
+
+  return { top: top, left: left };
+};
+var parseAttachment = parseOffset;
+
+var TetherClass = (function (_Evented) {
+  _inherits(TetherClass, _Evented);
+
+  function TetherClass(options) {
+    var _this = this;
+
+    _classCallCheck(this, TetherClass);
+
+    _get(Object.getPrototypeOf(TetherClass.prototype), 'constructor', this).call(this);
+    this.position = this.position.bind(this);
+
+    tethers.push(this);
+
+    this.history = [];
+
+    this.setOptions(options, false);
+
+    TetherBase.modules.forEach(function (module) {
+      if (typeof module.initialize !== 'undefined') {
+        module.initialize.call(_this);
+      }
+    });
+
+    this.position();
+  }
+
+  _createClass(TetherClass, [{
+    key: 'getClass',
+    value: function getClass() {
+      var key = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+      var classes = this.options.classes;
+
+      if (typeof classes !== 'undefined' && classes[key]) {
+        return this.options.classes[key];
+      } else if (this.options.classPrefix) {
+        return this.options.classPrefix + '-' + key;
+      } else {
+        return key;
+      }
+    }
+  }, {
+    key: 'setOptions',
+    value: function setOptions(options) {
+      var _this2 = this;
+
+      var pos = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
+      var defaults = {
+        offset: '0 0',
+        targetOffset: '0 0',
+        targetAttachment: 'auto auto',
+        classPrefix: 'tether'
+      };
+
+      this.options = extend(defaults, options);
+
+      var _options = this.options;
+      var element = _options.element;
+      var target = _options.target;
+      var targetModifier = _options.targetModifier;
+
+      this.element = element;
+      this.target = target;
+      this.targetModifier = targetModifier;
+
+      if (this.target === 'viewport') {
+        this.target = document.body;
+        this.targetModifier = 'visible';
+      } else if (this.target === 'scroll-handle') {
+        this.target = document.body;
+        this.targetModifier = 'scroll-handle';
+      }
+
+      ['element', 'target'].forEach(function (key) {
+        if (typeof _this2[key] === 'undefined') {
+          throw new Error('Tether Error: Both element and target must be defined');
+        }
+
+        if (typeof _this2[key].jquery !== 'undefined') {
+          _this2[key] = _this2[key][0];
+        } else if (typeof _this2[key] === 'string') {
+          _this2[key] = document.querySelector(_this2[key]);
+        }
+      });
+
+      addClass(this.element, this.getClass('element'));
+      if (!(this.options.addTargetClasses === false)) {
+        addClass(this.target, this.getClass('target'));
+      }
+
+      if (!this.options.attachment) {
+        throw new Error('Tether Error: You must provide an attachment');
+      }
+
+      this.targetAttachment = parseAttachment(this.options.targetAttachment);
+      this.attachment = parseAttachment(this.options.attachment);
+      this.offset = parseOffset(this.options.offset);
+      this.targetOffset = parseOffset(this.options.targetOffset);
+
+      if (typeof this.scrollParents !== 'undefined') {
+        this.disable();
+      }
+
+      if (this.targetModifier === 'scroll-handle') {
+        this.scrollParents = [this.target];
+      } else {
+        this.scrollParents = getScrollParents(this.target);
+      }
+
+      if (!(this.options.enabled === false)) {
+        this.enable(pos);
+      }
+    }
+  }, {
+    key: 'getTargetBounds',
+    value: function getTargetBounds() {
+      if (typeof this.targetModifier !== 'undefined') {
+        if (this.targetModifier === 'visible') {
+          if (this.target === document.body) {
+            return { top: pageYOffset, left: pageXOffset, height: innerHeight, width: innerWidth };
+          } else {
+            var bounds = getBounds(this.target);
+
+            var out = {
+              height: bounds.height,
+              width: bounds.width,
+              top: bounds.top,
+              left: bounds.left
+            };
+
+            out.height = Math.min(out.height, bounds.height - (pageYOffset - bounds.top));
+            out.height = Math.min(out.height, bounds.height - (bounds.top + bounds.height - (pageYOffset + innerHeight)));
+            out.height = Math.min(innerHeight, out.height);
+            out.height -= 2;
+
+            out.width = Math.min(out.width, bounds.width - (pageXOffset - bounds.left));
+            out.width = Math.min(out.width, bounds.width - (bounds.left + bounds.width - (pageXOffset + innerWidth)));
+            out.width = Math.min(innerWidth, out.width);
+            out.width -= 2;
+
+            if (out.top < pageYOffset) {
+              out.top = pageYOffset;
+            }
+            if (out.left < pageXOffset) {
+              out.left = pageXOffset;
+            }
+
+            return out;
+          }
+        } else if (this.targetModifier === 'scroll-handle') {
+          var bounds = undefined;
+          var target = this.target;
+          if (target === document.body) {
+            target = document.documentElement;
+
+            bounds = {
+              left: pageXOffset,
+              top: pageYOffset,
+              height: innerHeight,
+              width: innerWidth
+            };
+          } else {
+            bounds = getBounds(target);
+          }
+
+          var style = getComputedStyle(target);
+
+          var hasBottomScroll = target.scrollWidth > target.clientWidth || [style.overflow, style.overflowX].indexOf('scroll') >= 0 || this.target !== document.body;
+
+          var scrollBottom = 0;
+          if (hasBottomScroll) {
+            scrollBottom = 15;
+          }
+
+          var height = bounds.height - parseFloat(style.borderTopWidth) - parseFloat(style.borderBottomWidth) - scrollBottom;
+
+          var out = {
+            width: 15,
+            height: height * 0.975 * (height / target.scrollHeight),
+            left: bounds.left + bounds.width - parseFloat(style.borderLeftWidth) - 15
+          };
+
+          var fitAdj = 0;
+          if (height < 408 && this.target === document.body) {
+            fitAdj = -0.00011 * Math.pow(height, 2) - 0.00727 * height + 22.58;
+          }
+
+          if (this.target !== document.body) {
+            out.height = Math.max(out.height, 24);
+          }
+
+          var scrollPercentage = this.target.scrollTop / (target.scrollHeight - height);
+          out.top = scrollPercentage * (height - out.height - fitAdj) + bounds.top + parseFloat(style.borderTopWidth);
+
+          if (this.target === document.body) {
+            out.height = Math.max(out.height, 24);
+          }
+
+          return out;
+        }
+      } else {
+        return getBounds(this.target);
+      }
+    }
+  }, {
+    key: 'clearCache',
+    value: function clearCache() {
+      this._cache = {};
+    }
+  }, {
+    key: 'cache',
+    value: function cache(k, getter) {
+      // More than one module will often need the same DOM info, so
+      // we keep a cache which is cleared on each position call
+      if (typeof this._cache === 'undefined') {
+        this._cache = {};
+      }
+
+      if (typeof this._cache[k] === 'undefined') {
+        this._cache[k] = getter.call(this);
+      }
+
+      return this._cache[k];
+    }
+  }, {
+    key: 'enable',
+    value: function enable() {
+      var _this3 = this;
+
+      var pos = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+      if (!(this.options.addTargetClasses === false)) {
+        addClass(this.target, this.getClass('enabled'));
+      }
+      addClass(this.element, this.getClass('enabled'));
+      this.enabled = true;
+
+      this.scrollParents.forEach(function (parent) {
+        if (parent !== _this3.target.ownerDocument) {
+          parent.addEventListener('scroll', _this3.position);
+        }
+      });
+
+      if (pos) {
+        this.position();
+      }
+    }
+  }, {
+    key: 'disable',
+    value: function disable() {
+      var _this4 = this;
+
+      removeClass(this.target, this.getClass('enabled'));
+      removeClass(this.element, this.getClass('enabled'));
+      this.enabled = false;
+
+      if (typeof this.scrollParents !== 'undefined') {
+        this.scrollParents.forEach(function (parent) {
+          parent.removeEventListener('scroll', _this4.position);
+        });
+      }
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      var _this5 = this;
+
+      this.disable();
+
+      tethers.forEach(function (tether, i) {
+        if (tether === _this5) {
+          tethers.splice(i, 1);
+        }
+      });
+
+      // Remove any elements we were using for convenience from the DOM
+      if (tethers.length === 0) {
+        removeUtilElements();
+      }
+    }
+  }, {
+    key: 'updateAttachClasses',
+    value: function updateAttachClasses(elementAttach, targetAttach) {
+      var _this6 = this;
+
+      elementAttach = elementAttach || this.attachment;
+      targetAttach = targetAttach || this.targetAttachment;
+      var sides = ['left', 'top', 'bottom', 'right', 'middle', 'center'];
+
+      if (typeof this._addAttachClasses !== 'undefined' && this._addAttachClasses.length) {
+        // updateAttachClasses can be called more than once in a position call, so
+        // we need to clean up after ourselves such that when the last defer gets
+        // ran it doesn't add any extra classes from previous calls.
+        this._addAttachClasses.splice(0, this._addAttachClasses.length);
+      }
+
+      if (typeof this._addAttachClasses === 'undefined') {
+        this._addAttachClasses = [];
+      }
+      var add = this._addAttachClasses;
+
+      if (elementAttach.top) {
+        add.push(this.getClass('element-attached') + '-' + elementAttach.top);
+      }
+      if (elementAttach.left) {
+        add.push(this.getClass('element-attached') + '-' + elementAttach.left);
+      }
+      if (targetAttach.top) {
+        add.push(this.getClass('target-attached') + '-' + targetAttach.top);
+      }
+      if (targetAttach.left) {
+        add.push(this.getClass('target-attached') + '-' + targetAttach.left);
+      }
+
+      var all = [];
+      sides.forEach(function (side) {
+        all.push(_this6.getClass('element-attached') + '-' + side);
+        all.push(_this6.getClass('target-attached') + '-' + side);
+      });
+
+      defer(function () {
+        if (!(typeof _this6._addAttachClasses !== 'undefined')) {
+          return;
+        }
+
+        updateClasses(_this6.element, _this6._addAttachClasses, all);
+        if (!(_this6.options.addTargetClasses === false)) {
+          updateClasses(_this6.target, _this6._addAttachClasses, all);
+        }
+
+        delete _this6._addAttachClasses;
+      });
+    }
+  }, {
+    key: 'position',
+    value: function position() {
+      var _this7 = this;
+
+      var flushChanges = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
+      // flushChanges commits the changes immediately, leave true unless you are positioning multiple
+      // tethers (in which case call Tether.Utils.flush yourself when you're done)
+
+      if (!this.enabled) {
+        return;
+      }
+
+      this.clearCache();
+
+      // Turn 'auto' attachments into the appropriate corner or edge
+      var targetAttachment = autoToFixedAttachment(this.targetAttachment, this.attachment);
+
+      this.updateAttachClasses(this.attachment, targetAttachment);
+
+      var elementPos = this.cache('element-bounds', function () {
+        return getBounds(_this7.element);
+      });
+
+      var width = elementPos.width;
+      var height = elementPos.height;
+
+      if (width === 0 && height === 0 && typeof this.lastSize !== 'undefined') {
+        var _lastSize = this.lastSize;
+
+        // We cache the height and width to make it possible to position elements that are
+        // getting hidden.
+        width = _lastSize.width;
+        height = _lastSize.height;
+      } else {
+        this.lastSize = { width: width, height: height };
+      }
+
+      var targetPos = this.cache('target-bounds', function () {
+        return _this7.getTargetBounds();
+      });
+      var targetSize = targetPos;
+
+      // Get an actual px offset from the attachment
+      var offset = offsetToPx(attachmentToOffset(this.attachment), { width: width, height: height });
+      var targetOffset = offsetToPx(attachmentToOffset(targetAttachment), targetSize);
+
+      var manualOffset = offsetToPx(this.offset, { width: width, height: height });
+      var manualTargetOffset = offsetToPx(this.targetOffset, targetSize);
+
+      // Add the manually provided offset
+      offset = addOffset(offset, manualOffset);
+      targetOffset = addOffset(targetOffset, manualTargetOffset);
+
+      // It's now our goal to make (element position + offset) == (target position + target offset)
+      var left = targetPos.left + targetOffset.left - offset.left;
+      var top = targetPos.top + targetOffset.top - offset.top;
+
+      for (var i = 0; i < TetherBase.modules.length; ++i) {
+        var _module2 = TetherBase.modules[i];
+        var ret = _module2.position.call(this, {
+          left: left,
+          top: top,
+          targetAttachment: targetAttachment,
+          targetPos: targetPos,
+          elementPos: elementPos,
+          offset: offset,
+          targetOffset: targetOffset,
+          manualOffset: manualOffset,
+          manualTargetOffset: manualTargetOffset,
+          scrollbarSize: scrollbarSize,
+          attachment: this.attachment
+        });
+
+        if (ret === false) {
+          return false;
+        } else if (typeof ret === 'undefined' || typeof ret !== 'object') {
+          continue;
+        } else {
+          top = ret.top;
+          left = ret.left;
+        }
+      }
+
+      // We describe the position three different ways to give the optimizer
+      // a chance to decide the best possible way to position the element
+      // with the fewest repaints.
+      var next = {
+        // It's position relative to the page (absolute positioning when
+        // the element is a child of the body)
+        page: {
+          top: top,
+          left: left
+        },
+
+        // It's position relative to the viewport (fixed positioning)
+        viewport: {
+          top: top - pageYOffset,
+          bottom: pageYOffset - top - height + innerHeight,
+          left: left - pageXOffset,
+          right: pageXOffset - left - width + innerWidth
+        }
+      };
+
+      var doc = this.target.ownerDocument;
+      var win = doc.defaultView;
+
+      var scrollbarSize = undefined;
+      if (win.innerHeight > doc.documentElement.clientHeight) {
+        scrollbarSize = this.cache('scrollbar-size', getScrollBarSize);
+        next.viewport.bottom -= scrollbarSize.height;
+      }
+
+      if (win.innerWidth > doc.documentElement.clientWidth) {
+        scrollbarSize = this.cache('scrollbar-size', getScrollBarSize);
+        next.viewport.right -= scrollbarSize.width;
+      }
+
+      if (['', 'static'].indexOf(doc.body.style.position) === -1 || ['', 'static'].indexOf(doc.body.parentElement.style.position) === -1) {
+        // Absolute positioning in the body will be relative to the page, not the 'initial containing block'
+        next.page.bottom = doc.body.scrollHeight - top - height;
+        next.page.right = doc.body.scrollWidth - left - width;
+      }
+
+      if (typeof this.options.optimizations !== 'undefined' && this.options.optimizations.moveElement !== false && !(typeof this.targetModifier !== 'undefined')) {
+        (function () {
+          var offsetParent = _this7.cache('target-offsetparent', function () {
+            return getOffsetParent(_this7.target);
+          });
+          var offsetPosition = _this7.cache('target-offsetparent-bounds', function () {
+            return getBounds(offsetParent);
+          });
+          var offsetParentStyle = getComputedStyle(offsetParent);
+          var offsetParentSize = offsetPosition;
+
+          var offsetBorder = {};
+          ['Top', 'Left', 'Bottom', 'Right'].forEach(function (side) {
+            offsetBorder[side.toLowerCase()] = parseFloat(offsetParentStyle['border' + side + 'Width']);
+          });
+
+          offsetPosition.right = doc.body.scrollWidth - offsetPosition.left - offsetParentSize.width + offsetBorder.right;
+          offsetPosition.bottom = doc.body.scrollHeight - offsetPosition.top - offsetParentSize.height + offsetBorder.bottom;
+
+          if (next.page.top >= offsetPosition.top + offsetBorder.top && next.page.bottom >= offsetPosition.bottom) {
+            if (next.page.left >= offsetPosition.left + offsetBorder.left && next.page.right >= offsetPosition.right) {
+              // We're within the visible part of the target's scroll parent
+              var scrollTop = offsetParent.scrollTop;
+              var scrollLeft = offsetParent.scrollLeft;
+
+              // It's position relative to the target's offset parent (absolute positioning when
+              // the element is moved to be a child of the target's offset parent).
+              next.offset = {
+                top: next.page.top - offsetPosition.top + scrollTop - offsetBorder.top,
+                left: next.page.left - offsetPosition.left + scrollLeft - offsetBorder.left
+              };
+            }
+          }
+        })();
+      }
+
+      // We could also travel up the DOM and try each containing context, rather than only
+      // looking at the body, but we're gonna get diminishing returns.
+
+      this.move(next);
+
+      this.history.unshift(next);
+
+      if (this.history.length > 3) {
+        this.history.pop();
+      }
+
+      if (flushChanges) {
+        flush();
+      }
+
+      return true;
+    }
+
+    // THE ISSUE
+  }, {
+    key: 'move',
+    value: function move(pos) {
+      var _this8 = this;
+
+      if (!(typeof this.element.parentNode !== 'undefined')) {
+        return;
+      }
+
+      var same = {};
+
+      for (var type in pos) {
+        same[type] = {};
+
+        for (var key in pos[type]) {
+          var found = false;
+
+          for (var i = 0; i < this.history.length; ++i) {
+            var point = this.history[i];
+            if (typeof point[type] !== 'undefined' && !within(point[type][key], pos[type][key])) {
+              found = true;
+              break;
+            }
+          }
+
+          if (!found) {
+            same[type][key] = true;
+          }
+        }
+      }
+
+      var css = { top: '', left: '', right: '', bottom: '' };
+
+      var transcribe = function transcribe(_same, _pos) {
+        var hasOptimizations = typeof _this8.options.optimizations !== 'undefined';
+        var gpu = hasOptimizations ? _this8.options.optimizations.gpu : null;
+        if (gpu !== false) {
+          var yPos = undefined,
+              xPos = undefined;
+          if (_same.top) {
+            css.top = 0;
+            yPos = _pos.top;
+          } else {
+            css.bottom = 0;
+            yPos = -_pos.bottom;
+          }
+
+          if (_same.left) {
+            css.left = 0;
+            xPos = _pos.left;
+          } else {
+            css.right = 0;
+            xPos = -_pos.right;
+          }
+
+          if (window.matchMedia) {
+            // HubSpot/tether#207
+            var retina = window.matchMedia('only screen and (min-resolution: 1.3dppx)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3)').matches;
+            if (!retina) {
+              xPos = Math.round(xPos);
+              yPos = Math.round(yPos);
+            }
+          }
+
+          css[transformKey] = 'translateX(' + xPos + 'px) translateY(' + yPos + 'px)';
+
+          if (transformKey !== 'msTransform') {
+            // The Z transform will keep this in the GPU (faster, and prevents artifacts),
+            // but IE9 doesn't support 3d transforms and will choke.
+            css[transformKey] += " translateZ(0)";
+          }
+        } else {
+          if (_same.top) {
+            css.top = _pos.top + 'px';
+          } else {
+            css.bottom = _pos.bottom + 'px';
+          }
+
+          if (_same.left) {
+            css.left = _pos.left + 'px';
+          } else {
+            css.right = _pos.right + 'px';
+          }
+        }
+      };
+
+      var moved = false;
+      if ((same.page.top || same.page.bottom) && (same.page.left || same.page.right)) {
+        css.position = 'absolute';
+        transcribe(same.page, pos.page);
+      } else if ((same.viewport.top || same.viewport.bottom) && (same.viewport.left || same.viewport.right)) {
+        css.position = 'fixed';
+        transcribe(same.viewport, pos.viewport);
+      } else if (typeof same.offset !== 'undefined' && same.offset.top && same.offset.left) {
+        (function () {
+          css.position = 'absolute';
+          var offsetParent = _this8.cache('target-offsetparent', function () {
+            return getOffsetParent(_this8.target);
+          });
+
+          if (getOffsetParent(_this8.element) !== offsetParent) {
+            defer(function () {
+              _this8.element.parentNode.removeChild(_this8.element);
+              offsetParent.appendChild(_this8.element);
+            });
+          }
+
+          transcribe(same.offset, pos.offset);
+          moved = true;
+        })();
+      } else {
+        css.position = 'absolute';
+        transcribe({ top: true, left: true }, pos.page);
+      }
+
+      if (!moved) {
+        if (this.options.bodyElement) {
+          this.options.bodyElement.appendChild(this.element);
+        } else {
+          var offsetParentIsBody = true;
+          var currentNode = this.element.parentNode;
+          while (currentNode && currentNode.nodeType === 1 && currentNode.tagName !== 'BODY') {
+            if (getComputedStyle(currentNode).position !== 'static') {
+              offsetParentIsBody = false;
+              break;
+            }
+
+            currentNode = currentNode.parentNode;
+          }
+
+          if (!offsetParentIsBody) {
+            this.element.parentNode.removeChild(this.element);
+            this.element.ownerDocument.body.appendChild(this.element);
+          }
+        }
+      }
+
+      // Any css change will trigger a repaint, so let's avoid one if nothing changed
+      var writeCSS = {};
+      var write = false;
+      for (var key in css) {
+        var val = css[key];
+        var elVal = this.element.style[key];
+
+        if (elVal !== val) {
+          write = true;
+          writeCSS[key] = val;
+        }
+      }
+
+      if (write) {
+        defer(function () {
+          extend(_this8.element.style, writeCSS);
+          _this8.trigger('repositioned');
+        });
+      }
+    }
+  }]);
+
+  return TetherClass;
+})(Evented);
+
+TetherClass.modules = [];
+
+TetherBase.position = position;
+
+var Tether = extend(TetherClass, TetherBase);
+/* globals TetherBase */
+
+'use strict';
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
+var _TetherBase$Utils = TetherBase.Utils;
+var getBounds = _TetherBase$Utils.getBounds;
+var extend = _TetherBase$Utils.extend;
+var updateClasses = _TetherBase$Utils.updateClasses;
+var defer = _TetherBase$Utils.defer;
+
+var BOUNDS_FORMAT = ['left', 'top', 'right', 'bottom'];
+
+function getBoundingRect(tether, to) {
+  if (to === 'scrollParent') {
+    to = tether.scrollParents[0];
+  } else if (to === 'window') {
+    to = [pageXOffset, pageYOffset, innerWidth + pageXOffset, innerHeight + pageYOffset];
+  }
+
+  if (to === document) {
+    to = to.documentElement;
+  }
+
+  if (typeof to.nodeType !== 'undefined') {
+    (function () {
+      var node = to;
+      var size = getBounds(to);
+      var pos = size;
+      var style = getComputedStyle(to);
+
+      to = [pos.left, pos.top, size.width + pos.left, size.height + pos.top];
+
+      // Account any parent Frames scroll offset
+      if (node.ownerDocument !== document) {
+        var win = node.ownerDocument.defaultView;
+        to[0] += win.pageXOffset;
+        to[1] += win.pageYOffset;
+        to[2] += win.pageXOffset;
+        to[3] += win.pageYOffset;
+      }
+
+      BOUNDS_FORMAT.forEach(function (side, i) {
+        side = side[0].toUpperCase() + side.substr(1);
+        if (side === 'Top' || side === 'Left') {
+          to[i] += parseFloat(style['border' + side + 'Width']);
+        } else {
+          to[i] -= parseFloat(style['border' + side + 'Width']);
+        }
+      });
+    })();
+  }
+
+  return to;
+}
+
+TetherBase.modules.push({
+  position: function position(_ref) {
+    var _this = this;
+
+    var top = _ref.top;
+    var left = _ref.left;
+    var targetAttachment = _ref.targetAttachment;
+
+    if (!this.options.constraints) {
+      return true;
+    }
+
+    var _cache = this.cache('element-bounds', function () {
+      return getBounds(_this.element);
+    });
+
+    var height = _cache.height;
+    var width = _cache.width;
+
+    if (width === 0 && height === 0 && typeof this.lastSize !== 'undefined') {
+      var _lastSize = this.lastSize;
+
+      // Handle the item getting hidden as a result of our positioning without glitching
+      // the classes in and out
+      width = _lastSize.width;
+      height = _lastSize.height;
+    }
+
+    var targetSize = this.cache('target-bounds', function () {
+      return _this.getTargetBounds();
+    });
+
+    var targetHeight = targetSize.height;
+    var targetWidth = targetSize.width;
+
+    var allClasses = [this.getClass('pinned'), this.getClass('out-of-bounds')];
+
+    this.options.constraints.forEach(function (constraint) {
+      var outOfBoundsClass = constraint.outOfBoundsClass;
+      var pinnedClass = constraint.pinnedClass;
+
+      if (outOfBoundsClass) {
+        allClasses.push(outOfBoundsClass);
+      }
+      if (pinnedClass) {
+        allClasses.push(pinnedClass);
+      }
+    });
+
+    allClasses.forEach(function (cls) {
+      ['left', 'top', 'right', 'bottom'].forEach(function (side) {
+        allClasses.push(cls + '-' + side);
+      });
+    });
+
+    var addClasses = [];
+
+    var tAttachment = extend({}, targetAttachment);
+    var eAttachment = extend({}, this.attachment);
+
+    this.options.constraints.forEach(function (constraint) {
+      var to = constraint.to;
+      var attachment = constraint.attachment;
+      var pin = constraint.pin;
+
+      if (typeof attachment === 'undefined') {
+        attachment = '';
+      }
+
+      var changeAttachX = undefined,
+          changeAttachY = undefined;
+      if (attachment.indexOf(' ') >= 0) {
+        var _attachment$split = attachment.split(' ');
+
+        var _attachment$split2 = _slicedToArray(_attachment$split, 2);
+
+        changeAttachY = _attachment$split2[0];
+        changeAttachX = _attachment$split2[1];
+      } else {
+        changeAttachX = changeAttachY = attachment;
+      }
+
+      var bounds = getBoundingRect(_this, to);
+
+      if (changeAttachY === 'target' || changeAttachY === 'both') {
+        if (top < bounds[1] && tAttachment.top === 'top') {
+          top += targetHeight;
+          tAttachment.top = 'bottom';
+        }
+
+        if (top + height > bounds[3] && tAttachment.top === 'bottom') {
+          top -= targetHeight;
+          tAttachment.top = 'top';
+        }
+      }
+
+      if (changeAttachY === 'together') {
+        if (tAttachment.top === 'top') {
+          if (eAttachment.top === 'bottom' && top < bounds[1]) {
+            top += targetHeight;
+            tAttachment.top = 'bottom';
+
+            top += height;
+            eAttachment.top = 'top';
+          } else if (eAttachment.top === 'top' && top + height > bounds[3] && top - (height - targetHeight) >= bounds[1]) {
+            top -= height - targetHeight;
+            tAttachment.top = 'bottom';
+
+            eAttachment.top = 'bottom';
+          }
+        }
+
+        if (tAttachment.top === 'bottom') {
+          if (eAttachment.top === 'top' && top + height > bounds[3]) {
+            top -= targetHeight;
+            tAttachment.top = 'top';
+
+            top -= height;
+            eAttachment.top = 'bottom';
+          } else if (eAttachment.top === 'bottom' && top < bounds[1] && top + (height * 2 - targetHeight) <= bounds[3]) {
+            top += height - targetHeight;
+            tAttachment.top = 'top';
+
+            eAttachment.top = 'top';
+          }
+        }
+
+        if (tAttachment.top === 'middle') {
+          if (top + height > bounds[3] && eAttachment.top === 'top') {
+            top -= height;
+            eAttachment.top = 'bottom';
+          } else if (top < bounds[1] && eAttachment.top === 'bottom') {
+            top += height;
+            eAttachment.top = 'top';
+          }
+        }
+      }
+
+      if (changeAttachX === 'target' || changeAttachX === 'both') {
+        if (left < bounds[0] && tAttachment.left === 'left') {
+          left += targetWidth;
+          tAttachment.left = 'right';
+        }
+
+        if (left + width > bounds[2] && tAttachment.left === 'right') {
+          left -= targetWidth;
+          tAttachment.left = 'left';
+        }
+      }
+
+      if (changeAttachX === 'together') {
+        if (left < bounds[0] && tAttachment.left === 'left') {
+          if (eAttachment.left === 'right') {
+            left += targetWidth;
+            tAttachment.left = 'right';
+
+            left += width;
+            eAttachment.left = 'left';
+          } else if (eAttachment.left === 'left') {
+            left += targetWidth;
+            tAttachment.left = 'right';
+
+            left -= width;
+            eAttachment.left = 'right';
+          }
+        } else if (left + width > bounds[2] && tAttachment.left === 'right') {
+          if (eAttachment.left === 'left') {
+            left -= targetWidth;
+            tAttachment.left = 'left';
+
+            left -= width;
+            eAttachment.left = 'right';
+          } else if (eAttachment.left === 'right') {
+            left -= targetWidth;
+            tAttachment.left = 'left';
+
+            left += width;
+            eAttachment.left = 'left';
+          }
+        } else if (tAttachment.left === 'center') {
+          if (left + width > bounds[2] && eAttachment.left === 'left') {
+            left -= width;
+            eAttachment.left = 'right';
+          } else if (left < bounds[0] && eAttachment.left === 'right') {
+            left += width;
+            eAttachment.left = 'left';
+          }
+        }
+      }
+
+      if (changeAttachY === 'element' || changeAttachY === 'both') {
+        if (top < bounds[1] && eAttachment.top === 'bottom') {
+          top += height;
+          eAttachment.top = 'top';
+        }
+
+        if (top + height > bounds[3] && eAttachment.top === 'top') {
+          top -= height;
+          eAttachment.top = 'bottom';
+        }
+      }
+
+      if (changeAttachX === 'element' || changeAttachX === 'both') {
+        if (left < bounds[0]) {
+          if (eAttachment.left === 'right') {
+            left += width;
+            eAttachment.left = 'left';
+          } else if (eAttachment.left === 'center') {
+            left += width / 2;
+            eAttachment.left = 'left';
+          }
+        }
+
+        if (left + width > bounds[2]) {
+          if (eAttachment.left === 'left') {
+            left -= width;
+            eAttachment.left = 'right';
+          } else if (eAttachment.left === 'center') {
+            left -= width / 2;
+            eAttachment.left = 'right';
+          }
+        }
+      }
+
+      if (typeof pin === 'string') {
+        pin = pin.split(',').map(function (p) {
+          return p.trim();
+        });
+      } else if (pin === true) {
+        pin = ['top', 'left', 'right', 'bottom'];
+      }
+
+      pin = pin || [];
+
+      var pinned = [];
+      var oob = [];
+
+      if (top < bounds[1]) {
+        if (pin.indexOf('top') >= 0) {
+          top = bounds[1];
+          pinned.push('top');
+        } else {
+          oob.push('top');
+        }
+      }
+
+      if (top + height > bounds[3]) {
+        if (pin.indexOf('bottom') >= 0) {
+          top = bounds[3] - height;
+          pinned.push('bottom');
+        } else {
+          oob.push('bottom');
+        }
+      }
+
+      if (left < bounds[0]) {
+        if (pin.indexOf('left') >= 0) {
+          left = bounds[0];
+          pinned.push('left');
+        } else {
+          oob.push('left');
+        }
+      }
+
+      if (left + width > bounds[2]) {
+        if (pin.indexOf('right') >= 0) {
+          left = bounds[2] - width;
+          pinned.push('right');
+        } else {
+          oob.push('right');
+        }
+      }
+
+      if (pinned.length) {
+        (function () {
+          var pinnedClass = undefined;
+          if (typeof _this.options.pinnedClass !== 'undefined') {
+            pinnedClass = _this.options.pinnedClass;
+          } else {
+            pinnedClass = _this.getClass('pinned');
+          }
+
+          addClasses.push(pinnedClass);
+          pinned.forEach(function (side) {
+            addClasses.push(pinnedClass + '-' + side);
+          });
+        })();
+      }
+
+      if (oob.length) {
+        (function () {
+          var oobClass = undefined;
+          if (typeof _this.options.outOfBoundsClass !== 'undefined') {
+            oobClass = _this.options.outOfBoundsClass;
+          } else {
+            oobClass = _this.getClass('out-of-bounds');
+          }
+
+          addClasses.push(oobClass);
+          oob.forEach(function (side) {
+            addClasses.push(oobClass + '-' + side);
+          });
+        })();
+      }
+
+      if (pinned.indexOf('left') >= 0 || pinned.indexOf('right') >= 0) {
+        eAttachment.left = tAttachment.left = false;
+      }
+      if (pinned.indexOf('top') >= 0 || pinned.indexOf('bottom') >= 0) {
+        eAttachment.top = tAttachment.top = false;
+      }
+
+      if (tAttachment.top !== targetAttachment.top || tAttachment.left !== targetAttachment.left || eAttachment.top !== _this.attachment.top || eAttachment.left !== _this.attachment.left) {
+        _this.updateAttachClasses(eAttachment, tAttachment);
+        _this.trigger('update', {
+          attachment: eAttachment,
+          targetAttachment: tAttachment
+        });
+      }
+    });
+
+    defer(function () {
+      if (!(_this.options.addTargetClasses === false)) {
+        updateClasses(_this.target, addClasses, allClasses);
+      }
+      updateClasses(_this.element, addClasses, allClasses);
+    });
+
+    return { top: top, left: left };
+  }
+});
+/* globals TetherBase */
+
+'use strict';
+
+var _TetherBase$Utils = TetherBase.Utils;
+var getBounds = _TetherBase$Utils.getBounds;
+var updateClasses = _TetherBase$Utils.updateClasses;
+var defer = _TetherBase$Utils.defer;
+
+TetherBase.modules.push({
+  position: function position(_ref) {
+    var _this = this;
+
+    var top = _ref.top;
+    var left = _ref.left;
+
+    var _cache = this.cache('element-bounds', function () {
+      return getBounds(_this.element);
+    });
+
+    var height = _cache.height;
+    var width = _cache.width;
+
+    var targetPos = this.getTargetBounds();
+
+    var bottom = top + height;
+    var right = left + width;
+
+    var abutted = [];
+    if (top <= targetPos.bottom && bottom >= targetPos.top) {
+      ['left', 'right'].forEach(function (side) {
+        var targetPosSide = targetPos[side];
+        if (targetPosSide === left || targetPosSide === right) {
+          abutted.push(side);
+        }
+      });
+    }
+
+    if (left <= targetPos.right && right >= targetPos.left) {
+      ['top', 'bottom'].forEach(function (side) {
+        var targetPosSide = targetPos[side];
+        if (targetPosSide === top || targetPosSide === bottom) {
+          abutted.push(side);
+        }
+      });
+    }
+
+    var allClasses = [];
+    var addClasses = [];
+
+    var sides = ['left', 'top', 'right', 'bottom'];
+    allClasses.push(this.getClass('abutted'));
+    sides.forEach(function (side) {
+      allClasses.push(_this.getClass('abutted') + '-' + side);
+    });
+
+    if (abutted.length) {
+      addClasses.push(this.getClass('abutted'));
+    }
+
+    abutted.forEach(function (side) {
+      addClasses.push(_this.getClass('abutted') + '-' + side);
+    });
+
+    defer(function () {
+      if (!(_this.options.addTargetClasses === false)) {
+        updateClasses(_this.target, addClasses, allClasses);
+      }
+      updateClasses(_this.element, addClasses, allClasses);
+    });
+
+    return true;
+  }
+});
+/* globals TetherBase */
+
+'use strict';
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
+TetherBase.modules.push({
+  position: function position(_ref) {
+    var top = _ref.top;
+    var left = _ref.left;
+
+    if (!this.options.shift) {
+      return;
+    }
+
+    var shift = this.options.shift;
+    if (typeof this.options.shift === 'function') {
+      shift = this.options.shift.call(this, { top: top, left: left });
+    }
+
+    var shiftTop = undefined,
+        shiftLeft = undefined;
+    if (typeof shift === 'string') {
+      shift = shift.split(' ');
+      shift[1] = shift[1] || shift[0];
+
+      var _shift = shift;
+
+      var _shift2 = _slicedToArray(_shift, 2);
+
+      shiftTop = _shift2[0];
+      shiftLeft = _shift2[1];
+
+      shiftTop = parseFloat(shiftTop, 10);
+      shiftLeft = parseFloat(shiftLeft, 10);
+    } else {
+      shiftTop = shift.top;
+      shiftLeft = shift.left;
+    }
+
+    top += shiftTop;
+    left += shiftLeft;
+
+    return { top: top, left: left };
+  }
+});
+return Tether;
+
+}));
+
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(42),
   /* scopeId */
   null,
   /* cssModules */
@@ -31876,14 +36686,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(43),
   /* scopeId */
   null,
   /* cssModules */
@@ -31910,14 +36720,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(44),
   /* scopeId */
   null,
   /* cssModules */
@@ -31944,7 +36754,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31972,7 +36782,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32037,7 +36847,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addItem(_vm.group.id)
       }
     }
-  }, [_vm._v("\n                                                Add Item "), _c('i', {
+  }, [_vm._v("Add Item "), _c('i', {
     staticClass: "fa fa-plus"
   })])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32052,7 +36862,7 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32122,6 +36932,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.item.amount = $event.target.value
       }
     }
+  })]), _vm._v(" "), _c('td', [_c('i', {
+    staticClass: "fa fa-times pull-right",
+    attrs: {
+      "aria-hidden": "true"
+    },
+    on: {
+      "click": function($event) {
+        _vm.deleteItem()
+      }
+    }
   })])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -32133,7 +36953,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41386,7 +46206,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(10)))
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -41414,7 +46234,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
