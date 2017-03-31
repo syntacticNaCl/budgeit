@@ -27,18 +27,7 @@ class BudgetGroupController extends Controller
      */
     public function index()
     {
-        return view('budget');
-    }
-
-    public function getBudgetGroups()
-    {
-        $user = Auth::user();
-
-        return response()->json(
-            [
-                'budgetGroups'   => $user->groups()->orderBy('order')->get()
-            ]
-        );
+        return Auth::user()->groups()->orderBy('order')->get();
     }
 
     /**
@@ -64,7 +53,7 @@ class BudgetGroupController extends Controller
         $group->save();
 
 
-        return redirect('budget');
+        return redirect('budget')->with('status', 'Success');
     }
 
     /**
@@ -108,13 +97,10 @@ class BudgetGroupController extends Controller
      * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BudgetGroup $budgetGroup)
     {
-        $budgetGroup = BudgetGroup::find($id);
         $budgetGroup->delete();
 
-        return response()->json([
-            'status' => 'success'
-        ]);
+        return redirect('budget')->with('status', 'Success');
     }
 }

@@ -24,4 +24,5 @@ class Transaction extends Model
 
     public function currency() {
         return $this->belongsTo('Budgeit\Currency');
-    }}
+    }
+}

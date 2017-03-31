@@ -25,10 +25,9 @@ Route::get('budget', function() {
     return view('budget');
 })->middleware('auth');
 
-Route::get('/budget_groups', 'BudgetGroupController@getBudgetGroups');
 Route::resource('budget_groups', 'BudgetGroupController', [
     'except' => [
-        'create', 'edit', 'index'
+        'create', 'edit'
     ]
 ]);
 
@@ -42,6 +41,6 @@ Route::get('/budget_groups/{id}/items', function($id){
 
 Route::resource('budget_items', 'BudgetItemController', [
     'except' => [
-        'create', 'edit', 'index'
+        'create', 'edit'
     ]
 ]);

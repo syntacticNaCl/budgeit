@@ -95,6 +95,12 @@ class BudgetItemController extends Controller
         ]);
     }
 
+    /**
+     * Destroy item.
+     *
+     * @param int $id
+     * @return Response 
+     */
     public function destroy($id)
     {
         $item = BudgetItem::find($id);
