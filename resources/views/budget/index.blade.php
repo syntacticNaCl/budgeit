@@ -6,8 +6,7 @@
             @include('budget.side', ['incomeTotal' => $incomeTotal, 'expenseTotal' => $expenseTotal, 'amountRemaining' => $amountRemaining])
             <div class="col-sm-12 col-md-8 col-md-pull-4">
                 <div class="panel-heading">Budget
-                    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addBudgetGroupModal">+ Create Budget Group
-                    </button>
+                    <button class="btn btn-default pull-right" data-toggle="modal" data-target="#addBudgetGroupModal" id="add_budget_group">Create Budget Group</button>
                 </div>
                 <budget></budget>
             </div>

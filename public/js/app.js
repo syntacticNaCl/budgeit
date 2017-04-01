@@ -12220,7 +12220,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         editGroup: function editGroup() {
             var vm = this;
             this.editing = false;
-            axios.patch('/budget_groups/' + this.id, this.group).then(function (res) {
+            axios.patch('/budget_groups/' + this.group.id, this.group).then(function (res) {
                 console.log(res);
             }).catch(function (err) {
                 console.log(err);
@@ -36847,9 +36847,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addItem(_vm.group.id)
       }
     }
-  }, [_vm._v("Add Item "), _c('i', {
-    staticClass: "fa fa-plus"
-  })])])])
+  }, [_vm._v("Add Item")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("\n                        Name\n                    ")]), _vm._v(" "), _c('th', [_vm._v("\n                        Amount\n                    ")])])])
 }]}

@@ -28,19 +28,13 @@ class BudgetItemController extends Controller
 
     public function update(BudgetItemRequest $request, BudgetItem $budgetItem)
     {
-        $user = Auth::user();
-        $id = $request->input('id');
-
-        $budgetItem = BudgetItem::find($id);
         $budgetItem->name = $request->input('name');
         $budgetItem->amount = $request->input('amount');
         $budgetItem->type = $request->input('type');
 
         $budgetItem->save();
 
-        return response()->json([
-            'success'
-        ]);
+        return response('success');
     }
 
 
@@ -89,10 +83,7 @@ class BudgetItemController extends Controller
 
         $item->groups()->attach($groupId);
 
-        // return redirect('budget')->with('item', [$item->inserted]);
-        return response()->json([
-            'item_id' => $item->id
-        ]);
+        return response('success');
     }
 
     /**
@@ -101,14 +92,12 @@ class BudgetItemController extends Controller
      * @param int $id
      * @return Response 
      */
-    public function destroy($id)
+    public function destroy(BudgetItem $budgetItem)
     {
-        $item = BudgetItem::find($id);
-        $item->delete();
 
-        return response()->json([
-            'success'
-        ]);
+        $budgetItem->delete();
+
+        return response('success');
 
     }
 }

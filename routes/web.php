@@ -28,11 +28,7 @@ Route::get('budget', function() {
     $expenseTotal = $user->items()->where('type', 'expense')->sum('amount');
     $amountRemaining = (int) $incomeTotal - (int) $expenseTotal;
 
-    return view('budget.index', [
-        'incomeTotal' => $incomeTotal,
-        'expenseTotal' => $expenseTotal,
-        'amountRemaining' => $amountRemaining
-    ]);
+    return view('budget.index', compact('incomeTotal', 'expenseTotal', 'amountRemaining'));
 })->middleware('auth');
 
 Route::resource('budget_groups', 'BudgetGroupController', [

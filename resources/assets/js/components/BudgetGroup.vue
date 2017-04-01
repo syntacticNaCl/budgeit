@@ -21,7 +21,7 @@
                     <item v-for="item in items" :item="item"></item>
                 </tbody>
             </table>
-            <button @click="addItem(group.id)">Add Item <i class="fa fa-plus"></i></button>
+            <button @click="addItem(group.id)">Add Item</button>
         </div>
     </div>
 </template>

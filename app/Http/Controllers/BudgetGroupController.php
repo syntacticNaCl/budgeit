@@ -40,9 +40,9 @@ class BudgetGroupController extends Controller
 
         $lastOrder = $group->getLastOrder();
 
-        $group->name = request('name');
+        $group->name = $request->input('name');
 
-        $group->type = request('type');
+        $group->type = $request->input('type');
 
         $group->order = $lastOrder + 1;
 
@@ -62,8 +62,8 @@ class BudgetGroupController extends Controller
      */
     public function update(BudgetGroup $budgetGroup, BudgetGroupRequest $request)
     {
-        $budgetGroup->name = request('name');
-        $budgetGroup->order = request('order');
+        $budgetGroup->name = $request->input('name');
+        $budgetGroup->order = $request->input('order');
         $budgetGroup->save();
 
         return response('success');
