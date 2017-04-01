@@ -50,7 +50,7 @@
             editGroup: function() {
                 let vm = this;
                 this.editing = false;
-                axios.patch('/budget_groups/' + this.id, this.group)
+                axios.patch('/budget_groups/' + this.group.id, this.group)
                     .then(function(res) {
                         console.log(res);
                     }).catch(function(err) {

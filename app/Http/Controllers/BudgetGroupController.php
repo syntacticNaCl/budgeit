@@ -4,11 +4,8 @@ namespace Budgeit\Http\Controllers;
 
 use Budgeit\BudgetGroup;
 use Budgeit\BudgetItem;
-use Budgeit\User;
-use Budgeit\Category;
 use Budgeit\Http\Requests\BudgetGroupRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class BudgetGroupController extends Controller
 {
@@ -38,14 +35,14 @@ class BudgetGroupController extends Controller
      */
     public function store(BudgetGroupRequest $request)
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = Auth::user();
         $group = new BudgetGroup();
 
-        $lastOrder = DB::table('budget_groups')->where('user_id', Auth::user()->id)->max('order');
+        $lastOrder = $group->getLastOrder();
 
-        $group->name = $request->input('name');
+        $group->name = request('name');
 
-        $group->type = $request->input('type');
+        $group->type = request('type');
 
         $group->order = $lastOrder + 1;
 
@@ -57,38 +54,19 @@ class BudgetGroupController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \Budgeit\Budget $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Budget $budget)
-    {
- //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Budgeit\Http\Requests\BudgetGroupRequest $request
      * @param  \Budgeit\BudgetGroup $budgetGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(BudgetGroupRequest $request, BudgetGroup $budgetGroup)
+    public function update(BudgetGroup $budgetGroup, BudgetGroupRequest $request)
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $order = $request->input('order');
-
-        $budgetGroup = BudgetGroup::find($id);
-
-        $budgetGroup->name = $name;
-        $budgetGroup->order = $order;
+        $budgetGroup->name = request('name');
+        $budgetGroup->order = request('order');
         $budgetGroup->save();
 
-        return response()->json([
-            'status' => 'success'
-        ]);
+        return response('success');
     }
 
     /**
@@ -101,6 +79,6 @@ class BudgetGroupController extends Controller
     {
         $budgetGroup->delete();
 
-        return redirect('budget')->with('status', 'Success');
+        return response('success');
     }
 }
