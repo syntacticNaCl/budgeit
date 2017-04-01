@@ -33,6 +33,9 @@
                                 <a href="{{ url('/Overview') }}">Overview</a>
                             </li>
                             <li>
+                                <a href="{{ url('/plan') }}">Plan</a>
+                            </li>
+                            <li>
                                 <a href="{{ url('/transactions') }}">Transactions</a>
                             </li>
                         @endif
