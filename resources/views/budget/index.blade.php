@@ -31,12 +31,12 @@
 
                     <div class="form-group">
                         {!! Form::label('name','Name') !!}
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required'] ) !!}
                     </div>
                     
                     <div class="form-group">
                         {!! Form::label('type','Type') !!}
-                        {!! Form::select('type', ['income' => 'Income', 'expense' => 'Expense'], ['class' => 'form-control'], ['placeholder' => 'Select']) !!}
+                        {!! Form::select('type', ['income' => 'Income', 'expense' => 'Expense'], ['class' => 'form-control'], ['placeholder' => 'Select', 'required' => 'required']) !!}
                     </div>
 
                     <div class="modal-footer">
