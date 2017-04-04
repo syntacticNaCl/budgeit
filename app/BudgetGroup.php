@@ -14,12 +14,12 @@ class BudgetGroup extends Model
 
     public function user() 
     {
-        return $this->belongsTo('Budgeit\User');
+        return $this->belongsTo(User::class);
     }
 
     public function items() 
     {
-        return $this->belongsToMany('Budgeit\BudgetItem');
+        return $this->belongsToMany(BudgetItem::class);
     }
 
     public function getLastOrder() 

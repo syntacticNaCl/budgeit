@@ -24,7 +24,7 @@ class BudgetGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required',
+            'name' => 'required',
             'note' => '',
             'type' => 'required',
             'order' => 'integer'

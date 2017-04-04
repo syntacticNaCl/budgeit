@@ -29,11 +29,11 @@ class User extends Authenticatable
 
     public function groups() 
     {
-        return $this->hasMany('Budgeit\BudgetGroup');
+        return $this->hasMany(BudgetGroup::class);
     }
 
     public function items() 
     {
-        return $this->hasMany('Budgeit\BudgetItem');
+        return $this->hasMany(BudgetItem::class);
     }
 }
