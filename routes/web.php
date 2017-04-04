@@ -38,8 +38,8 @@ Route::resource('budget_groups', 'BudgetGroupController', [
 ]);
 
 Route::get('/budget_groups/{id}/items', function($id){
-    $group = BudgetGroup::find($id);
-
+    $group = BudgetGroup::find($id); 
+    
     return response()->json([
         'items' => $group->items()->orderBy('order')->get()
     ]);
@@ -50,3 +50,14 @@ Route::resource('budget_items', 'BudgetItemController', [
         'create', 'edit'
     ]
 ]);
+
+Route::get('/overview', function(){
+    $user = Auth::user();
+
+    $incomeTotal = $user->items()->where('type', 'income')->sum('amount');
+    $expenseTotal = $user->items()->where('type', 'expense')->sum('amount');
+    $amountRemaining = (int) $incomeTotal - (int) $expenseTotal;
+    $debtTotal = $user->items()->where('type', 'debt')->sum('amount');
+
+    return view('overview.index', compact('incomeTotal', 'expenseTotal', 'amountRemaining', 'debtTotal'));
+})->middleware('auth');

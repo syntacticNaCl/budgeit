@@ -30,7 +30,7 @@
                                 <a href="{{ url('/budget') }}">Budget</a>
                             </li>
                             <li>
-                                <a href="{{ url('/Overview') }}">Overview</a>
+                                <a href="{{ url('/overview') }}">Overview</a>
                             </li>
                             <li>
                                 <a href="{{ url('/plan') }}">Plan</a>
