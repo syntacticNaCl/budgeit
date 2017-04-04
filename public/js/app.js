@@ -13742,9 +13742,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-
 
 
 
@@ -13757,10 +13754,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             groups: {}
         };
     },
-
     mounted: function mounted() {
         this.getBudgetGroups();
     },
+
     methods: {
         getBudgetGroups: function getBudgetGroups() {
             var vm = this;
@@ -13830,6 +13827,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.getItems();
     },
+
     methods: {
         editGroup: function editGroup() {
             var vm = this;
@@ -13952,7 +13950,6 @@ var accounting = __webpack_require__(51);
                 console.log(err);
             });
         },
-
         deleteItem: function deleteItem() {
             var vm = this;
 
@@ -13963,7 +13960,6 @@ var accounting = __webpack_require__(51);
                 console.log(err);
             });
         }
-
     }
 });
 

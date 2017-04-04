@@ -45,11 +45,11 @@
             }
         },
         computed: {},
-        mounted: function() {
+        mounted() {
             this.getItems();
         },
         methods: {
-            editGroup: function() {
+            editGroup() {
                 let vm = this;
                 this.editing = false;
                 axios.patch('/budget_groups/' + this.group.id, this.group)
@@ -60,7 +60,7 @@
                     });
     
             },
-            deleteGroup: function(group) {
+            deleteGroup(group) {
                 let vm = this;
     
                 axios.delete('/budget_groups/' + this.group.id, {
@@ -73,7 +73,7 @@
                         console.log(err);
                     });
             },
-            getItems: function() {
+            getItems() {
                 let vm = this;
     
                 axios.get('/budget_groups/' + this.group.id + '/items')
@@ -83,7 +83,7 @@
                         console.log(err);
                     });
             },
-            addItem: function(groupId) {
+            addItem(groupId) {
                 let newItem = {
                     id: null,
                     groupId: this.group.id,

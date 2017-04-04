@@ -58,7 +58,7 @@ export default {
                 console.log(err);
             });
         },
-        deleteItem: function () {
+        deleteItem() {
             let vm = this;
 
             axios.delete('budget_items/' + this.item.id)
