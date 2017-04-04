@@ -25,11 +25,12 @@ class BudgetItemRequest extends FormRequest
     {
         return [
             'name' => 'string|required',
-            'amount' => 'integer|required',
+            'amount' => 'numeric|required',
             'note' => 'string',
             'date' => 'date',
             'type' => 'string',
-            'interest' => 'integer'
+            'interest' => 'numeric'
         ];
     }
+
 }

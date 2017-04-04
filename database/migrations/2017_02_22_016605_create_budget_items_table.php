@@ -16,7 +16,7 @@ class CreateBudgetItemsTable extends Migration
         Schema::create('budget_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('amount');
+            $table->float('amount');
             $table->longtext('note')->nullable();
             $table->date('date')->nullable();
             $table->string('type');

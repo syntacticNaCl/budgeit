@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('amount');
+            $table->float('amount');
             $table->string('type'); // cash, check, credit. debit, etc
             $table->string('location'); // location it was tendered
             $table->date('date');
