@@ -8,8 +8,10 @@
 require('./bootstrap');
 
 import BootstrapVue from 'bootstrap-vue';
+import ClickConfirm from 'click-confirm/src/ClickConfirm.vue';
 
 Vue.use(BootstrapVue);
+Vue.component('clickConfirm', ClickConfirm);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
