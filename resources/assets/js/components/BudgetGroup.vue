@@ -1,9 +1,11 @@
 <template>
     <div class="panel panel-default budget-group">
         <div class="panel-heading" :class="{editing: true == editing}">
-            <label @dblclick="editing = true">{{group.name}}</label>
-            <input type="text" v-on:blur="editGroup(group.id)" v-model="group.name">
-            <i class="fa fa-times pull-right" aria-hidden="true" @click="deleteGroup(group)"></i>
+            <click-confirm>
+                <label @dblclick="editing = true">{{group.name}}</label>
+                <input type="text" v-on:blur="editGroup(group.id)" v-model="group.name">
+                <i class="fa fa-times pull-right" aria-hidden="true" @click="deleteGroup(group)"></i>
+            </click-confirm>
         </div>
         <div class="panel-body">
             <table class="table table-hover table-striped">
@@ -18,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <item v-for="item in items" :item="item"></item>
+                    <item v-for="item in items" :item="item" v-on:item-delete="getItems()"></item>
                 </tbody>
             </table>
             <button @click="addItem(group.id)">Add Item</button>
@@ -65,6 +67,7 @@
                         method: 'delete'
                     })
                     .then(function(res) {
+                        vm.$emit('group-delete');
                         console.log(res);
                     }).catch(function(err) {
                         console.log(err);
@@ -88,7 +91,7 @@
                     amount: 0,
                     type: this.group.type
                 };
-
+    
                 let vm = this;
     
                 axios.post('/budget_items/', {
@@ -97,7 +100,7 @@
                     type: newItem.type,
                     groupId: groupId
                 }).then(function(res) {
-                    newItem.id = res.data.item_id;
+                    newItem.id = res.data.id;
                     vm.items.push(newItem);
                 }).catch(function(err) {
                     console.log(err);

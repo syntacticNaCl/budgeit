@@ -4,7 +4,7 @@
 
         <div class="budget-group-wrapper" v-for="group in groups" v-if="groups.length > 0" :track-by="group.order">
         
-            <budget-group :group="group"></budget-group>
+            <budget-group :group="group" @group-delete="getBudgetGroups"></budget-group>
 
         </div>
 
