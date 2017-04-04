@@ -83,7 +83,9 @@ class BudgetItemController extends Controller
 
         $item->groups()->attach($groupId);
 
-        return response('success');
+        return response()->json([
+            'id' => $item->id
+        ]);
     }
 
     /**
