@@ -23,7 +23,7 @@
                     <item v-for="item in items" :item="item" v-on:item-delete="getItems()"></item>
                 </tbody>
             </table>
-            <button @click="addItem(group.id)">Add Item</button>
+            <button @click="addItem(group.id)" class="item-add">Add Item</button>
         </div>
     </div>
 </template>

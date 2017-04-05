@@ -3,27 +3,27 @@
 namespace Tests\Browser;
 
 use Budgeit\User;
+use Budgeit\BudgetGroup;
+use Budgeit\BudgetItem;
 use Tests\DuskTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BudgetTest extends DuskTestCase
 {
 
-    /**
-     * Time to pause to wait for VueJS components to render.
-     *
-     * @var int
-     */
-    protected $pauseTime = 3000;
+    use DatabaseMigrations;
 
     /** @test */
     public function budget_group_modal_displays()
     {
-        $this->browse(function ($browser) {
-            $browser->loginAs(User::find(1))
+        $user = factory(User::class)->create();
+
+        $this->browse(function ($browser) use ($user) {
+            $browser->loginAs($user)
                     ->visit('/budget')
                     ->press('Create Budget Group')
-                    ->pause($this->pauseTime)
+                    ->waitFor('#addBudgetGroupModal')
                     ->assertSee('Add Item');
         });
     }
@@ -31,15 +31,18 @@ class BudgetTest extends DuskTestCase
     /** @test */
     public function user_can_add_budget_group()
     {
-        $this->browse(function($browser){
-            $browser->loginAs(User::find(1))
+        
+        $user = factory(User::class)->create();
+
+        $this->browse(function($browser) use ($user) {
+            $browser->loginAs($user)
                     ->visit('/budget')
                     ->press('Create Budget Group')
-                    ->pause($this->pauseTime)
+                    ->waitFor('#addBudgetGroupModal')
                     ->type('name', 'Test Group')
-                    ->select('type', 'Income')
+                    ->select('type', 'income')
                     ->press('Add')
-                    ->pause($this->pauseTime)
+                    ->waitFor('.budget-group')
                     ->assertSee('Test Group');
         });
     }
@@ -47,12 +50,20 @@ class BudgetTest extends DuskTestCase
     /** @test */
     public function user_can_add_budget_item()
     {
-        $this->browse(function($browser){
-            $browser->loginAs(User::find(1))
+        $user = factory(User::class)->create();
+        $budget = factory(BudgetGroup::class)->create();
+
+        $this->browse(function($browser) use ($user){
+            $browser->loginAs($user)
                     ->visit('/budget')
-                    ->pause(5000) // wait for vuejs component to load
+                    ->press('Create Budget Group')
+                    ->waitFor('#addBudgetGroupModal')
+                    ->type('name', 'Test Group')
+                    ->select('type', 'income')
+                    ->press('Add')
+                    ->waitFor('.budget-group')
                     ->press('Add Item')
-                    ->pause($this->pauseTime)
+                    ->waitFor('.budget-item')
                     ->assertSee('Label');
         });
     }

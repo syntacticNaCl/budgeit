@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr class="budget-item">
         <td :class="{editing: true == editingName}">
             <label @dblclick="editingName = true">{{item.name}}</label>
             <input type="text"
@@ -53,6 +53,7 @@ export default {
                 amount: parseFloat(vm.item.amount) || 0,
                 type: vm.item.type
             }).then(res => {
+                this.$root.$emit('item-updated');
                 console.log(res);
             }).catch(err => {
                 console.log(err);
