@@ -1,5 +1,6 @@
 <?php
 
+use Budgeit\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -11,12 +12,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'first_name' => 'Malcolm',
-            'last_name' => 'Reynolds',
-            'email' => 'mal@serenity.com',
-            'currency_symbol' => '$',
-            'currency_name' => 'USD',
+        $user = factory(User::class)->create([
+            'email' => 'test@example.com',
             'password' => bcrypt('password')
         ]);
     }
