@@ -20,26 +20,7 @@ Vue.component('clickConfirm', ClickConfirm);
  */
 
 Vue.component('budget', require('./components/Budget.vue'));
-Vue.component('overview-side', require('./components/OverviewSide.vue'));
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        overview: []
-    },
-    mounted() {
-        this.getOverview();
-    },
-    methods: {
-            getOverview() {
-                let vm = this;
-    
-                axios.get('/budget_overview/')
-                    .then(function(res) {
-                        vm.overview = res.data || {};
-                    }).catch(function(err) {
-                        console.log(err);
-                    });
-            }
-    }
+    el: '#app'
 });

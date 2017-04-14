@@ -61,3 +61,15 @@ Route::get('/overview', function(){
 
     return view('overview.index', compact('incomeTotal', 'expenseTotal', 'amountRemaining', 'debtTotal'));
 })->middleware('auth');
+
+Route::get('/budget_overview', function(){
+    $user = Auth::user();
+
+    $incomeTotal = $user->items()->where('type', 'income')->sum('amount');
+    $expenseTotal = $user->items()->where('type', 'expense')->sum('amount');
+    $amountRemaining = (int) $incomeTotal - (int) $expenseTotal;
+    $debtTotal = $user->items()->where('type', 'debt')->sum('amount');
+
+    return response(compact('incomeTotal', 'expenseTotal', 'amountRemaining', 'debtTotal'));
+
+})->middleware('auth');

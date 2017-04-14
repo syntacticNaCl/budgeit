@@ -17,8 +17,8 @@
         <td>
             <click-confirm>
                 <i class="fa fa-times pull-right"
-                aria-hidden="true"
-                @click="deleteItem()"></i>
+                   aria-hidden="true"
+                   @click="deleteItem()"></i>
             </click-confirm>
         </td>
     </tr>
@@ -53,8 +53,8 @@ export default {
                 amount: parseFloat(vm.item.amount) || 0,
                 type: vm.item.type
             }).then(res => {
-                this.$root.$emit('item-updated');
-                console.log(res);
+                vm.$emit('item-update');
+                vm.$store.commit('setIncomeTotal', vm.item.amount);
             }).catch(err => {
                 console.log(err);
             });
@@ -64,13 +64,12 @@ export default {
 
             axios.delete('budget_items/' + this.item.id)
                 .then(function (res) {
-                    vm.$emit('item-delete');
+                    vm.$emit('item-destroy');
                     console.log(res);
                 }).catch(function (err) {
                     console.log(err);
                 });
         }
-
     }
 }
 </script>
