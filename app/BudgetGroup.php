@@ -22,9 +22,14 @@ class BudgetGroup extends Model
         return $this->belongsToMany(BudgetItem::class);
     }
 
-    public function getLastOrder() 
+    public function getLastOrder($userId = null)
     {
-        return DB::table('budget_groups')->where('user_id', Auth::user()->id)->max('order');
+
+        if ($userId === null) {
+            $userId = Auth::user()->id;
+        }
+
+        return DB::table('budget_groups')->where('user_id', $userId)->max('order');
     }
 
 }
