@@ -2,6 +2,8 @@
 
 namespace Budgeit\Providers;
 
+use Budgeit\User;
+use Budgeit\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        User::observe(UserObserver::class);
     }
 
     /**
