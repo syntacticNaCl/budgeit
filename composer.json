@@ -47,7 +47,7 @@
             "php artisan optimize"
         ],
         "test-all": [
-            "php artisan dusk",
+            "artisan dusk",
             "phpunit"
         ]
     },

@@ -21,16 +21,20 @@ Budgets should not be difficult but I have been finding it harder and harder now
 ## Setup
 Clone the repo and run the following:
 ```bash
-php artisan migrate
-php artisan db:seed
+artisan migrate
 ```
-This will setup the DB, add a default user and default groups.
+This will setup the DB. You can also add the '--seed' flag to add a default user with email 'test@example.com' and password 'password'.
 
 <a name="testing"></a>
 ## Testing
-This project uses Laravel Dusk for browser testing.
+This project uses Laravel Dusk for browser testing:
+If using most recent version of Homestead (currently 2.1):
 ```bash
-php artisan dusk
+dusk
+```
+Otherwise:
+```bash
+artisan dusk
 ```
 
 To run browser, feature and unit tests run:
