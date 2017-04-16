@@ -49,6 +49,7 @@ $factory->define(BudgetItem::class, function (\Faker\Generator $faker) {
         'amount' => $faker->numberBetween(1, 50000),
         'note' => $faker->paragraph(2),
         'date' => $faker->date,
+        'type' => 'expense',
         'order' => $faker->randomDigitNotNull,
         'interest' => null,
         'user_id' => function () {
