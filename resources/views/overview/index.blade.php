@@ -30,30 +30,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-4 text-center">
             <h3>
                 Income
             </h3>
-            <p>
+            <h4>
                 ${{$incomeTotal}}
-            </p>
+            </h4>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-4 text-center">
             <h3>
                 Expenses
             </h3>
-            <p>
+            <h4>
                 ${{$expenseTotal}}
-            </p>
+            </h4>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-4 text-center">
             <h3>
                 Debt:
             </h3>
 
-            <p>
+            <h4>
                 ${{$debtTotal}}
-            </p>
+            </h4>
         </div>
     </div>
 </div>

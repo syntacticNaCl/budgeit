@@ -1,4 +1,7 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app')
+
+@section('content')
+
 <budget></budget>
 
 <div class="modal fade" id="addBudgetGroupModal" tabindex="-1" role="dialog" aria-labelledby="addBudgetGroupModalLabel">
