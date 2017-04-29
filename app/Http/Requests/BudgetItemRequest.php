@@ -26,7 +26,7 @@ class BudgetItemRequest extends FormRequest
         return [
             'name' => 'string|required',
             'amount' => 'numeric|required',
-            'note' => 'string',
+            'note' => 'nullable',
             'date' => 'date',
             'type' => 'string',
             'interest' => 'numeric'

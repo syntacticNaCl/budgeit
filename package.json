@@ -23,6 +23,7 @@
     "bootstrap-vue": "^0.10.2",
     "click-confirm": "^1.0.3",
     "cross-env": "^4.0.0",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "vuedraggable": "^2.10.0"
   }
 }

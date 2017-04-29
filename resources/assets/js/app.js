@@ -9,9 +9,12 @@ require('./bootstrap');
 
 import BootstrapVue from 'bootstrap-vue';
 import ClickConfirm from 'click-confirm/src/ClickConfirm.vue';
+import Draggable from 'vuedraggable';
+
 
 Vue.use(BootstrapVue);
 Vue.component('clickConfirm', ClickConfirm);
+Vue.component('Draggable', Draggable);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -24,3 +27,4 @@ Vue.component('budget', require('./components/Budget.vue'));
 const app = new Vue({
     el: '#app'
 });
+

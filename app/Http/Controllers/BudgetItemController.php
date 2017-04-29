@@ -26,11 +26,12 @@ class BudgetItemController extends Controller
         ]);
     }
 
-    public function update(BudgetItemRequest $request, BudgetItem $budgetItem)
+    public function update(BudgetItem $budgetItem, BudgetItemRequest $request)
     {
         $budgetItem->name = $request->input('name');
         $budgetItem->amount = $request->input('amount');
         $budgetItem->type = $request->input('type');
+        $budgetItem->order = $request->input('order');
 
         $budgetItem->save();
 
@@ -64,19 +65,10 @@ class BudgetItemController extends Controller
         $item->amount = $request->input('amount');
         $item->type = $request->input('type');
         $item->order = $order;
+        $item->note = $request->input('note');
+        $item->date = $request->input('date');
+        $item->interest = $request->input('interest');
         
-        if (!empty($request->input['note'])) {
-            $item->note = $request->input('note');
-        }
-
-        if (!empty($request->input['date'])) {
-            $item->date = $request->input('date');
-        }
-
-        if (!empty($request->input['interest'])) {
-            $item->interest = $request->input('interest');
-        }
-
         $item->user()->associate($user);
 
         $item->save();

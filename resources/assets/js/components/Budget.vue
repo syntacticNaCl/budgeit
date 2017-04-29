@@ -36,17 +36,18 @@
                             id="add_budget_group">Create Budget Group</button>
                 </div>
                 <div class="budget-groups">
-    
-                    <div class="budget-group-wrapper"
-                         v-for="group in groups"
-                         v-if="groups.length > 0"
-                         :track-by="group.order">
-    
-                        <budget-group :group="group"
-                                      @group-destroy="getBudgetGroups"
-                                      @update="getOverview"></budget-group>
-    
-                    </div>
+                    <draggable v-model="groups" :options="{group:'groups'}" @start="drag=true" @end="drag=false">
+                        <div class="budget-group-wrapper"
+                            v-for="group in groups"
+                            v-if="groups.length > 0"
+                            :track-by="group.order">
+
+                            <budget-group :group="group"
+                                   @group-destroy="getBudgetGroups"
+                                          @update="getOverview"></budget-group>
+
+                        </div>
+                    </draggable>
     
                 </div>
             </div>
@@ -71,6 +72,20 @@ export default {
         this.getBudgetGroups();
         this.getOverview();
     },
+    watch: {
+        groups (newGroups) {
+            for(var i = 0; i < newGroups.length; i++) {
+
+                // if order is updated update those groups
+                if (newGroups[i].order !== i) {
+                    this.updateGroup(newGroups[i]);
+                }
+                newGroups[i].order = i;
+
+            }
+
+        }
+    },
     methods: {
         getBudgetGroups() {
             let vm = this;
@@ -90,6 +105,17 @@ export default {
                 }).catch(function (err) {
                     console.log(err);
                 });
+        },
+        updateGroup(group) {
+            let vm = this;
+
+            axios.patch('/budget_groups/' + group.id, group)
+                .then(res => {
+                    vm.$emit('group-update');
+                }).catch(err => {
+                    console.log(err);
+                });
+
         }
     }
 }

@@ -24,11 +24,11 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <draggable v-model="items" :options="{group:'items'}" :element="'tbody'" @start="drag=true" @end="drag=false">
                     <item v-for="item in items"
                           :item="item"
                           @item-destroy="getItems()" @item-update="updateTotal"></item>
-                </tbody>
+                </draggable>
             </table>
             <button @click="addItem(group.id)"
                     class="item-add">Add Item</button>
@@ -52,7 +52,22 @@ export default {
             items: {}
         }
     },
-    computed: {},
+    watch: {
+        items (newItems) {
+            for(var i = 0; i < newItems.length; i++) {
+
+                // if order is updated update those items
+                if (newItems[i].order !== i) {
+                    this.updateItem(newItems[i]);
+                    // console.log(newItems[i]);
+                }
+                newItems[i].order = i;
+
+            }
+
+        }
+
+    },
     mounted() {
         this.getItems();
     },
@@ -92,21 +107,19 @@ export default {
         },
         addItem(groupId) {
             let newItem = {
-                id: null,
-                groupId: this.group.id,
+                groupId: groupId,
                 name: 'Label',
                 amount: 0,
-                type: this.group.type
+                type: this.group.type,
+                note: null,
+                interest: 0,
+                date: new Date().toISOString().slice(0, 19).replace('T', ' ')
             };
 
             let vm = this;
 
-            axios.post('/budget_items/', {
-                name: newItem.name,
-                amount: newItem.amount,
-                type: newItem.type,
-                groupId: groupId
-            }).then(function (res) {
+            axios.post('/budget_items/', newItem)
+              .then(function (res) {
                 newItem.id = res.data.id;
                 vm.items.push(newItem);
             }).catch(function (err) {
@@ -115,7 +128,23 @@ export default {
         },
         updateTotal() {
             this.$emit('update');
+        },
+        updateItem(item) {
+            let vm = this;
+
+            item.amount = parseFloat(item.amount) || 0;
+
+            item.note = item.note || '';
+            
+            axios.patch('budget_items/' + item.id, item
+            ).then(res => {
+                vm.$emit('item-update');
+            }).catch(err => {
+                console.log(err);
+            });
         }
+
+
     }
 }
 </script>
