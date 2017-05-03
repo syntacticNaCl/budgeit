@@ -49,7 +49,7 @@ export default {
     data() {
         return {
             editing: false,
-            items: {}
+            items: []
         }
     },
     watch: {

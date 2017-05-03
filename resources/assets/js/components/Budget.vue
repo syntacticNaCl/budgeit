@@ -36,11 +36,11 @@
                             id="add_budget_group">Create Budget Group</button>
                 </div>
                 <div class="budget-groups">
-                    <draggable v-model="groups" :options="{group:'groups'}" @start="drag=true" @end="drag=false">
+                    <draggable v-model="groups" @start="drag=true" @end="drag=false">
                         <div class="budget-group-wrapper"
                             v-for="group in groups"
                             v-if="groups.length > 0"
-                            :track-by="group.order">
+                            :track-by="group.order" :key="group.id">
 
                             <budget-group :group="group"
                                    @group-destroy="getBudgetGroups"
@@ -64,7 +64,7 @@ export default {
     },
     data() {
         return {
-            groups: {},
+            groups: [],
             overview: {}
         }
     },
