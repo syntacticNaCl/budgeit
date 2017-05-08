@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-4 col-md-push-8">
-                <div class="panel panel-default">
+                <div class="panel panel-default budget-side">
                     <div class="panel-body">
                         <h3>
                             Income
@@ -29,12 +29,6 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-8 col-md-pull-4">
-                <div class="panel-heading">Budget
-                    <button class="btn btn-default pull-right"
-                            data-toggle="modal"
-                            data-target="#addBudgetGroupModal"
-                            id="add_budget_group">Create Budget Group</button>
-                </div>
                 <div class="budget-groups">
                     <draggable v-model="groups" @start="drag=true" @end="drag=false">
                         <div class="budget-group-wrapper"

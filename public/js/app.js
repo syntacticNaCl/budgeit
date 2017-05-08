@@ -13785,12 +13785,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -42676,12 +42670,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-sm-12 col-md-4 col-md-push-8"
   }, [_c('div', {
-    staticClass: "panel panel-default"
+    staticClass: "panel panel-default budget-side"
   }, [_c('div', {
     staticClass: "panel-body"
   }, [_c('h3', [_vm._v("\n                        Income\n                    ")]), _vm._v(" "), _c('p', [_vm._v("\n                        $" + _vm._s(_vm.overview.incomeTotal) + "\n                    ")]), _vm._v(" "), _c('h3', [_vm._v("\n                        Expenses\n                    ")]), _vm._v(" "), _c('p', [_vm._v("\n                        $" + _vm._s(_vm.overview.expenseTotal) + "\n                    ")]), _vm._v(" "), _c('h3', [_vm._v("\n                        Remaining:\n                    ")]), _vm._v(" "), _c('p', [_vm._v("\n                        $" + _vm._s(_vm.overview.amountRemaining) + "\n                    ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-12 col-md-8 col-md-pull-4"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "budget-groups"
   }, [_c('draggable', {
     on: {
@@ -42716,18 +42710,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })], 1) : _vm._e()
   }))], 1)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Budget\n                "), _c('button', {
-    staticClass: "btn btn-default pull-right",
-    attrs: {
-      "data-toggle": "modal",
-      "data-target": "#addBudgetGroupModal",
-      "id": "add_budget_group"
-    }
-  }, [_vm._v("Create Budget Group")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

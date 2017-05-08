@@ -4,6 +4,13 @@
 
 <budget></budget>
 
+<div class="button-nav-wrap">
+    <button class="button-nav"
+    data-toggle="modal"
+    data-target="#addBudgetGroupModal"
+    id="add_budget_group">+</button>
+</div>
+
 <div class="modal fade" id="addBudgetGroupModal" tabindex="-1" role="dialog" aria-labelledby="addBudgetGroupModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

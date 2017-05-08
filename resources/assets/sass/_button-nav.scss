@@ -1,0 +1,21 @@
+.button-nav-wrap {
+    .button-nav {
+        background: $green;
+        border-radius: 50px;
+        border: 2px solid grey;
+        color: grey;
+        cursor: pointer;
+        font-size: 30px;
+        height: 50px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        &:hover {
+            background: grey;
+            border: 2px solid $green;
+            color: $green;
+        }
+    }
+
+}
