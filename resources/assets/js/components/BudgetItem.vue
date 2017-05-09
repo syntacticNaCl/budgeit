@@ -52,7 +52,8 @@ export default {
                 name: vm.item.name,
                 amount: parseFloat(vm.item.amount) || 0,
                 type: vm.item.type,
-                order: vm.item.order
+                order: vm.item.order,
+                status: vm.item.status
             }).then(res => {
                 vm.$emit('item-update');
                 vm.$store.commit('setIncomeTotal', vm.item.amount);

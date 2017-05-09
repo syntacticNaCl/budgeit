@@ -1,6 +1,7 @@
 <?php
 
 use Budgeit\BudgetGroup;
+use Budgeit\BudgetItem;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,21 @@ Route::get('budget', function() {
 
     return view('budget.index', compact('incomeTotal', 'expenseTotal', 'amountRemaining'));
 })->middleware('auth');
+
+Route::get('plan', function() {
+
+    return view('plan.index');
+})->middleware('auth');
+
+Route::get('/budget_plan/', function() {
+
+    return response()->json([
+        'unallocated' => BudgetItem::unallocated()->orderBy('order')->get(),
+        'allocated' => BudgetItem::allocated()->orderBy('order')->get(),
+        'paid' => BudgetItem::paid()->orderBy('order')->get(),
+
+    ]);
+});
 
 Route::resource('budget_groups', 'BudgetGroupController', [
     'except' => [

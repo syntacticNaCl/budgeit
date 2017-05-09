@@ -32,6 +32,7 @@ class BudgetItemController extends Controller
         $budgetItem->amount = $request->input('amount');
         $budgetItem->type = $request->input('type');
         $budgetItem->order = $request->input('order');
+        $budgetItem->status = $request->input('status');
 
         $budgetItem->save();
 
@@ -68,6 +69,7 @@ class BudgetItemController extends Controller
         $item->note = $request->input('note');
         $item->date = $request->input('date');
         $item->interest = $request->input('interest');
+        $item->status = 'unallocated';
         
         $item->user()->associate($user);
 
