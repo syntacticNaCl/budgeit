@@ -13786,6 +13786,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -13796,7 +13800,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             groups: [],
-            overview: {}
+            overview: {},
+            loading: true
         };
     },
     mounted: function mounted() {
@@ -13821,6 +13826,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var vm = this;
             axios.get('/budget_groups').then(function (res) {
                 vm.groups = res.data;
+
+                vm.loading = false;
             }).catch(function (err) {
                 console.log(err);
             });
@@ -13892,6 +13899,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -13903,7 +13913,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             editing: false,
-            items: []
+            items: [],
+            loading: true
         };
     },
 
@@ -13950,6 +13961,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('/budget_groups/' + this.group.id + '/items').then(function (res) {
                 vm.items = res.data.items || {};
+                vm.loading = false;
             }).catch(function (err) {
                 console.log(err);
             });
@@ -42947,7 +42959,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-12 col-md-8 col-md-pull-4"
   }, [_c('div', {
     staticClass: "budget-groups"
-  }, [_c('draggable', {
+  }, [(!_vm.loading) ? _c('draggable', {
     on: {
       "start": function($event) {
         _vm.drag = true
@@ -42979,7 +42991,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "update": _vm.getOverview
       }
     })], 1) : _vm._e()
-  }))], 1)])])])
+  })) : _c('div', [_vm._v("\n                  Loading...\n                ")])], 1)])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -43043,7 +43055,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-body"
   }, [_c('table', {
     staticClass: "table table-hover table-striped"
-  }, [_vm._m(0), _vm._v(" "), _c('draggable', {
+  }, [_vm._m(0), _vm._v(" "), (!_vm.loading) ? _c('draggable', {
     attrs: {
       "options": {
         group: 'items'
@@ -43077,7 +43089,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "item-update": _vm.updateTotal
       }
     })
-  }))], 1), _vm._v(" "), _c('button', {
+  })) : _c('div', [_vm._v("\n              Loading...\n            ")])], 1), _vm._v(" "), _c('button', {
     staticClass: "item-add",
     on: {
       "click": function($event) {

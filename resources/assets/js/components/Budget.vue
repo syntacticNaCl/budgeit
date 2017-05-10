@@ -30,7 +30,7 @@
             </div>
             <div class="col-sm-12 col-md-8 col-md-pull-4">
                 <div class="budget-groups">
-                    <draggable v-model="groups" @start="drag=true" @end="drag=false">
+                    <draggable v-model="groups" @start="drag=true" @end="drag=false" v-if="!loading">
                         <div class="budget-group-wrapper"
                             v-for="group in groups"
                             v-if="groups.length > 0"
@@ -42,6 +42,10 @@
 
                         </div>
                     </draggable>
+
+                    <div v-else>
+                      Loading...
+                    </div>
     
                 </div>
             </div>
@@ -59,7 +63,8 @@ export default {
     data() {
         return {
             groups: [],
-            overview: {}
+            overview: {},
+            loading: true
         }
     },
     mounted() {
@@ -86,6 +91,11 @@ export default {
             axios.get('/budget_groups')
                 .then(function (res) {
                     vm.groups = res.data;
+
+
+                    vm.loading = false;
+
+
                 }).catch(function (err) {
                     console.log(err);
                 })

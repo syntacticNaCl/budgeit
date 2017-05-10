@@ -24,11 +24,14 @@
                         </th>
                     </tr>
                 </thead>
-                <draggable v-model="items" :options="{group:'items'}" :element="'tbody'" @start="drag=true" @end="drag=false">
+                <draggable v-model="items" :options="{group:'items'}" :element="'tbody'" @start="drag=true" @end="drag=false" v-if="!loading">
                     <item v-for="item in items"
                           :item="item"
                           @item-destroy="getItems()" @item-update="updateTotal"></item>
                 </draggable>
+                <div v-else>
+                  Loading...
+                </div>
             </table>
             <button @click="addItem(group.id)"
                     class="item-add">Add Item</button>
@@ -49,7 +52,8 @@ export default {
     data() {
         return {
             editing: false,
-            items: []
+            items: [],
+            loading: true
         }
     },
     watch: {
@@ -101,6 +105,7 @@ export default {
             axios.get('/budget_groups/' + this.group.id + '/items')
                 .then(function (res) {
                     vm.items = res.data.items || {};
+                    vm.loading = false;
                 }).catch(function (err) {
                     console.log(err);
                 });
