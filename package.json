@@ -21,9 +21,11 @@
   "dependencies": {
     "accounting": "^0.4.1",
     "bootstrap-vue": "^0.10.2",
+    "chart.js": "^2.5.0",
     "click-confirm": "^1.0.3",
     "cross-env": "^4.0.0",
     "font-awesome": "^4.7.0",
+    "vue-chartjs": "^2.6.3",
     "vuedraggable": "^2.10.0"
   }
 }

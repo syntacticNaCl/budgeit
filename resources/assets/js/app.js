@@ -24,6 +24,7 @@ Vue.component('Draggable', Draggable);
 
 Vue.component('budget', require('./components/Budget.vue'));
 Vue.component('plan', require('./components/Plan.vue'));
+Vue.component('overview', require('./components/Overview.vue'));
 
 const app = new Vue({
     el: '#app'

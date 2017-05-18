@@ -85,7 +85,15 @@ Route::get('/budget_overview', function(){
     $expenseTotal = $user->items()->where('type', 'expense')->sum('amount');
     $amountRemaining = (int) $incomeTotal - (int) $expenseTotal;
     $debtTotal = $user->items()->where('type', 'debt')->sum('amount');
+    $groupAmounts = [];
+    foreach ($user->groups()->get() as $group) {
+        $itemTotal = $group->items()->sum('amount');
+        $groupAmounts[] = [
+            'name' => $group->name,
+            'amount' => $itemTotal,
+        ];
+    }
 
-    return response(compact('incomeTotal', 'expenseTotal', 'amountRemaining', 'debtTotal'));
+    return response(compact('incomeTotal', 'expenseTotal', 'amountRemaining', 'debtTotal', 'groupAmounts'));
 
 })->middleware('auth');
