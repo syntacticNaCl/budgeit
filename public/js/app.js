@@ -42535,7 +42535,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -42547,7 +42546,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             groups: {},
             overview: {},
-            loading: true,
+            loadingMain: true,
+            loadingSecondary: true,
             groupData: {
                 labels: [],
                 datasets: [{
@@ -42591,6 +42591,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 vm.typeData.datasets[0].data.push(overview.incomeTotal);
                 vm.typeData.datasets[0].data.push(overview.expenseTotal);
                 vm.typeData.datasets[0].data.push(overview.debtTotal);
+                setTimeout(function () {
+                    vm.loadingMain = false;
+                }, 600);
 
                 for (var i = 0; i < overview.groupAmounts.length; i++) {
                     var group = overview.groupAmounts[i];
@@ -42598,8 +42601,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     vm.groupData.datasets[0].data.push(group.amount);
                 }
                 setTimeout(function () {
-                    vm.loading = false;
-                }, 300);
+                    vm.loadingSecondary = false;
+                }, 600);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -90738,17 +90741,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_c('h3', [_vm._v("\n                Income\n            ")]), _vm._v(" "), _c('p', [_vm._v("\n                $" + _vm._s(_vm.overview.incomeTotal) + "\n            ")]), _vm._v(" "), _c('h3', [_vm._v("\n                Expenses\n            ")]), _vm._v(" "), _c('p', [_vm._v("\n                $" + _vm._s(_vm.overview.expenseTotal) + "\n            ")]), _vm._v(" "), _c('h3', [_vm._v("\n                Remaining:\n            ")]), _vm._v(" "), _c('p', [_vm._v("\n                $" + _vm._s(_vm.overview.amountRemaining) + "\n            ")])])]), _vm._v(" "), (!_vm.loading) ? _c('donut-graph', {
+  }, [_c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('h3', [_vm._v("\n                    Income: $" + _vm._s(_vm.overview.incomeTotal) + "\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('h3', [_vm._v("\n                    Expenses $" + _vm._s(_vm.overview.expenseTotal) + "\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('h3', [_vm._v("\n                    Remaining: $" + _vm._s(_vm.overview.amountRemaining) + "\n                ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-12 col-md-6"
+  }, [(!_vm.loadingMain) ? _c('donut-graph', {
     attrs: {
       "groups": _vm.groups,
       "groupData": _vm.typeData
     }
-  }) : _vm._e(), _vm._v(" "), (!_vm.loading) ? _c('donut-graph', {
+  }) : _c('p', [_vm._v("\n            loading...\n        ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-12 col-md-6"
+  }, [(!_vm.loadingSecondary) ? _c('donut-graph', {
     attrs: {
       "groups": _vm.groups,
       "groupData": _vm.groupData
     }
-  }) : _c('div', [_vm._v("\n        loading...\n    ")])], 1)
+  }) : _c('p', [_vm._v("\n            loading...\n        ")])], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

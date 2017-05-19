@@ -2,35 +2,34 @@
     <div class="overview-wrapper">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3>
-                    Income
-                </h3>
-                <p>
-                    ${{overview.incomeTotal}}
-                </p>
-                <h3>
-                    Expenses
-                </h3>
-                <p>
-                    ${{overview.expenseTotal}}
-                </p>
-
-                <h3>
-                    Remaining:
-                </h3>
-
-                <p>
-                    ${{overview.amountRemaining}}
-                </p>
-
-
-
+                <div class="col-sm-4">
+                    <h3>
+                        Income: ${{overview.incomeTotal}}
+                    </h3>
+                </div>
+                <div class="col-sm-4">
+                    <h3>
+                        Expenses ${{overview.expenseTotal}}
+                    </h3>
+                </div>
+                <div class="col-sm-4">
+                    <h3>
+                        Remaining: ${{overview.amountRemaining}}
+                    </h3>
+                </div>
             </div>
         </div>
-        <donut-graph :groups="groups" :groupData="typeData" v-if="!loading"></donut-graph>
-        <donut-graph :groups="groups" :groupData="groupData" v-if="!loading"></donut-graph>
-        <div v-else>
-            loading...
+        <div class="col-sm-12 col-md-6">
+            <donut-graph :groups="groups" :groupData="typeData" v-if="!loadingMain"></donut-graph>
+            <p v-else>
+                loading...
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <donut-graph :groups="groups" :groupData="groupData" v-if="!loadingSecondary"></donut-graph>
+            <p v-else>
+                loading...
+            </p>
         </div>
     </div>
 </template>
@@ -46,7 +45,8 @@
             return {
                 groups: {},
                 overview: {},
-                loading: true,
+                loadingMain: true,
+                loadingSecondary: true,
                 groupData: {
                     labels: [],
                     datasets: [
@@ -128,6 +128,9 @@
                         vm.typeData.datasets[0].data.push(overview.incomeTotal);
                         vm.typeData.datasets[0].data.push(overview.expenseTotal);
                         vm.typeData.datasets[0].data.push(overview.debtTotal);
+                        setTimeout(function(){
+                            vm.loadingMain = false;
+                        }, 600);
 
                         for (let i = 0; i < overview.groupAmounts.length; i++) {
                             let group = overview.groupAmounts[i];
@@ -135,8 +138,8 @@
                             vm.groupData.datasets[0].data.push(group.amount)
                         }
                         setTimeout(function(){
-                            vm.loading = false;
-                        }, 300);
+                            vm.loadingSecondary = false;
+                        }, 600);
                     }).catch(function (err) {
                     console.log(err);
                 });
