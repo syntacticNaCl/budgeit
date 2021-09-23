@@ -1,0 +1,18 @@
+name: GitHub Security Alerts for Jira
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  syncSecurityAlerts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Sync security alerts to Jira issues"
+        uses: reload/github-security-jira@v1.x
+        env:
+          GH_SECURITY_TOKEN: ${{ secrets.GH_TOKEN }}
+          JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
+          JIRA_HOST: ${{ secrets.JIRA_HOST_URL }}
+          JIRA_USER: ${{ secrets.JIRA_USER }}
+          JIRA_PROJECT: SEC
