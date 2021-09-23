@@ -15,4 +15,5 @@ jobs:
           JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
           JIRA_HOST: ${{ secrets.JIRA_HOST_URL }}
           JIRA_USER: ${{ secrets.JIRA_USER }}
-          JIRA_PROJECT: SEC
+          JIRA_PROJECT: Security
+          JIRA_ISSUE_TYPE: Bug
