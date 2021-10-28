@@ -21,7 +21,6 @@ jobs:
         config: >-
           p/security-audit
           p/secrets
-          p/phpcs-security-audit
         # publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
         generateSarif: "1"
         # auditOn: push
