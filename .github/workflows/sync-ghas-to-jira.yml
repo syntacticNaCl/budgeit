@@ -1,4 +1,4 @@
-name: "Sync GHAS to Jira"
+name: "Sync GHAS Code Scanning Alerts to Jira"
 
 on:
   schedule:
