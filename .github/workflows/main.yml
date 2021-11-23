@@ -1,0 +1,19 @@
+name: "Sync GHAS to Jira"
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'    # trigger synchronization every 10 minutes
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync alerts to Jira issues
+        uses: github/ghas-jira-integration@v1
+        with:
+          jira_url: '${{ secrets.JIRA_HOST_URL }}'
+          jira_user: '${{ secrets.JIRA_USER }}'
+          jira_token: '${{ secrets.JIRA_TOKEN }}'
+          jira_project: 'SEC'
+          sync_direction: 'gh2jira'
+          labels: 'vulnerability, code-scan'
